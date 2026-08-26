@@ -1,0 +1,80 @@
+{
+  "snapshot_date": "2026-08-26",
+  "warning": "Dated research snapshot. Counts and third-party APIs are not stable contracts.",
+  "deadlock": {
+    "steam_app_id": 1422450,
+    "status": "early development with limited access",
+    "official_mod_api_found": false,
+    "official_public_mod_policy_found": false
+  },
+  "deadlock_mod_manager": {
+    "repository": "https://github.com/deadlock-mod-manager/deadlock-mod-manager",
+    "inspected_commit": "db775912eb2ced35ab94c38082c1fa374f243e18",
+    "license": "GPL-3.0",
+    "desktop_stack": ["Tauri 2", "Rust", "React", "TypeScript"],
+    "api_stack": ["Bun", "Hono/oRPC", "PostgreSQL", "Drizzle", "Redis"],
+    "github_observed": {
+      "stars": 426,
+      "forks": 71,
+      "open_issues": 61
+    },
+    "latest_release_observed": {
+      "tag": "v1.1.0",
+      "published_at": "2026-08-01",
+      "windows_setup_bytes": 23023848,
+      "windows_setup_downloads_approx": 230733
+    },
+    "api": {
+      "openapi": "https://api.deadlockmods.app/docs/openapi.json",
+      "observed_base": "https://api.deadlockmods.app/api",
+      "v2_mod_list": {
+        "records": 8031,
+        "downloadable_records": 8001,
+        "approx_response_bytes": 8800000,
+        "pagination_observed": false,
+        "audio_records": 3780,
+        "map_records": 83,
+        "nsfw_records": 290
+      },
+      "crosshair_records": 227,
+      "stats_endpoint_observed": {
+        "total_mods": 8089,
+        "mod_downloads": 53406101,
+        "app_downloads": 606596
+      }
+    }
+  },
+  "gamebanana": {
+    "game_id": 20948,
+    "hub": "https://gamebanana.com/games/20948",
+    "observed_apiv11_records": {
+      "mod_section": 3678,
+      "sound_section": 3570,
+      "raw_sum_not_unique_total": 7248
+    },
+    "role": "dominant identifiable public Deadlock mod catalog and file host"
+  },
+  "grimoire": {
+    "repository": "https://github.com/Slush97/grimoire",
+    "inspected_commit": "cc61247e1ac43f1ad2ca4b53621d766f23123bd4",
+    "source_version": "1.28.0",
+    "license": "MIT",
+    "desktop_stack": ["Electron 35", "React 19", "SQLite", "Three.js"],
+    "older_public_windows_package_mb_approx": 184,
+    "profile_format": ".modprofile.json / mp1 share code"
+  },
+  "observed_game_paths": {
+    "search_path_file": "game/citadel/gameinfo.gi",
+    "addons": "game/citadel/addons",
+    "autoexec": "game/citadel/cfg/autoexec.cfg",
+    "machine_convars": "game/citadel/cfg/machine_convars.vcfg",
+    "personal_keys": "userdata/<steamid>/1422450/remote/cfg/citadelkeys_personal.lst"
+  },
+  "architecture_recommendation": {
+    "website": ["Next.js/React", "PostgreSQL", "S3-compatible object storage/CDN", "isolated Rust scanner"],
+    "desktop_core": "Rust",
+    "desktop_ui_spike": ["WinUI 3 plus Rust core", "all-Rust native UI"],
+    "rejected_default_for_lightweight_goal": "Electron",
+    "fallback": "Tauri"
+  }
+}
