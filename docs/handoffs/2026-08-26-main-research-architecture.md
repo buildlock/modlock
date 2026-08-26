@@ -4,6 +4,12 @@ Date: **2026-08-26**
 Branch: `main`  
 State: documentation/research checkpoint; implementation has not started
 
+External checkpoint:
+
+- Private repository: `https://github.com/ahadify/modlock`
+- Linear project: `https://linear.app/shopliftdigital/project/modlock-72fa0f6e1ed8`
+- Linear project brief: `https://linear.app/shopliftdigital/document/modlock-research-architecture-and-phase-0-brief-3f4fa369309c`
+
 ## Objective
 
 Build Modlock as two connected products:
@@ -75,4 +81,3 @@ Create the Phase 0 fixture-and-contract foundation before building polished UI:
 - Markdown fences are balanced.
 - No secrets or credentials are stored in the repository.
 - No app code/tests exist yet; verification is documentation-only.
-

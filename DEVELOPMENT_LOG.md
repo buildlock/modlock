@@ -8,6 +8,8 @@
 - Documented Deadlock configuration/crosshair constraints, community game-data sources, Steam/Valve policy boundaries, hosting provenance, and license implications.
 - Defined the website, public API/data model, upload/scanning pipeline, native desktop engine, transaction journal, CFG ownership model, updater, security controls, moderation policy, and phased roadmap.
 - Added the first Globalsave checkpoint: status, handoff, open questions, development log, and implementation backlog.
+- Published the checkpoint to the private `ahadify/modlock` GitHub repository.
+- Created the Shoplift Digital Modlock Linear project, Phase 0 milestone, project brief, and ten prioritized seed issues.
 
 Verification:
 
@@ -17,4 +19,3 @@ Verification:
 - Documentation was checked for placeholder markers and accidental sensitive values.
 
 No application code or automated test suite exists yet.
-

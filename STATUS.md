@@ -20,7 +20,7 @@ The initial ecosystem and technical deep dive is complete. Product implementatio
 
 ## Current milestone
 
-**Phase 0 — validation and risk retirement**
+**[Phase 0 — validation and risk retirement](https://linear.app/shopliftdigital/project/modlock-72fa0f6e1ed8)**
 
 The first implementation objective is to prove the native footprint and transactional installer while clarifying Valve and GameBanana boundaries.
 
@@ -43,3 +43,4 @@ Start the Phase 0 technical foundation:
 
 See [open questions](docs/open-questions.md) and the [current handoff](HANDOFF.md).
 
+Linear execution is seeded in the Shoplift Digital workspace. The mirrored, reconstructable issue index is [docs/linear-backlog.md](docs/linear-backlog.md).
