@@ -1,0 +1,8 @@
+# Default ownership plus the trust and execution boundaries that must receive
+# explicit review as implementation begins.
+* @ahadify
+/.github/ @ahadify
+/docs/ @ahadify
+/src/ @ahadify
+/crates/ @ahadify
+/apps/ @ahadify
