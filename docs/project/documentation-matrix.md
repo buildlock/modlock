@@ -21,6 +21,7 @@ Human dependencies use the authoritative `HUM-001`–`HUM-010` definitions in [d
 | Artifact/package | Build stage | Status | Remaining evidence or approval boundary | Human dependency |
 |---|---|---|---|---|
 | [Documentation control plane](../README.md) and this matrix | All | `complete-design` | Keep synchronized when artifacts/status change. | None |
+| [Deterministic project control packet](../handoffs/2026-09-01-project-control-packet.md) | Current orchestration | `complete-design` | Live evidence is dated; packet branch/PR/CI must be accepted before it becomes merged authority. It does not make product source ready. | HUM-007, HUM-008, HUM-010 for named owner decisions |
 | Root [README](../../README.md), [STATUS](../../STATUS.md), [HANDOFF](../../HANDOFF.md), and [development log](../../DEVELOPMENT_LOG.md) | All | `complete-design` | Status/handoff dates must be refreshed at each checkpoint. | None |
 | [Executive brief](../00-executive-brief.md) | Phase 0 | `complete-design` | Revisit positioning after interviews and Windows benchmark. | HUM-003, HUM-006, HUM-008 |
 | [Ecosystem research](../01-ecosystem-research.md) and [source register](../07-sources.md) | Phase 0 | `complete-design` | Dated facts require periodic refresh; absence of public policy is not approval. | HUM-001, HUM-002 |
@@ -43,13 +44,13 @@ Human dependencies use the authoritative `HUM-001`–`HUM-010` definitions in [d
 | [Windows reference host checklist](windows-test-host-checklist.md) | Phase 0–beta | `evidence-needs-Windows` | Host and sacrificial-install record must be populated before native/game claims. | HUM-003, HUM-004 |
 | [Counsel review packet](counsel-review-packet.md) | Before public accounts/uploads | `draft-needs-owner/counsel` | Packet is prepared; operator/jurisdiction and qualified counsel review remain. | HUM-005, HUM-007, HUM-008 |
 | [Historical research handoff](../handoffs/2026-08-26-main-research-architecture.md) | Historical | `complete-design` | Preserve as a dated checkpoint; current STATUS supersedes it. | None |
-| [Current documentation-baseline handoff](../handoffs/2026-09-01-main-documentation-baseline.md) | Current | `complete-design` | Supersede only with a newer dated implementation/evidence checkpoint. | None |
+| [Documentation-baseline handoff](../handoffs/2026-09-01-main-documentation-baseline.md) | Supporting checkpoint | `complete-design` | The deterministic packet supersedes its next-work ordering but not its artifact evidence. | None |
 
 ## Architecture, contracts, data, and development
 
 | Artifact/package | Build stage | Status | Remaining evidence or approval boundary | Human dependency |
 |---|---|---|---|---|
-| [Platform architecture](../03-platform-architecture.md) | Phase 0–1 | `complete-design` | Vendor selection and walking skeleton remain future decisions. | HUM-008, HUM-009 |
+| [Platform architecture](../03-platform-architecture.md) | Phase 0–1 | `complete-design` | Vendor selection/walking skeleton remain future; canonical mod/artifact ownership and identity issuer are unresolved OQ9/OQ10 decisions. | HUM-007, HUM-008, HUM-009 |
 | [Nonfunctional requirements](../architecture/nonfunctional-requirements.md) | All | `complete-design` | Attach measurements and release evidence as implementation lands. | HUM-003, HUM-004, HUM-010 |
 | [Authorization matrix](../architecture/authorization-matrix.md) | Phase 0–1 | `draft-needs-owner/counsel` | Finalize operator roles, break-glass custody, legal/security separation and test it server-side. | HUM-005, HUM-007, HUM-010 |
 | [Desktop technical design](../04-desktop-technical-design.md) | Phase 0–2 | `evidence-needs-Windows` | Shell benchmark, filesystem semantics, Steam/game, antivirus, updater, and footprint proof. | HUM-003, HUM-004 |
@@ -60,6 +61,7 @@ Human dependencies use the authoritative `HUM-001`–`HUM-010` definitions in [d
 | [ADR-0009 GameBanana adapter](../adr/0009-gamebanana-adapter.md) | Phase 0–1 | `draft-needs-owner/counsel` | Written GameBanana confirmation or independent fallback. | HUM-002 |
 | [ADR index](../adr/README.md) | All | `complete-design` | Keep individual statuses authoritative. | None |
 | [Contract rules](../../contracts/README.md), [OpenAPI v1](../../contracts/openapi/modlock-v1.openapi.json), and release/external/install/profile/pack/CFG/crosshair/error/fixture JSON Schemas | Phase 0–3 | `complete-design` | Add generated clients, compatibility tests, and source digests when code lands. | None |
+| Local `/Users/ahad/Dev/modlock-phase0-contracts` candidate | Phase 0 | `future-implementation` | **IMPLEMENTED BUT UNMERGED / SYNTHETIC OR TEST-ONLY:** independently review source-manifest SHA `561c36...`, reconcile seven canonical collisions and one contract authority; no runtime or real payload proof. | None; reviewer assignment required |
 | Release/install/profile/pack/crosshair/fixture [contract examples](../../contracts/examples/release.example.json) | Phase 0–3 | `complete-design` | Keep every example schema-valid and add negative/compatibility fixtures. | None |
 | [API versioning/deprecation](../api/versioning-and-deprecation.md) and [error catalog](../api/error-catalog.md) | Phase 0–1 | `complete-design` | Enforce through CI, generated clients, and compatibility tests. | None |
 | [ERD](../data/erd.md) and [data dictionary](../data/data-dictionary.md) | Phase 0–1 | `complete-design` | Translate to migrations/constraints and validate retention behavior. | HUM-005, HUM-008 for final retention/business values |

@@ -58,3 +58,18 @@ Each question has an owner/workstream and a decision deadline. Decisions should 
 - **Deadline:** Post V1.
 - **Default if unanswered:** Expose conflicts and deterministic load order without merging.
 
+## OQ9 — Portfolio mod registry and artifact ownership
+
+- **Question:** Which repository is canonical for mod identities/releases, and which shared artifact/version fields let BuildLock present a setup while Modlock alone resolves and installs its mod/config references?
+- **Owner:** Ahad/portfolio architecture with Deadlock-Infra, BuildLock, and Modlock maintainers.
+- **Deadline:** Before physical Modlock schema, cross-product package adoption, or BuildLock Setup Hub mod-registry work.
+- **Decision evidence:** Accepted cross-repo ADR/equivalent, one canonical authority map, compatibility fixture for artifact root/version/creator/catalogue snapshot/game patch IDs, and effective package-access proof.
+- **Default if unanswered:** Modlock is canonical for mod metadata/releases/binaries/scans/packs; BuildLock may render a projection/deep link only. No direct table coupling or second BuildLock mod registry.
+
+## OQ10 — Shared identity issuer and creator ownership
+
+- **Question:** Which service issues portfolio accounts/sessions and canonical creator IDs, and how does Modlock request consent-bound scopes without building a second identity system?
+- **Owner:** Ahad/legal operator and portfolio architecture/security.
+- **Deadline:** Before public accounts, creator verification, cross-product linking, or production auth-provider selection.
+- **Decision evidence:** Accepted identity ADR, issuer/session ownership, stable creator-ID contract, consent/scope model, authorization-negative tests, privacy review, and migration impact.
+- **Default if unanswered:** Use synthetic/local opaque identities for development only; no public account, verified creator, cross-product join, or production identity claim.

@@ -4,13 +4,13 @@ Last inventoried: **2026-09-01**
 
 This page is the entry point for product, engineering, trust, operations, support, and evidence documentation. The repository contains a complete design baseline, not a finished product. Policy, moderation, and operations documents marked draft have **not** been approved by counsel or proven against production systems. Windows/game behavior remains provisional until the required Windows and sacrificial-install evidence is attached.
 
-See the [documentation completeness matrix](project/documentation-matrix.md) for the status and remaining approval/evidence boundary of each package. See [delivery ownership](project/ownership.md) before assigning a human dependency.
+See the [2026-09-01 deterministic project control packet](handoffs/2026-09-01-project-control-packet.md) for the live GitHub/CI/Linear/Graphify evidence, feature/readiness state, linked-worktree collision, exact dependency queue, and next eligible job. See the [documentation completeness matrix](project/documentation-matrix.md) for the status and remaining approval/evidence boundary of each package. See [delivery ownership](project/ownership.md) before assigning a human dependency.
 
 ## Start by audience
 
 | Audience | Start here | Then read |
 |---|---|---|
-| Owner/product lead | [Executive brief](00-executive-brief.md), [strategy](product/strategy.md), [roadmap](06-roadmap.md) | [Decision checklist](project/decision-checklist.md), [ownership](project/ownership.md), [risk register](project/risk-register.md), [open questions](open-questions.md) |
+| Owner/product lead | [Project control packet](handoffs/2026-09-01-project-control-packet.md), [executive brief](00-executive-brief.md), [strategy](product/strategy.md), [roadmap](06-roadmap.md) | [Decision checklist](project/decision-checklist.md), [ownership](project/ownership.md), [risk register](project/risk-register.md), [open questions](open-questions.md) |
 | Product/design | [Product specification](02-product-specification.md), [feature wiki](features/README.md) | [Personas/journeys](product/personas-and-journeys.md), [content taxonomy](product/content-taxonomy.md), [information architecture](design/information-architecture.md), [design baseline](design/design-system-baseline.md), [accessibility](design/accessibility.md), [traceability](product/requirements-traceability.md) |
 | Web/platform engineer | [Platform architecture](03-platform-architecture.md), [contracts](../contracts/README.md) | [NFRs](architecture/nonfunctional-requirements.md), [authorization matrix](architecture/authorization-matrix.md), [API policy](api/versioning-and-deprecation.md), [data model](data/erd.md), [data dictionary](data/data-dictionary.md), [ADRs](adr/README.md) |
 | Windows/Rust engineer | [Desktop technical design](04-desktop-technical-design.md), [desktop features](features/README.md#desktop) | [Test strategy](testing/test-strategy.md), [fixture catalog](testing/fixture-catalog.md), [DMM clean-room boundary](teardowns/dmm-clean-room-evidence.md) |
@@ -23,7 +23,7 @@ See the [documentation completeness matrix](project/documentation-matrix.md) for
 
 ### Phase 0 — decisions, contracts, and proof
 
-- Project control: [ownership](project/ownership.md), [decision checklist](project/decision-checklist.md), [risk register](project/risk-register.md), [outreach packets](project/outreach-packets.md), [Windows test-host checklist](project/windows-test-host-checklist.md), [counsel packet](project/counsel-review-packet.md), [open questions](open-questions.md), and [Linear mirror](linear-backlog.md).
+- Project control: [deterministic control packet](handoffs/2026-09-01-project-control-packet.md), [ownership](project/ownership.md), [decision checklist](project/decision-checklist.md), [risk register](project/risk-register.md), [outreach packets](project/outreach-packets.md), [Windows test-host checklist](project/windows-test-host-checklist.md), [counsel packet](project/counsel-review-packet.md), [open questions](open-questions.md), and [Linear mirror](linear-backlog.md).
 - Human research: [interview plan](research/interview-plan.md) and [pilot recruitment checklist](research/pilot-recruitment-checklist.md).
 - Research: [ecosystem](01-ecosystem-research.md), [DMM teardown](teardowns/deadlock-mod-manager.md), [clean-room log](teardowns/dmm-clean-room-evidence.md), [GameBanana teardown](teardowns/gamebanana.md), and [GameBanana adapter](integrations/gamebanana-adapter.md).
 - Architecture: [platform](03-platform-architecture.md), [desktop](04-desktop-technical-design.md), [ADRs](adr/README.md), [contracts](../contracts/README.md), [ERD](data/erd.md), and [data dictionary](data/data-dictionary.md).
@@ -64,7 +64,7 @@ Phase 0 is not complete until the human dependencies in [ownership](project/owne
 - Core package: [executive brief](00-executive-brief.md), [ecosystem research](01-ecosystem-research.md), [product specification](02-product-specification.md), [platform architecture](03-platform-architecture.md), [desktop design](04-desktop-technical-design.md), [security/legal boundary](05-security-moderation-legal.md), [roadmap](06-roadmap.md), and [sources](07-sources.md).
 - Project controls: [ownership](project/ownership.md), [RACI](project/raci.md), [decision checklist](project/decision-checklist.md), [outreach packets](project/outreach-packets.md), [Windows test-host checklist](project/windows-test-host-checklist.md), [counsel review packet](project/counsel-review-packet.md), [risk register](project/risk-register.md), [glossary](project/glossary.md), [open questions](open-questions.md), and [Linear backlog mirror](linear-backlog.md).
 - Research execution: [interview plan](research/interview-plan.md) and [pilot recruitment checklist](research/pilot-recruitment-checklist.md).
-- Current checkpoint: [2026-09-01 complete documentation baseline handoff](handoffs/2026-09-01-main-documentation-baseline.md). Historical checkpoint: [2026-08-26 research/architecture handoff](handoffs/2026-08-26-main-research-architecture.md).
+- Current checkpoint: [2026-09-01 deterministic project control packet](handoffs/2026-09-01-project-control-packet.md). Supporting baseline: [2026-09-01 complete documentation handoff](handoffs/2026-09-01-main-documentation-baseline.md). Historical checkpoint: [2026-08-26 research/architecture handoff](handoffs/2026-08-26-main-research-architecture.md).
 
 ### Architecture decision records
 
