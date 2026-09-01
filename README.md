@@ -7,7 +7,7 @@ Modlock is the working title for a two-part Deadlock mod platform:
 
 This repository contains the complete design-stage documentation baseline: current ecosystem teardowns, feature wiki, contracts, architecture, testing, security, policy drafts, operations, support, and durable project controls. The latest research snapshot is dated **2026-09-01**; Deadlock is still changing quickly, so game paths, console variables, third-party APIs, and policy assumptions remain build-pinned evidence rather than permanent guarantees.
 
-Project execution is tracked in the private [Modlock Linear project](https://linear.app/shopliftdigital/project/modlock-72fa0f6e1ed8). The repository remains the authoritative durable context; [the Linear project brief](https://linear.app/shopliftdigital/document/modlock-research-architecture-and-phase-0-brief-3f4fa369309c) links back to the versioned documents here.
+Project execution is tracked in the private [Modlock Linear project](https://linear.app/shopliftdigital/project/modlock-72fa0f6e1ed8). The repository remains the authoritative durable context; [the Linear documentation baseline and owner action queue](https://linear.app/shopliftdigital/document/modlock-documentation-baseline-and-owner-action-queue-3f4fa369309c) links back to the versioned documents here.
 
 ## Documentation
 

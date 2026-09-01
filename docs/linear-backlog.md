@@ -3,7 +3,7 @@
 This file mirrors the initial Linear project so the project can be reconstructed from Git history if external project state is lost.
 
 - [Modlock Linear project](https://linear.app/shopliftdigital/project/modlock-72fa0f6e1ed8)
-- [Research, architecture, and Phase 0 brief](https://linear.app/shopliftdigital/document/modlock-research-architecture-and-phase-0-brief-3f4fa369309c)
+- [Documentation baseline and owner action queue](https://linear.app/shopliftdigital/document/modlock-documentation-baseline-and-owner-action-queue-3f4fa369309c)
 - Milestone: `Phase 0 — Validation and risk retirement`
 
 ## Priority order
