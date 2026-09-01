@@ -1,5 +1,19 @@
 # Platform architecture and API
 
+## Portfolio boundary and current-state warning
+
+**VERIFIED CURRENT (`2026-09-01`):** Modlock main is documentation/contracts-only and has no dependency on BuildLock, shared packages, a database, service, provider, deployment, identity integration, or scanner. BuildLock is the currently implemented portfolio runtime/data surface; Deadlock-Infra describes shared portfolio semantics, but the relevant cross-product topology ADRs remain proposed. The architecture below is therefore **TARGET STATE**, not a deployed system.
+
+In the intended boundary:
+
+- Deadlock-Infra governs shared identity, creator, catalogue, artifact-version, job, policy, and audit semantics.
+- Modlock is canonical for mod metadata/releases, file references, quarantine/scanning attestations, compatibility, packs, resolution, and every local install/reconcile/backup/rollback action.
+- BuildLock owns build/setup authoring and presentation. It may display Modlock-backed mod references or deep links, but it must not implement a second canonical mod registry or manipulate local files.
+- Modlock consumes stable shared contracts or projections; it does not read BuildLock private tables, use BuildLock runtime credentials, or depend on BuildLock availability.
+- Modlock’s isolated scanner receives one immutable quarantined object under strict resource/network limits and returns through a narrow attested-result channel. It cannot publish.
+
+Two decisions block cross-product implementation: [OQ9 canonical mod/artifact ownership](open-questions.md#oq9--portfolio-mod-registry-and-artifact-ownership) and [OQ10 shared identity issuance](open-questions.md#oq10--shared-identity-issuer-and-creator-ownership). Until accepted, use local/synthetic opaque identities, keep provider ports inert, and do not create a second registry.
+
 ## System overview
 
 ```mermaid
