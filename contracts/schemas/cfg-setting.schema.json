@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.modlock.invalid/v1/cfg-setting.schema.json",
+  "title": "Typed CFG registry entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "name", "value_type", "risk", "applies_to", "last_verified_build", "source"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "name": { "type": "string", "pattern": "^[A-Za-z0-9_]{1,128}$" },
+    "value_type": { "type": "string", "enum": ["boolean", "integer", "number", "string", "enum"] },
+    "minimum": { "type": ["number", "null"] },
+    "maximum": { "type": ["number", "null"] },
+    "allowed_values": { "type": "array", "maxItems": 100, "items": { "type": ["string", "number", "boolean"] } },
+    "default_value": { "type": ["string", "number", "boolean", "null"] },
+    "risk": { "type": "string", "enum": ["cosmetic", "accessibility", "performance", "gameplay-input", "competitive-risk", "unknown"] },
+    "publication": { "type": "string", "enum": ["allowed", "review-required", "prohibited"] },
+    "applies_to": { "type": "string", "enum": ["autoexec", "machine-convars", "personal-keys", "other"] },
+    "introduced_build": { "type": ["string", "null"], "maxLength": 64 },
+    "last_verified_build": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "source": { "type": "string", "minLength": 1, "maxLength": 2048 },
+    "description": { "type": "string", "maxLength": 2000 }
+  }
+}
+

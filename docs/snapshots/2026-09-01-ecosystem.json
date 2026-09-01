@@ -1,0 +1,564 @@
+{
+  "schema_version": 1,
+  "snapshot_date": "2026-09-01",
+  "generated_for": "Modlock",
+  "warning": "Dated research snapshot. Counts, releases, repository state, game behavior, file paths, and third-party APIs can change without notice. This file is evidence, not a service contract or market-size claim.",
+  "evidence": {
+    "primary_observation_date": "2026-09-01",
+    "confidence_labels": {
+      "confirmed_live": "Directly observed from a public service or release endpoint on the stated observed_at date.",
+      "confirmed_source": "Directly present in the pinned public source revision.",
+      "retained_prior": "Copied from the 2026-08-26 snapshot for continuity and not revalidated unless current_revalidation is true.",
+      "inference": "A design conclusion, not a provider or platform promise.",
+      "unknown": "Not established by the available public evidence."
+    },
+    "volatile_values_policy": "Every volatile count, release, repository, API, or catalog value is paired with observed_at and source_url in its containing object. Retained prior values identify their prior observation date and revalidation state.",
+    "current_documents": [
+      "docs/teardowns/deadlock-mod-manager.md",
+      "docs/teardowns/gamebanana.md",
+      "docs/integrations/gamebanana-adapter.md"
+    ],
+    "prior_snapshot": "docs/snapshots/2026-08-26-ecosystem.json",
+    "refresh_scope": {
+      "refreshed": [
+        "Deadlock Mod Manager pinned source, repository metadata, stable release metadata, and live OpenAPI",
+        "GameBanana Deadlock game metadata, Mod and Sound index metadata, selected public profile/download shapes, one-click manager metadata, and download routing"
+      ],
+      "retained_without_current_revalidation": [
+        "Deadlock game status and absence-of-policy/API findings",
+        "Grimoire competitor snapshot",
+        "selected game paths",
+        "Modlock architecture recommendation"
+      ],
+      "intentionally_omitted": [
+        "The 2026-08-26 DMM v2 catalog and crosshair record counts because they were not re-observed on 2026-09-01",
+        "Any user, creator, donation, or archive-content personal data",
+        "Any claim of unique mods, users, installs, or market share"
+      ]
+    }
+  },
+  "deadlock": {
+    "steam_app_id": 1422450,
+    "source_url": "https://store.steampowered.com/app/1422450/Deadlock/",
+    "evidence_state": "retained_prior",
+    "prior_observed_at": "2026-08-26",
+    "current_revalidation": false,
+    "status_at_prior_observation": "early development with limited access",
+    "official_mod_api_found_at_prior_observation": false,
+    "official_public_mod_policy_found_at_prior_observation": false,
+    "current_status": "unknown",
+    "current_official_mod_api_status": "unknown",
+    "current_official_mod_policy_status": "unknown"
+  },
+  "deadlock_mod_manager": {
+    "repository": {
+      "url": "https://github.com/deadlock-mod-manager/deadlock-mod-manager",
+      "inspected_commit": "4626073406a8b99c6e782f3ce509aacc8090cce8",
+      "commit_date": "2026-08-31",
+      "observed_at": "2026-09-01",
+      "source_url": "https://github.com/deadlock-mod-manager/deadlock-mod-manager/tree/4626073406a8b99c6e782f3ce509aacc8090cce8",
+      "evidence_state": "confirmed_source"
+    },
+    "license": {
+      "spdx": "GPL-3.0",
+      "observed_at": "2026-09-01",
+      "source_url": "https://github.com/deadlock-mod-manager/deadlock-mod-manager/blob/4626073406a8b99c6e782f3ce509aacc8090cce8/LICENSE.md",
+      "evidence_state": "confirmed_source",
+      "modlock_boundary": "Clean-room behavioral research only. Do not copy DMM source, UI expression, tests, manifest schemas, markers, or prose into a non-GPL Modlock distribution without a separate license and legal review."
+    },
+    "github_observed": {
+      "stars": 431,
+      "forks": 71,
+      "open_issues": 95,
+      "observed_at": "2026-09-01",
+      "source_url": "https://api.github.com/repos/deadlock-mod-manager/deadlock-mod-manager",
+      "evidence_state": "confirmed_live",
+      "interpretation": "Volatile repository activity indicators, not adoption or market-share metrics."
+    },
+    "latest_stable_release_observed": {
+      "tag": "v1.1.0",
+      "published_at": "2026-08-01",
+      "windows_installer_kind": "NSIS",
+      "windows_installer_bytes": 23023848,
+      "windows_installer_asset_downloads": 264381,
+      "updater_latest_json_downloads_approx": 2680000,
+      "updater_latest_json_downloads_is_approximate": true,
+      "observed_at": "2026-09-01",
+      "source_url": "https://github.com/deadlock-mod-manager/deadlock-mod-manager/releases/tag/v1.1.0",
+      "metadata_source_url": "https://api.github.com/repos/deadlock-mod-manager/deadlock-mod-manager/releases/tags/v1.1.0",
+      "evidence_state": "confirmed_live",
+      "interpretation": "GitHub asset download counters represent requests. They are not unique users, active installations, or verified successful installs."
+    },
+    "version_drift": {
+      "stable_desktop_version": "1.1.0",
+      "source_api_package_version": "3.1.1",
+      "live_openapi_info_version": "2.0.0",
+      "observed_at": "2026-09-01",
+      "source_urls": [
+        "https://github.com/deadlock-mod-manager/deadlock-mod-manager/blob/4626073406a8b99c6e782f3ce509aacc8090cce8/apps/desktop/package.json",
+        "https://github.com/deadlock-mod-manager/deadlock-mod-manager/blob/4626073406a8b99c6e782f3ce509aacc8090cce8/apps/api/package.json",
+        "https://api.deadlockmods.app/docs/openapi.json"
+      ],
+      "evidence_state": "confirmed_source_and_live",
+      "interpretation": "Pinned main includes post-release behavior. Source package versions, stable desktop release, and live API schema version are not one unified product version."
+    },
+    "desktop_architecture": {
+      "stack": [
+        "Tauri 2.11.1",
+        "Rust 2024",
+        "React 19",
+        "Vite",
+        "TypeScript",
+        "Zustand",
+        "TanStack Query"
+      ],
+      "observed_at": "2026-09-01",
+      "source_urls": [
+        "https://github.com/deadlock-mod-manager/deadlock-mod-manager/blob/4626073406a8b99c6e782f3ce509aacc8090cce8/apps/desktop/package.json",
+        "https://github.com/deadlock-mod-manager/deadlock-mod-manager/blob/4626073406a8b99c6e782f3ce509aacc8090cce8/apps/desktop/src-tauri/Cargo.toml"
+      ],
+      "evidence_state": "confirmed_source"
+    },
+    "service_architecture": {
+      "stack": [
+        "Bun",
+        "Hono/oRPC",
+        "PostgreSQL",
+        "Drizzle",
+        "Redis",
+        "S3-compatible mirror storage"
+      ],
+      "applications": [
+        "desktop",
+        "api",
+        "auth",
+        "website",
+        "documentation",
+        "Discord bot",
+        "mirror service",
+        "Lockdex",
+        "dmodpkg CLI"
+      ],
+      "observed_at": "2026-09-01",
+      "source_url": "https://github.com/deadlock-mod-manager/deadlock-mod-manager/tree/4626073406a8b99c6e782f3ce509aacc8090cce8",
+      "evidence_state": "confirmed_source"
+    },
+    "installation_architecture": {
+      "archive_inputs": [
+        "ZIP",
+        "RAR",
+        "7z",
+        "raw VPK"
+      ],
+      "profile_manifest": ".dmm.json version 2",
+      "enabled_vpk_naming": "pak##_dir.vpk",
+      "disabled_vpk_naming": "<mod-id>_<original-name>.vpk",
+      "supported_addon_shards": 10,
+      "assumed_enabled_vpks_per_shard": 99,
+      "crosshair_activation": "one active global custom crosshair section; hero is metadata, not automatic per-character switching",
+      "observed_at": "2026-09-01",
+      "source_url": "https://github.com/deadlock-mod-manager/deadlock-mod-manager/tree/4626073406a8b99c6e782f3ce509aacc8090cce8/apps/desktop/src-tauri/src/mod_manager",
+      "evidence_state": "confirmed_source",
+      "runtime_verification": "not performed on Windows or against a live Deadlock installation"
+    },
+    "api": {
+      "openapi_url": "https://api.deadlockmods.app/docs/openapi.json",
+      "observed_base_url": "https://api.deadlockmods.app/api",
+      "openapi_info_version": "2.0.0",
+      "observed_at": "2026-09-01",
+      "source_url": "https://api.deadlockmods.app/docs/openapi.json",
+      "evidence_state": "confirmed_live",
+      "route_groups": {
+        "service": [
+          "GET /health",
+          "GET /version",
+          "GET /status",
+          "GET /releases",
+          "GET /stats",
+          "GET /transparency-stats"
+        ],
+        "legacy_mods": [
+          "GET /v1/mods",
+          "GET /v1/mods/{id}",
+          "GET /v1/mods/{id}/download"
+        ],
+        "mods": [
+          "GET /v2/mods",
+          "GET /v2/mods/{id}",
+          "GET /v2/mods/{id}/downloads",
+          "GET /v2/mods/{id}/download",
+          "POST /v2/mods/check-updates",
+          "POST /v2/sync",
+          "POST /v2/sync/{id}"
+        ],
+        "crosshairs": [
+          "GET /v2/crosshairs",
+          "GET /v2/crosshairs/{id}",
+          "GET /v2/crosshairs/{id}/likes",
+          "POST /v2/crosshairs",
+          "POST /v2/crosshairs/{id}/download",
+          "POST /v2/crosshairs/{id}/like"
+        ],
+        "profiles": [
+          "GET /v2/profiles/{id}",
+          "POST /v2/profiles"
+        ],
+        "analysis": [
+          "POST /v2/kv-parse",
+          "POST /v2/vpk-analyse",
+          "POST /v2/vpk-analyse-hashes"
+        ],
+        "other": [
+          "reports",
+          "servers and relays",
+          "announcements",
+          "identity and feature flags",
+          "dashboard analytics",
+          "GameBanana fileserver routing"
+        ]
+      },
+      "security_declarations_present_in_openapi": false,
+      "source_uses_authenticated_or_admin_procedures": true,
+      "service_sla_found": false,
+      "compatibility_or_deprecation_commitment_found": false,
+      "catalog_counts_refreshed": false,
+      "current_catalog_counts": "unknown",
+      "interpretation": "Use as competitor/discovery evidence only. Do not make DMM API a production dependency without permission and a versioned defensive adapter."
+    },
+    "runtime_audit": {
+      "stable_windows_binary_installed": false,
+      "network_traffic_intercepted": false,
+      "real_deadlock_installation_modified": false,
+      "power_loss_or_antivirus_matrix_run": false,
+      "evidence_state": "unknown",
+      "observed_at": "2026-09-01",
+      "source_document": "docs/teardowns/deadlock-mod-manager.md"
+    }
+  },
+  "gamebanana": {
+    "game": {
+      "id": 20948,
+      "name": "Deadlock",
+      "abbreviation": "DL",
+      "public_state": "show",
+      "approved": true,
+      "observed_at": "2026-09-01T00:38:00-07:00",
+      "source_url": "https://gamebanana.com/apiv11/Game/20948/ProfilePage",
+      "canonical_url": "https://gamebanana.com/games/20948",
+      "evidence_state": "confirmed_live"
+    },
+    "role": {
+      "value": "primary identifiable public Deadlock mod catalog and file host",
+      "evidence_state": "inference",
+      "source_document": "docs/teardowns/gamebanana.md"
+    },
+    "documented_api": {
+      "base_url": "https://api.gamebanana.com",
+      "documentation_url": "https://api.gamebanana.com/",
+      "relevant_surfaces": [
+        "Core/Item/Data",
+        "Core/Item/Data/AllowedFields",
+        "Core/List/New",
+        "Core/List/Section",
+        "Core/List/Like",
+        "Rss/New",
+        "Core/App/Authenticate"
+      ],
+      "observed_at": "2026-09-01",
+      "source_url": "https://api.gamebanana.com/",
+      "evidence_state": "confirmed_live_and_documented",
+      "published_rate_limit_found": false,
+      "published_cache_contract_found": false
+    },
+    "apiv11": {
+      "base_url": "https://gamebanana.com/apiv11",
+      "public_stability_contract_found": false,
+      "openapi_or_json_schema_found": false,
+      "deprecation_policy_found": false,
+      "observed_at": "2026-09-01",
+      "source_document": "docs/teardowns/gamebanana.md",
+      "evidence_state": "confirmed_live_surface_but_unknown_contract",
+      "catalog_pagination_observed": {
+        "page_indexing": "one-based",
+        "maximum_per_page": 50,
+        "completion_field": "_aMetadata._bIsComplete",
+        "snapshot_token_present": false,
+        "logical_errors_can_use_http_200": true,
+        "observed_at": "2026-09-01T00:39:00-07:00",
+        "source_url": "https://gamebanana.com/apiv11/Mod/Index?_nPerpage=50&_aFilters%5BGeneric_Game%5D=20948&_nPage=1",
+        "evidence_state": "confirmed_live"
+      }
+    },
+    "catalog_counts_observed": {
+      "mod_index_records": 3761,
+      "sound_index_records": 3630,
+      "raw_index_sum_not_unique_total": 7391,
+      "game_profile_sound_section_items": 3674,
+      "game_profile_mod_root_category_sum": 3759,
+      "category_tree_mod_items": 6944,
+      "category_tree_sound_items": 3674,
+      "counts_agree": false,
+      "observed_at": "2026-09-01T00:38:00-07:00",
+      "source_urls": [
+        "https://gamebanana.com/apiv11/Mod/Index?_nPerpage=50&_aFilters%5BGeneric_Game%5D=20948&_nPage=1",
+        "https://gamebanana.com/apiv11/Sound/Index?_nPerpage=50&_aFilters%5BGeneric_Game%5D=20948&_nPage=1",
+        "https://gamebanana.com/apiv11/Game/20948/ProfilePage",
+        "https://gamebanana.com/apiv11/Game/20948/CategoryTree"
+      ],
+      "evidence_state": "confirmed_live",
+      "interpretation": "Counts use different or cached scopes. Do not sum them into a unique-mod total and do not use them as a market-size claim."
+    },
+    "mod_root_categories_observed": {
+      "categories": [
+        {
+          "id": 33295,
+          "name": "Skins",
+          "items": 2537
+        },
+        {
+          "id": 33154,
+          "name": "Model Replacement",
+          "items": 465
+        },
+        {
+          "id": 31713,
+          "name": "HUD",
+          "items": 456
+        },
+        {
+          "id": 31710,
+          "name": "Other/Misc",
+          "items": 123
+        },
+        {
+          "id": 46154,
+          "name": "Quality of Life/Fixes",
+          "items": 112
+        },
+        {
+          "id": 37225,
+          "name": "Maps",
+          "items": 33
+        },
+        {
+          "id": 33331,
+          "name": "Gameplay Modifications",
+          "items": 21
+        },
+        {
+          "id": 47611,
+          "name": "Animations",
+          "items": 12
+        }
+      ],
+      "observed_at": "2026-09-01T00:38:00-07:00",
+      "source_url": "https://gamebanana.com/apiv11/Game/20948/ProfilePage",
+      "evidence_state": "confirmed_live",
+      "interpretation": "Remote category ID is the normalization key. Category name/count is mutable presentation metadata and is not a security capability declaration."
+    },
+    "sound_category_sample_observed": {
+      "sample_size": 50,
+      "root_names_seen": [
+        "Abilities",
+        "VOs",
+        "In-Game Music",
+        "Item Sounds",
+        "Weapons",
+        "Sound Packs",
+        "Other/Misc",
+        "Movement",
+        "Killsounds",
+        "Gameplay Events"
+      ],
+      "is_exhaustive": false,
+      "game_profile_reported_category_count": 12,
+      "observed_at": "2026-09-01T00:40:00-07:00",
+      "source_url": "https://gamebanana.com/apiv11/Sound/Index?_nPerpage=50&_aFilters%5BGeneric_Game%5D=20948&_nPage=1",
+      "evidence_state": "confirmed_live"
+    },
+    "registered_deadlock_manager_observed": {
+      "tool_id": 20646,
+      "alias": "DeadlockModManager",
+      "installer_name": "Deadlock Mod Manager",
+      "supports_remote_install": true,
+      "game_ids": [
+        20948
+      ],
+      "observed_deep_link_shape": "deadlock-mod-manager:https://gamebanana.com/mmdl/{file_id},Mod,{submission_id}",
+      "observed_at": "2026-09-01T00:40:00-07:00",
+      "source_urls": [
+        "https://gamebanana.com/apiv11/Game/20948/ProfilePage",
+        "https://gamebanana.com/wikis/1999"
+      ],
+      "evidence_state": "confirmed_live_and_documented",
+      "modlock_registration_status": "not registered; requires direct coordination with GameBanana"
+    },
+    "download_routing_observed": {
+      "resolver_paths": [
+        "/dl/{file_id}",
+        "/mmdl/{file_id}"
+      ],
+      "sample_head_redirect_chain": [
+        "gamebanana.com",
+        "files.gamebanana.com",
+        "filecache39.gamebanana.com"
+      ],
+      "sample_final_content_type": "application/zip",
+      "sample_final_accept_ranges": "bytes",
+      "observed_at": "2026-09-01T00:40:03-07:00",
+      "source_url": "https://gamebanana.com/mmdl/1800890",
+      "evidence_state": "confirmed_live_sample",
+      "interpretation": "This is one HEAD-only sample and not a permanent hostname/path contract. Modlock must resolve fresh, validate each HTTPS redirect hop, stream with size limits, compute SHA-256, and independently scan content."
+    },
+    "file_integrity_fields_observed": {
+      "provider_md5_present": true,
+      "byte_size_present": true,
+      "analysis_state_present": true,
+      "antivirus_state_present": true,
+      "provider_sha256_present": false,
+      "observed_at": "2026-09-01T00:36:00-07:00",
+      "source_url": "https://gamebanana.com/apiv11/Mod/709560/DownloadPage",
+      "evidence_state": "confirmed_live_sample",
+      "interpretation": "Provider MD5 and AV/analysis labels are provenance, not Modlock authorization or cryptographic trust."
+    },
+    "content_and_rights_fields_observed": {
+      "license_html_present": true,
+      "license_checklist_states": [
+        "yes",
+        "ask",
+        "no"
+      ],
+      "content_rating_fields": [
+        "_bHasContentRatings",
+        "_aContentRatings",
+        "_sInitialVisibility"
+      ],
+      "moderation_state_fields": [
+        "_bIsPrivate",
+        "_bIsWithheld",
+        "_bIsTrashed",
+        "_bIsObsolete"
+      ],
+      "donation_metadata_present": true,
+      "observed_at": "2026-09-01",
+      "source_urls": [
+        "https://gamebanana.com/apiv11/Mod/709560/ProfilePage",
+        "https://gamebanana.com/wikis/334",
+        "https://gamebanana.com/wikis/677",
+        "https://gamebanana.com/wikis/1980"
+      ],
+      "evidence_state": "confirmed_live_and_documented",
+      "interpretation": "GameBanana hosting/downloadability does not grant Modlock rehosting rights. Raw provider HTML must be sanitized, and restrictive/unknown license or rating states fail closed."
+    },
+    "production_contract_status": {
+      "approved_for_modlock_production_use": "unknown",
+      "rate_limit": "unknown",
+      "cache_and_attribution_terms": "unknown",
+      "bulk_sync_permission": "unknown",
+      "mmdl_download_count_semantics": "unknown",
+      "removal_or_dmca_webhook": "unknown",
+      "one_click_registration_process": "unknown",
+      "required_action": "Obtain written confirmation from GameBanana before production ingestion, public one-click registration, or provider metadata/media caching beyond limited development tests."
+    }
+  },
+  "grimoire": {
+    "repository": "https://github.com/Slush97/grimoire",
+    "inspected_commit": "cc61247e1ac43f1ad2ca4b53621d766f23123bd4",
+    "source_version": "1.28.0",
+    "license": "MIT",
+    "desktop_stack": [
+      "Electron 35",
+      "React 19",
+      "SQLite",
+      "Three.js"
+    ],
+    "profile_format": ".modprofile.json / mp1 share code",
+    "older_public_windows_package_mb_approx": 184,
+    "evidence_state": "retained_prior",
+    "prior_observed_at": "2026-08-26",
+    "current_revalidation": false,
+    "source_url": "https://github.com/Slush97/grimoire",
+    "current_state": "unknown"
+  },
+  "observed_game_paths": {
+    "evidence_state": "retained_prior_with_partial_source_confirmation",
+    "prior_observed_at": "2026-08-26",
+    "current_revalidation": "DMM pinned source confirms gameinfo, addon shard, autoexec, and machine-convars usage; the personal-keys path was not revalidated in this refresh.",
+    "source_documents": [
+      "docs/snapshots/2026-08-26-ecosystem.json",
+      "docs/teardowns/deadlock-mod-manager.md"
+    ],
+    "paths": {
+      "search_path_file": "<Deadlock>/game/citadel/gameinfo.gi",
+      "search_path_backup": "<Deadlock>/game/citadel/gameinfo.gi.bak",
+      "search_path_temporary": "<Deadlock>/game/citadel/gameinfo.gi.tmp",
+      "default_addons": "<Deadlock>/game/citadel/addons",
+      "additional_addon_shards": "<Deadlock>/game/citadel/addons2 through addons10",
+      "profile_directory_shape": "<Deadlock>/game/citadel/addons[N]/<profile-id>",
+      "autoexec": "<Deadlock>/game/citadel/cfg/autoexec.cfg",
+      "machine_convars": "<Deadlock>/game/citadel/cfg/machine_convars.vcfg",
+      "personal_keys_unrevalidated": "userdata/<steamid>/1422450/remote/cfg/citadelkeys_personal.lst"
+    },
+    "drift_warning": "Deadlock is actively developed. Discover and validate paths at runtime, back up before mutation, and never treat this snapshot as a permanent file-layout contract."
+  },
+  "modlock_architecture_recommendation": {
+    "evidence_state": "retained_prior_design_decision",
+    "prior_recorded_at": "2026-08-26",
+    "source_documents": [
+      "docs/03-platform-architecture.md",
+      "docs/04-desktop-technical-design.md"
+    ],
+    "website": [
+      "Next.js/React",
+      "PostgreSQL",
+      "S3-compatible object storage/CDN",
+      "isolated Rust scanner"
+    ],
+    "desktop_core": "Rust",
+    "desktop_ui_spike": [
+      "WinUI 3 plus Rust core",
+      "all-Rust native UI"
+    ],
+    "rejected_default_for_lightweight_goal": "Electron",
+    "fallback": "Tauri",
+    "external_catalog_rule": "Use versioned defensive adapters. Resolve authorized third-party files at install time and do not mirror/rehost without explicit rights and provider approval where required."
+  },
+  "unknowns_and_required_external_confirmation": [
+    {
+      "subject": "Valve Deadlock mod policy and supported modification surfaces",
+      "status": "unknown_not_revalidated",
+      "owner": "project owner",
+      "action": "Obtain authoritative Valve guidance before public beta."
+    },
+    {
+      "subject": "GameBanana apiv11 production permission, rate, caching, attribution, downloads, one-click registration, and takedown signaling",
+      "status": "unknown",
+      "owner": "project owner",
+      "action": "Obtain written GameBanana confirmation; detailed questions are in docs/teardowns/gamebanana.md."
+    },
+    {
+      "subject": "DMM stable Windows runtime resource use and failure behavior",
+      "status": "unknown",
+      "owner": "engineering",
+      "action": "Run the controlled Windows audit defined in docs/teardowns/deadlock-mod-manager.md."
+    },
+    {
+      "subject": "Current DMM catalog and crosshair record counts",
+      "status": "unknown_not_refreshed",
+      "owner": "research",
+      "action": "Re-observe from the live API before using any count."
+    },
+    {
+      "subject": "Current Grimoire release, repository, and package footprint",
+      "status": "unknown_not_refreshed",
+      "owner": "research",
+      "action": "Refresh before making competitive claims."
+    },
+    {
+      "subject": "Safe supported automatic per-hero custom crosshair activation",
+      "status": "unknown",
+      "owner": "engineering and Valve",
+      "action": "Do not promise live switching. Keep per-hero choices as Modlock-side preferences until a supported non-injection activation path is proven."
+    }
+  ]
+}

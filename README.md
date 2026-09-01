@@ -5,12 +5,15 @@ Modlock is the working title for a two-part Deadlock mod platform:
 1. A website where creators can publish, showcase, and distribute Deadlock mods.
 2. A lightweight native Windows utility for safe one-click installs, profiles, CFG editing, crosshairs, and creator-approved player packs.
 
-This repository currently contains the product and technical discovery package. The research snapshot is dated **2026-08-26**; Deadlock is still changing quickly, so game paths, console variables, third-party APIs, and policy assumptions must be revalidated during implementation.
+This repository contains the complete design-stage documentation baseline: current ecosystem teardowns, feature wiki, contracts, architecture, testing, security, policy drafts, operations, support, and durable project controls. The latest research snapshot is dated **2026-09-01**; Deadlock is still changing quickly, so game paths, console variables, third-party APIs, and policy assumptions remain build-pinned evidence rather than permanent guarantees.
 
 Project execution is tracked in the private [Modlock Linear project](https://linear.app/shopliftdigital/project/modlock-72fa0f6e1ed8). The repository remains the authoritative durable context; [the Linear project brief](https://linear.app/shopliftdigital/document/modlock-research-architecture-and-phase-0-brief-3f4fa369309c) links back to the versioned documents here.
 
 ## Documentation
 
+- [Complete documentation control plane](docs/README.md)
+- [Documentation completeness and approval matrix](docs/project/documentation-matrix.md)
+- [Codex versus Ahad ownership](docs/project/ownership.md)
 - [Executive brief](docs/00-executive-brief.md)
 - [Ecosystem and technical research](docs/01-ecosystem-research.md)
 - [Product specification](docs/02-product-specification.md)
@@ -19,7 +22,7 @@ Project execution is tracked in the private [Modlock Linear project](https://lin
 - [Security, moderation, and legal boundaries](docs/05-security-moderation-legal.md)
 - [Delivery roadmap and validation plan](docs/06-roadmap.md)
 - [Source register](docs/07-sources.md)
-- [Dated ecosystem snapshot](docs/snapshots/2026-08-26-ecosystem.json)
+- [Current dated ecosystem snapshot](docs/snapshots/2026-09-01-ecosystem.json)
 
 ## Decision summary
 
@@ -48,4 +51,4 @@ packages/
 docs/
 ```
 
-No implementation stack has been committed yet. Phase 0 in the roadmap resolves the remaining policy, API, and native-UI questions before production code is laid down.
+Core data/API contracts and proposed ADRs are committed, but application implementation has not started. Phase 0 now moves into the synthetic fixture, Rust transaction/recovery, source-adapter contract, and Windows benchmark proofs while human-only platform, hardware, legal, and creator approvals proceed.

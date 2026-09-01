@@ -12,9 +12,9 @@ jobs:
   validate:
     name: Validate documentation
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Check out repository
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Validate local documentation contracts
-        run: python3 scripts/check_docs.py
-
+        run: python3 -I -B scripts/check_docs.py

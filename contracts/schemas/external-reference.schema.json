@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.modlock.invalid/v1/external-reference.schema.json",
+  "title": "External reference",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "provider", "remote_type", "remote_id", "canonical_url", "observed_at"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "provider": { "type": "string", "enum": ["gamebanana", "github", "creator-hosted", "other"] },
+    "remote_type": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "remote_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "remote_file_id": { "type": ["string", "null"], "maxLength": 128 },
+    "canonical_url": { "type": "string", "format": "uri", "maxLength": 2048 },
+    "download_page_url": { "type": ["string", "null"], "format": "uri", "maxLength": 2048 },
+    "creator_name": { "type": ["string", "null"], "maxLength": 128 },
+    "license_label": { "type": ["string", "null"], "maxLength": 128 },
+    "redistribution": { "type": "string", "enum": ["allowed", "prohibited", "unknown"] },
+    "observed_at": { "type": "string", "format": "date-time" },
+    "raw_payload_sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+    "extensions": { "type": "object", "additionalProperties": true }
+  }
+}
+

@@ -1,0 +1,157 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Modlock API",
+    "version": "0.1.0-design",
+    "description": "Contract-first API for the Modlock catalog, creator platform, and desktop resolver. This design contract is not a deployed service."
+  },
+  "servers": [{ "url": "https://api.modlock.invalid/v1" }],
+  "paths": {
+    "/mods": {
+      "get": {
+        "operationId": "listMods",
+        "parameters": [
+          { "name": "cursor", "in": "query", "schema": { "type": "string", "maxLength": 512 } },
+          { "name": "query", "in": "query", "schema": { "type": "string", "maxLength": 200 } },
+          { "name": "hero", "in": "query", "schema": { "type": "string", "maxLength": 64 } },
+          { "name": "source", "in": "query", "schema": { "type": "string", "enum": ["modlock-hosted", "gamebanana-linked", "external-linked"] } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 30 } }
+        ],
+        "responses": {
+          "200": { "description": "Cursor page", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ModPage" } } } },
+          "400": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/mods/{mod_id}": {
+      "get": {
+        "operationId": "getMod",
+        "parameters": [{ "$ref": "#/components/parameters/ModId" }],
+        "responses": {
+          "200": { "description": "Mod", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Mod" } } } },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/releases/{release_id}": {
+      "get": {
+        "operationId": "getRelease",
+        "parameters": [{ "$ref": "#/components/parameters/ReleaseId" }],
+        "responses": {
+          "200": { "description": "Release", "content": { "application/json": { "schema": { "$ref": "../schemas/release.schema.json" } } } },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/releases/{release_id}/resolve": {
+      "post": {
+        "operationId": "resolveReleaseInstall",
+        "parameters": [{ "$ref": "#/components/parameters/ReleaseId" }],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ResolveRequest" } } } },
+        "responses": {
+          "200": { "description": "Signed install plan", "content": { "application/json": { "schema": { "$ref": "../schemas/install-plan.schema.json" } } } },
+          "409": { "$ref": "#/components/responses/Error" },
+          "410": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/packs/{pack_id}/versions/{version_id}": {
+      "get": {
+        "operationId": "getPackVersion",
+        "parameters": [
+          { "name": "pack_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "version_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Pack version", "content": { "application/json": { "schema": { "$ref": "../schemas/pack.schema.json" } } } },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/pack-versions/{version_id}/resolve": {
+      "post": {
+        "operationId": "resolvePackInstall",
+        "parameters": [{ "name": "version_id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ResolveRequest" } } } },
+        "responses": {
+          "200": { "description": "Signed install plan", "content": { "application/json": { "schema": { "$ref": "../schemas/install-plan.schema.json" } } } },
+          "409": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/crosshairs": {
+      "get": {
+        "operationId": "listCrosshairs",
+        "responses": { "200": { "description": "Crosshair page", "content": { "application/json": { "schema": { "type": "object", "required": ["items"], "properties": { "items": { "type": "array", "items": { "$ref": "../schemas/crosshair.schema.json" } }, "next_cursor": { "type": ["string", "null"] } } } } } } }
+      }
+    },
+    "/upload-sessions": {
+      "post": {
+        "operationId": "createUploadSession",
+        "security": [{ "oauth": ["creator:write"] }],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateUploadSession" } } } },
+        "responses": {
+          "201": { "description": "Scoped upload session", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UploadSession" } } } },
+          "400": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/upload-sessions/{session_id}/complete": {
+      "post": {
+        "operationId": "completeUploadSession",
+        "security": [{ "oauth": ["creator:write"] }],
+        "parameters": [{ "name": "session_id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "202": { "description": "Upload accepted for scanning" },
+          "409": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/reports": {
+      "post": {
+        "operationId": "createReport",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateReport" } } } },
+        "responses": {
+          "201": { "description": "Report created" },
+          "400": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/desktop/bootstrap": {
+      "get": {
+        "operationId": "getDesktopBootstrap",
+        "responses": { "200": { "description": "Signed service, key, game-data, and policy metadata", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/DesktopBootstrap" } } } } }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "oauth": { "type": "oauth2", "flows": { "authorizationCode": { "authorizationUrl": "https://auth.modlock.invalid/authorize", "tokenUrl": "https://auth.modlock.invalid/token", "scopes": { "creator:write": "Manage owned creator content", "moderation:write": "Moderate content" } } } }
+    },
+    "parameters": {
+      "ModId": { "name": "mod_id", "in": "path", "required": true, "schema": { "type": "string", "pattern": "^mod_" } },
+      "ReleaseId": { "name": "release_id", "in": "path", "required": true, "schema": { "type": "string", "pattern": "^rel_" } }
+    },
+    "responses": {
+      "Error": { "description": "Machine-readable error", "content": { "application/json": { "schema": { "$ref": "../schemas/error.schema.json" } } } }
+    },
+    "schemas": {
+      "Mod": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "slug", "title", "source_kind", "status"],
+        "properties": {
+          "id": { "type": "string" }, "slug": { "type": "string" }, "title": { "type": "string" }, "summary": { "type": "string" },
+          "source_kind": { "type": "string", "enum": ["modlock-hosted", "gamebanana-linked", "external-linked"] },
+          "status": { "type": "string", "enum": ["draft", "published", "delisted", "revoked"] }
+        }
+      },
+      "ModPage": { "type": "object", "additionalProperties": false, "required": ["items", "next_cursor"], "properties": { "items": { "type": "array", "items": { "$ref": "#/components/schemas/Mod" } }, "next_cursor": { "type": ["string", "null"] } } },
+      "ResolveRequest": { "type": "object", "additionalProperties": false, "required": ["client_version", "platform", "game_build"], "properties": { "client_version": { "type": "string" }, "platform": { "const": "windows" }, "game_build": { "type": ["string", "null"] } } },
+      "CreateUploadSession": { "type": "object", "additionalProperties": false, "required": ["release_id", "filename", "size"], "properties": { "release_id": { "type": "string" }, "filename": { "type": "string", "maxLength": 255 }, "size": { "type": "integer", "minimum": 1, "maximum": 10737418240 }, "sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" } } },
+      "UploadSession": { "type": "object", "additionalProperties": false, "required": ["id", "expires_at", "parts"], "properties": { "id": { "type": "string" }, "expires_at": { "type": "string", "format": "date-time" }, "parts": { "type": "array", "items": { "type": "object", "required": ["number", "url"], "properties": { "number": { "type": "integer", "minimum": 1 }, "url": { "type": "string", "format": "uri" } } } } } },
+      "CreateReport": { "type": "object", "additionalProperties": false, "required": ["target_kind", "target_id", "reason"], "properties": { "target_kind": { "type": "string", "enum": ["mod", "release", "file", "pack", "preset", "creator"] }, "target_id": { "type": "string" }, "reason": { "type": "string", "enum": ["malware", "copyright", "impersonation", "competitive-advantage", "nsfw", "other"] }, "details": { "type": "string", "maxLength": 10000 } } },
+      "DesktopBootstrap": { "type": "object", "additionalProperties": false, "required": ["schema_version", "server_time", "install_plan_keys", "policy_version"], "properties": { "schema_version": { "const": 1 }, "server_time": { "type": "string", "format": "date-time" }, "install_plan_keys": { "type": "array", "items": { "type": "object", "required": ["key_id", "algorithm", "public_key"], "properties": { "key_id": { "type": "string" }, "algorithm": { "const": "ed25519" }, "public_key": { "type": "string" } } } }, "policy_version": { "type": "string" }, "game_data_snapshot_url": { "type": "string", "format": "uri" } } }
+    }
+  }
+}

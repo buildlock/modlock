@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "resolution_id": "res_example01",
+  "issued_at": "2026-09-01T00:10:00Z",
+  "expires_at": "2026-09-01T00:20:00Z",
+  "subject": { "kind": "release", "id": "mod_example01", "version_id": "rel_example01" },
+  "files": [
+    {
+      "file_id": "file_example01",
+      "source_kind": "modlock-hosted",
+      "name": "synthetic-example.zip",
+      "size": 1024,
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "download_url": "https://downloads.modlock.invalid/objects/example?token=redacted-example",
+      "canonical_page_url": "https://modlock.invalid/mods/synthetic-example",
+      "required": true,
+      "priority": 10,
+      "variant": "default",
+      "scan_attestation_id": "att_example01"
+    }
+  ],
+  "warnings": [],
+  "signature": {
+    "algorithm": "ed25519",
+    "key_id": "example-design-key",
+    "value": "example-signature-not-cryptographically-valid-0000000000000000"
+  }
+}
+

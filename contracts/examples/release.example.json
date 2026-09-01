@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "rel_example01",
+  "mod_id": "mod_example01",
+  "version": "1.0.0",
+  "source_kind": "modlock-hosted",
+  "status": "published",
+  "changelog": "Initial synthetic example.",
+  "tested_game_builds": ["build-example"],
+  "capabilities": ["vpk.cosmetic"],
+  "license": { "spdx": "CC0-1.0", "custom_url": null, "redistribution": "allowed" },
+  "external_reference": null,
+  "files": [
+    {
+      "id": "file_example01",
+      "name": "synthetic-example.zip",
+      "size": 1024,
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "variant": "default",
+      "media_type": "application/zip",
+      "scan_state": "clean",
+      "scan_attestation_id": "att_example01"
+    }
+  ],
+  "created_at": "2026-09-01T00:00:00Z",
+  "published_at": "2026-09-01T00:05:00Z"
+}
+

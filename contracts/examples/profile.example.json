@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "profile_id": "profile_example01",
+  "name": "Synthetic Main",
+  "entries": [
+    {
+      "entry_id": "entry_example01",
+      "source_kind": "modlock-hosted",
+      "release_or_remote_id": "rel_example01",
+      "file_id": "file_example01",
+      "variant": "default",
+      "object_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "enabled": true,
+      "priority": 10
+    }
+  ],
+  "cfg_preset_version_ids": [],
+  "crosshair_version_id": null,
+  "extensions": {},
+  "created_at": "2026-09-01T00:00:00Z",
+  "updated_at": "2026-09-01T00:00:00Z"
+}
+

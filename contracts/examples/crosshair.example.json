@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": "crosshair_example01",
+  "version_id": "crosshairv_example01",
+  "name": "Synthetic Yellow",
+  "verification": "unverified",
+  "values": {
+    "citadel_crosshair_color_r": 255,
+    "citadel_crosshair_color_g": 240,
+    "citadel_crosshair_color_b": 0,
+    "citadel_crosshair_pip_opacity": 1.0
+  },
+  "hero_preferences": [],
+  "tested_game_build": "build-example",
+  "source_evidence_urls": [],
+  "approved_at": null,
+  "expires_at": null
+}
+

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.modlock.invalid/v1/release.schema.json",
+  "title": "Immutable mod release",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "mod_id", "version", "source_kind", "status", "files", "created_at"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "id": { "type": "string", "pattern": "^rel_[A-Za-z0-9_-]{8,64}$" },
+    "mod_id": { "type": "string", "pattern": "^mod_[A-Za-z0-9_-]{8,64}$" },
+    "version": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "source_kind": { "type": "string", "enum": ["modlock-hosted", "gamebanana-linked", "external-linked"] },
+    "status": { "type": "string", "enum": ["draft", "scanning", "needs-moderation", "published", "deprecated", "revoked"] },
+    "changelog": { "type": "string", "maxLength": 20000 },
+    "tested_game_builds": { "type": "array", "maxItems": 100, "uniqueItems": true, "items": { "type": "string", "maxLength": 64 } },
+    "capabilities": { "type": "array", "maxItems": 64, "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9.-]{1,64}$" } },
+    "license": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["redistribution"],
+      "properties": {
+        "spdx": { "type": ["string", "null"], "maxLength": 128 },
+        "custom_url": { "type": ["string", "null"], "format": "uri" },
+        "redistribution": { "type": "string", "enum": ["allowed", "prohibited", "unknown"] }
+      }
+    },
+    "external_reference": { "anyOf": [{ "$ref": "external-reference.schema.json" }, { "type": "null" }] },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "size", "variant", "scan_state"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^file_[A-Za-z0-9_-]{8,64}$" },
+          "name": { "type": "string", "minLength": 1, "maxLength": 255 },
+          "size": { "type": "integer", "minimum": 0, "maximum": 10737418240 },
+          "sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+          "variant": { "type": "string", "minLength": 1, "maxLength": 64 },
+          "media_type": { "type": ["string", "null"], "maxLength": 128 },
+          "scan_state": { "type": "string", "enum": ["not-applicable", "pending", "clean", "needs-review", "rejected", "revoked"] },
+          "scan_attestation_id": { "type": ["string", "null"], "maxLength": 96 }
+        }
+      }
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "published_at": { "type": ["string", "null"], "format": "date-time" }
+  }
+}
+

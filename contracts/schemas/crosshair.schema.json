@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.modlock.invalid/v1/crosshair.schema.json",
+  "title": "Crosshair preset version",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "version_id", "name", "verification", "values", "tested_game_build"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "id": { "type": "string", "pattern": "^crosshair_[A-Za-z0-9_-]{8,64}$" },
+    "version_id": { "type": "string", "pattern": "^crosshairv_[A-Za-z0-9_-]{8,64}$" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "verification": { "type": "string", "enum": ["creator-verified", "creator-contributed", "community-reported", "unverified", "expired", "revoked"] },
+    "values": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 64,
+      "propertyNames": { "pattern": "^citadel_crosshair_[A-Za-z0-9_]+$" },
+      "additionalProperties": { "type": ["string", "number", "boolean"] }
+    },
+    "hero_preferences": { "type": "array", "maxItems": 100, "uniqueItems": true, "items": { "type": "string", "maxLength": 64 } },
+    "tested_game_build": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "source_evidence_urls": { "type": "array", "maxItems": 20, "items": { "type": "string", "format": "uri" } },
+    "approved_at": { "type": ["string", "null"], "format": "date-time" },
+    "expires_at": { "type": ["string", "null"], "format": "date-time" }
+  }
+}
+

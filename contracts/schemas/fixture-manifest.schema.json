@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.modlock.invalid/v1/fixture-manifest.schema.json",
+  "title": "Test fixture manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "fixture_id", "classification", "rights", "input", "expected"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "fixture_id": { "type": "string", "pattern": "^fixture_[a-z0-9_-]{3,96}$" },
+    "classification": { "type": "string", "enum": ["synthetic-valid", "licensed-valid", "adversarial", "malformed", "failure-injection"] },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["redistribution", "source"],
+      "properties": {
+        "redistribution": { "type": "string", "enum": ["allowed", "internal-only", "prohibited"] },
+        "license": { "type": ["string", "null"], "maxLength": 128 },
+        "source": { "type": "string", "minLength": 1, "maxLength": 2048 }
+      }
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "size": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "code"],
+      "properties": {
+        "decision": { "type": "string", "enum": ["accept", "reject", "needs-review", "recover"] },
+        "code": { "type": "string", "pattern": "^[A-Z0-9_]{3,64}$" },
+        "inventory_paths": { "type": "array", "maxItems": 10000, "items": { "type": "string", "maxLength": 512 } },
+        "notes": { "type": "string", "maxLength": 4000 }
+      }
+    }
+  }
+}
+
