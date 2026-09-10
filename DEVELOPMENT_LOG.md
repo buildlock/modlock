@@ -1,5 +1,21 @@
 # Development log
 
+## 2026-09-10 — First executable Rust transaction proof
+
+After accepted contract PR5 and green main CI, added only the pinned Cargo core,
+inert text fixtures and single-use journal/recovery slice needed for one runnable
+experiment. It uses an OS lock, fixed filesystem slots, flushed intent, staged
+generation, two-phase directory rename, exact digests and restart recovery.
+Errors/cancellation attempt rollback; changed files are preserved with an error.
+
+Local macOS tests pass 41 abrupt activation boundaries and six reverse-recovery
+boundaries plus contention, cancellation, corrupt records, path/resource and hash
+checks. Pinned Linux/Windows CI, actual Linux storage exhaustion, Windows file
+locking and a dependency audit are part of the source gate. The
+[proof record](docs/testing/synthetic-journal-proof.md) binds final evidence and
+remaining limitations. This does not complete SHO-129, the full scaffold/fixture
+jobs, production filesystem adapter, game compatibility or Phase 0.
+
 
 ## 2026-09-10 — Integrate the preserved Phase 0 contract foundation
 

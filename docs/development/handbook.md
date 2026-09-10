@@ -1,7 +1,23 @@
 # Development handbook
 
-Status: proposed until the code skeleton lands  
-Last reviewed: 2026-09-01
+Status: Rust core commands implemented; wider workspace remains proposed
+
+Last reviewed: 2026-09-10
+
+## Current commands
+
+Rust 1.98.1, rustfmt and Clippy are pinned in `rust-toolchain.toml`; Python
+3.13.15 and the same Rust version are pinned in `mise.toml`. Cargo.lock fixes the
+complete core dependency graph. `mise run fmt`, `mise run lint`, `mise run test`,
+`mise run test:recovery` and `mise run docs` are implemented. Cargo test runs no
+network or game operation; dependency installation is separate. The
+[synthetic proof guide](../testing/synthetic-journal-proof.md) contains the example,
+actual Linux ENOSPC runner and remaining platform boundaries.
+
+CI tests Linux and Windows Server with the pinned Rust toolchain, then requires
+both before the protected documentation/contracts gate can succeed. Dependency
+audit uses cargo-audit 0.22.2. Windows reference-machine and game proof remain
+separate. The broader command and repository plan below is still proposed.
 
 ## Planned toolchain
 
@@ -72,4 +88,3 @@ docs                     product, architecture, operations, and evidence
 ## CI gates
 
 Documentation/contracts; formatting/lint; unit/property tests; dependency/license policy; secret scan; generated-code drift; database migration compatibility; Windows and Linux compilation where applicable; integration and fuzz smoke tests; SBOM/artifact signing for releases.
-

@@ -21,6 +21,11 @@ This matrix connects stable feature IDs to planned implementation boundaries, ma
 
 ## Desktop
 
+Current partial implementation for DESK-004/013 lives in
+`crates/modlock-core/src/synthetic.rs`. The [proof record](../testing/synthetic-journal-proof.md)
+maps actual tests and platform evidence; the broader component/contracts/test
+table below remains a plan, and neither feature is fully implemented.
+
 | Feature | Primary components | Planned contracts | Existing Linear foundation | Minimum planned tests |
 |---|---|---|---|---|
 | [DESK-001](../features/desktop/DESK-001-onboarding.md) Onboarding | `apps/desktop`, `crates/modlock-core` | `local-settings.schema.json`, `game-instance.schema.json` | SHO-126, SHO-128, SHO-130 | `onboarding-offline`, `onboarding-no-write`, `onboarding-resume`, `onboarding-a11y` |

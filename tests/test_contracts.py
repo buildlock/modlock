@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import base64
 import tempfile
+import tomllib
 import unittest
 from pathlib import Path
 from typing import Any, Dict
@@ -679,7 +680,7 @@ class ContractConformanceTests(unittest.TestCase):
         self.assertIn("        run: python -I -B scripts/check_fresh.py\n", workflow)
         self.assertNotIn(".venv/bin/python", workflow)
         self.assertNotIn("3.12.5", workflow)
-        self.assertEqual('[tools]\npython = "3.13.15"\n', toolchain)
+        self.assertEqual("3.13.15", tomllib.loads(toolchain)["tools"]["python"])
 
     def test_corpus_manifest_pins_exact_conformance_bytes(self) -> None:
         manifest = self.valid_documents["fixture-corpus"]

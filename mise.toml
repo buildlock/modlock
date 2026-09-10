@@ -1,2 +1,18 @@
 [tools]
 python = "3.13.15"
+rust = "1.98.1"
+
+[tasks.fmt]
+run = "cargo fmt --all --check"
+
+[tasks.lint]
+run = "cargo clippy --workspace --all-targets --locked -- -D warnings"
+
+[tasks.test]
+run = "cargo test --workspace --locked"
+
+[tasks."test:recovery"]
+run = "cargo test --workspace --locked process_termination -- --nocapture"
+
+[tasks.docs]
+run = "python -I -B scripts/check_fresh.py"

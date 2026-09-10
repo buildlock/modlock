@@ -5,7 +5,7 @@
 | ID | `DESK-004` |
 | Owner | Desktop core/security |
 | Phase | Phase 2 |
-| Status | Draft |
+| Status | In_progress |
 
 ## Problem and user stories
 
@@ -50,5 +50,9 @@ Opt-in stage durations, outcome/error categories, rollback result, bytes buckets
 
 ## Dependencies and open questions
 
-Core contracts SHO-127, fixtures SHO-124, journal SHO-129, discovery SHO-128, DESK-008/009/013/015. OQ4 controls RAR/7z.
+Current partial evidence: the [synthetic journal proof](../../testing/synthetic-journal-proof.md)
+implements only bounded inert-tree activation, locking, validation and recovery.
+Its abrupt-termination suite covers the first acceptance criterion for that
+single-use scope. Download/host/signature/archive/game and UI criteria remain open.
 
+Core contracts SHO-127, fixtures SHO-124, journal SHO-129, discovery SHO-128, DESK-008/009/013/015. OQ4 controls RAR/7z.
