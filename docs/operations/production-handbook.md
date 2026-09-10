@@ -11,6 +11,11 @@ It is not a provider service, production game probe or deployment artifact.
 Do not connect this fixture adapter to real Steam paths; the production Windows
 filesystem/process boundary requires separate implementation and evidence.
 
+The [gameinfo planner](../testing/gameinfo-plan-proof.md) only returns proposed
+bytes after a matching input hash. No production code applies those bytes.
+Never substitute that precondition for the required authorized instance, stopped
+game, handle-safe transaction, durable journal and post-write verification.
+
 Production, staging, preview, CI, and local use separate databases, object namespaces/accounts, auth clients, email domains, signing/update roles, and credentials. No production database dump or unrestricted credential belongs on a developer workstation.
 
 ## Service inventory

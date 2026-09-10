@@ -31,6 +31,11 @@ in `keyvalues.rs` and `steam.rs`: actual parser limits, multiple fixture librari
 fresh overrides and moved/unsafe-candidate rejection. Registry/process detection,
 persistent associations and current-game compatibility remain unimplemented.
 
+DESK-013 also has a [pure gameinfo edit planner](../testing/gameinfo-plan-proof.md)
+in `gameinfo.rs`. Its disposable-file replacement tests cover latest-content
+preservation and unknown-structure refusal. Production write/lock/durability and
+game-process integration remain outside this source slice.
+
 | Feature | Primary components | Planned contracts | Existing Linear foundation | Minimum planned tests |
 |---|---|---|---|---|
 | [DESK-001](../features/desktop/DESK-001-onboarding.md) Onboarding | `apps/desktop`, `crates/modlock-core` | `local-settings.schema.json`, `game-instance.schema.json` | SHO-126, SHO-128, SHO-130 | `onboarding-offline`, `onboarding-no-write`, `onboarding-resume`, `onboarding-a11y` |

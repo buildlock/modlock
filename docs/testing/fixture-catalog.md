@@ -19,6 +19,12 @@ The [discovery guide](steam-discovery-proof.md) distinguishes these authored
 oracles from unverified real Steam/current-Deadlock compatibility. No licensed
 game/mod bytes are present, and this does not close the full SHO-124 corpus.
 
+The [gameinfo planner tests](../../crates/modlock-core/src/gameinfo/tests.rs)
+materialize authored `.gi` text and an unowned sibling, then simulate a replacement
+with new fields and paths. They preserve the replacement's unrelated bytes and
+refuse unknown layout. These are text-shape oracles, not copied Valve files or
+proof of current Deadlock compatibility.
+
 The current [Rust journal proof](synthetic-journal-proof.md) generates only inert
 ASCII `.txt` files directly from test source, with original/desired byte oracles
 and a sibling unowned sentinel. These are authored synthetic bytes, not a mod

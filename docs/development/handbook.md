@@ -18,6 +18,10 @@ actual Linux ENOSPC runner and remaining platform boundaries.
 [read-only discovery slice](../testing/steam-discovery-proof.md). They create and
 remove authored metadata/marker trees; no existing Steam folder or account is used.
 
+`cargo test gameinfo` checks [owned byte-edit planning](../testing/gameinfo-plan-proof.md),
+including simulated current-file replacement in owned temporary files. The core
+planner performs no disk write; production transaction integration is separate.
+
 CI tests Linux and Windows Server with the pinned Rust toolchain, then requires
 both before the protected documentation/contracts gate can succeed. Dependency
 audit uses cargo-audit 0.22.2. Windows reference-machine and game proof remain

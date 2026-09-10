@@ -4,6 +4,8 @@ Contract integration updated: **2026-09-10**
 
 The first executable core slice is the [synthetic journal proof](testing/synthetic-journal-proof.md).
 The next source slice is [read-only Steam fixture discovery](testing/steam-discovery-proof.md).
+An [owned gameinfo byte planner](testing/gameinfo-plan-proof.md) follows that
+accepted discovery slice; production game mutation is still unimplemented.
 It is a bounded developer experiment; source acceptance and remaining game/runtime
 work are tracked in [current status](../STATUS.md).
 

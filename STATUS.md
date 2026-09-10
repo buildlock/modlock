@@ -17,11 +17,19 @@ The [proof record](docs/testing/synthetic-journal-proof.md) describes exact scop
 evidence and limitations. SHO-129 is Done for its narrow synthetic prototype;
 the wider production adapter and game scope remain open.
 
-`codex/sho-128-steam-fixtures` adds bounded KeyValues parsing and read-only
+PR7 merged as `dc3a96b80ead8add2b857ebf4c522cdf4b91994d` after independent
+acceptance and all PR/main Linux/Windows checks passed. It adds KeyValues parsing and read-only
 discovery/override validation inside explicitly marked disposable fixture trees.
 The [discovery guide](docs/testing/steam-discovery-proof.md) records source,
-limits and tests. This source still needs independent review and final CI.
-SHO-128 remains In Progress for semantic gameinfo repair and full acceptance.
+limits and tests.
+
+`codex/sho-128-gameinfo-plan` adds a pure owned-search-path edit planner. It binds
+replacement bytes to the current input hash, preserves all unowned bytes and
+reconciles a simulated Valve replacement without restoring old content. The
+[gameinfo guide](docs/testing/gameinfo-plan-proof.md) records supported structure
+and test boundaries. Independent review and final CI remain. SHO-128 stays
+In Progress until its combined narrow prototype criteria are accepted; this is
+not a production game-file writer or installer.
 
 The one active contract authority is [contracts/v1](contracts/v1/index.json):
 closed-world schemas, conservative UTC/URL/Windows-path validation, typed CFG
@@ -39,7 +47,8 @@ they do not require evolving main to match a historical snapshot.
 Modlock remains a planned creator website and native Windows utility. There is
 no usable player application, API, installer, scanner, real mod corpus, game
 mutation or deployment. A developer can run the synthetic Rust journal example
-and its fault tests, plus Steam metadata/discovery tests. The contract fixtures contain synthetic
+and its fault tests, Steam metadata/discovery tests and gameinfo byte-edit tests.
+The contract fixtures contain synthetic
 metadata and zero materialized game/mod payloads. Contract acceptance does not
 complete Phase 0 or the wider SHO-127 API/client work.
 
@@ -56,8 +65,9 @@ procedures, and owner decision records. These are designs, not runtime evidence.
   authority resolution are separate unfinished work.
 - `SHO-129`: Done for the accepted single-use synthetic journal prototype.
   Wider path/fixture/install-plan/runtime acceptance remains unfinished.
-- `SHO-128`: In Progress. Verify the bounded discovery slice; semantic owned
-  gameinfo repair, real Steam registration and game-process validation remain.
+- `SHO-128`: In Progress. Review the current gameinfo byte planner and combined
+  prototype evidence. Real Steam registration, production filesystem mutation,
+  current-game compatibility and process detection remain unimplemented.
 - Only the necessary Rust/toolchain/fixture portions of MLK-P0-005/006/008/009/010
   are combined here. Web/API shells, generators and general installer scope remain.
 - `SHO-124`, full Windows/game proof and Phase 0 remain incomplete.

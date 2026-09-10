@@ -53,6 +53,12 @@ Opt-in drift/failure category, repair/rollback outcome and duration, journal sta
 Current partial evidence: the [synthetic journal proof](../../testing/synthetic-journal-proof.md)
 tests abrupt termination during activation and reverse recovery, exact digests,
 and preservation of changed files. It covers only fresh inert text trees;
-gameinfo semantics, repeated transactions, production path races and UI remain open.
+repeated transactions, production path races and UI remain open.
+
+The [gameinfo byte planner](../../testing/gameinfo-plan-proof.md) now proposes
+one marked semantic search-path edit against the latest supplied bytes. Its
+owned-file harness preserves simulated Valve replacement content, refuses
+unknown structure and rejects stale-source application. Final review/CI remain;
+the pure planner does not implement a production file writer or game check.
 
 Tracked by SHO-128/129; depends on DESK-002/004/005/006/007/010/016 and SHO-124 fault fixtures.

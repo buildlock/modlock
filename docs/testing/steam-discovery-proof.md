@@ -2,7 +2,7 @@
 
 Date: 2026-09-10
 Owner: Codex, SHO-128; one independent reviewer
-Status: local checks passed; independent source review and final CI pending
+Status: PR7 accepted and merged; all PR/main Linux/Windows checks passed
 
 ## Implemented scope
 
@@ -96,7 +96,10 @@ and cargo-audit 0.22.2 pass. The refreshed RustSec scan covers all 25 locked cra
 dependencies with zero vulnerabilities and no warnings. The fresh Python 3.13.15
 gate passes all 28 contract tests and removes its temporary environment.
 
-No Steam registry access, process detection, game launch, gameinfo patch, download,
+No Steam registry access, process detection, game launch, download,
 mutation, local database, UI or network operation is implemented here. SHO-128
-remains open for semantic owned-marker gameinfo repair and full prototype
+remains open for full prototype
 acceptance. DESK-002, production game compatibility and Phase 0 remain incomplete.
+
+The next [gameinfo byte planner](gameinfo-plan-proof.md) is separately implemented
+on accepted PR7. It proposes a minimal edit and has no filesystem write capability.

@@ -50,10 +50,10 @@ Opt-in outcome/error buckets, number-of-instances bucket, and duration; never pa
 
 ## Dependencies and open questions
 
-The [synthetic discovery proof](../../testing/steam-discovery-proof.md) implements
+Accepted PR7's [synthetic discovery proof](../../testing/steam-discovery-proof.md) implements
 bounded KeyValues parsing, multiple registered fixture libraries, app/build/depot
 metadata, fresh override validation and missing/moved/lookalike rejection without
-writes. Source review and final Linux/Windows CI remain. Tests use authored
+writes. Independent review and all PR/main Linux/Windows checks passed. Tests use authored
 metadata and exact inert evidence markers; current Valve file compatibility,
 Steam registry lookup, persistent associations and game-running detection are
 not implemented or inferred. This feature remains incomplete.

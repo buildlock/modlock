@@ -36,6 +36,10 @@ fn quotes_comments_and_unicode_are_data() {
     assert_eq!(parsed[1].value, Value::Text("é水".into()));
     assert_eq!(parsed[2].value, Value::Text(String::new()));
     assert!(parse(b"// only a comment").unwrap().is_empty());
+    assert_eq!(
+        parse(b"game fixture/custom/*").unwrap()[0].value,
+        Value::Text("fixture/custom/*".into())
+    );
 }
 
 #[test]
