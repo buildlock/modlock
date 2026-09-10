@@ -5,8 +5,10 @@
 .env.*
 !.env.example
 node_modules/
+.venv/
+__pycache__/
+*.py[cod]
 target/
 dist/
 build/
 *.log
-

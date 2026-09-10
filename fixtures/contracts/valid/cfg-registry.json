@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "contract": "modlock.cfg-registry",
+  "registry_id": "cfg_registry_fixture_001",
+  "registry_version": "0.0.0-fixture",
+  "state": "draft",
+  "game": {
+    "app_id": 1422450,
+    "build_id": "fixture-build-001",
+    "snapshot_at": "2026-08-30T16:00:00Z"
+  },
+  "settings": [
+    {
+      "name": "modlock_fixture_crosshair_b",
+      "status": "blocked",
+      "risk": "cosmetic",
+      "applies_to": "autoexec-owned-block",
+      "auto_apply": false,
+      "introduced_build_id": "fixture-build-001",
+      "last_verified_build_id": "fixture-build-001",
+      "provenance": {
+        "evidence_kind": "fixture-control",
+        "evidence_id": "evidence_fixture_cfg_b",
+        "observed_at": "2026-08-30T16:00:00Z",
+        "source_statement": "Synthetic conformance value only; not a verified Deadlock command."
+      },
+      "constraints": {
+        "value_type": "integer",
+        "minimum": 0,
+        "maximum": 255,
+        "default": 0
+      },
+      "render": "integer-decimal"
+    },
+    {
+      "name": "modlock_fixture_crosshair_r",
+      "status": "blocked",
+      "risk": "cosmetic",
+      "applies_to": "autoexec-owned-block",
+      "auto_apply": false,
+      "introduced_build_id": "fixture-build-001",
+      "last_verified_build_id": "fixture-build-001",
+      "provenance": {
+        "evidence_kind": "fixture-control",
+        "evidence_id": "evidence_fixture_cfg_r",
+        "observed_at": "2026-08-30T16:00:00Z",
+        "source_statement": "Synthetic conformance value only; not a verified Deadlock command."
+      },
+      "constraints": {
+        "value_type": "integer",
+        "minimum": 0,
+        "maximum": 255,
+        "default": 255
+      },
+      "render": "integer-decimal"
+    }
+  ]
+}

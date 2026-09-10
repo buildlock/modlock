@@ -1,5 +1,11 @@
 # Documentation completeness matrix
 
+> September 10 source update: the [active V1 foundation](../../contracts/README.md)
+> now has executable synthetic conformance. The API/schema/example outlines linked
+> below remain archived design; API generation, runtime and real-corpus proof are
+> still unfinished. See the [integration record](../handoffs/2026-09-10-contract-integration.md).
+
+
 Last reviewed: **2026-09-01**  
 Owner of this matrix: project documentation/control plane
 
@@ -60,9 +66,9 @@ Human dependencies use the authoritative `HUM-001`–`HUM-010` definitions in [d
 | Proposed ADRs [0005 API/data](../adr/0005-api-and-data-platform.md), [0007 auth](../adr/0007-auth-and-identity.md), and [0008 signing/telemetry](../adr/0008-updates-signing-telemetry.md) | Phase 0–2 | `draft-needs-owner/counsel` | Vendor/operator/telemetry/signing decisions and account ownership. | HUM-007, HUM-008, HUM-009 |
 | [ADR-0009 GameBanana adapter](../adr/0009-gamebanana-adapter.md) | Phase 0–1 | `draft-needs-owner/counsel` | Written GameBanana confirmation or independent fallback. | HUM-002 |
 | [ADR index](../adr/README.md) | All | `complete-design` | Keep individual statuses authoritative. | None |
-| [Contract rules](../../contracts/README.md), [OpenAPI v1](../../contracts/openapi/modlock-v1.openapi.json), and release/external/install/profile/pack/CFG/crosshair/error/fixture JSON Schemas | Phase 0–3 | `complete-design` | Add generated clients, compatibility tests, and source digests when code lands. | None |
+| [Contract rules](../../contracts/README.md), [OpenAPI v1](../design/2026-09-01-contract-outline/openapi/modlock-v1.openapi.json), and release/external/install/profile/pack/CFG/crosshair/error/fixture JSON Schemas | Phase 0–3 | `complete-design` | Add generated clients, compatibility tests, and source digests when code lands. | None |
 | Local `/Users/ahad/Dev/modlock-phase0-contracts` candidate | Phase 0 | `future-implementation` | **IMPLEMENTED BUT UNMERGED / SYNTHETIC OR TEST-ONLY:** independently review source-manifest SHA `561c36...`, reconcile seven canonical collisions and one contract authority; no runtime or real payload proof. | None; reviewer assignment required |
-| Release/install/profile/pack/crosshair/fixture [contract examples](../../contracts/examples/release.example.json) | Phase 0–3 | `complete-design` | Keep every example schema-valid and add negative/compatibility fixtures. | None |
+| Release/install/profile/pack/crosshair/fixture [contract examples](../design/2026-09-01-contract-outline/examples/release.example.json) | Phase 0–3 | `complete-design` | Keep every example schema-valid and add negative/compatibility fixtures. | None |
 | [API versioning/deprecation](../api/versioning-and-deprecation.md) and [error catalog](../api/error-catalog.md) | Phase 0–1 | `complete-design` | Enforce through CI, generated clients, and compatibility tests. | None |
 | [ERD](../data/erd.md) and [data dictionary](../data/data-dictionary.md) | Phase 0–1 | `complete-design` | Translate to migrations/constraints and validate retention behavior. | HUM-005, HUM-008 for final retention/business values |
 | [Development handbook](../development/handbook.md), root [CONTRIBUTING](../../CONTRIBUTING.md), and [versioning/release policy](../development/versioning-release-policy.md) | Phase 0–2 | `future-implementation` | Replace planned commands/tool versions with verified bootstrap/CI/release flows. | HUM-007 for license/contribution ownership |

@@ -1,6 +1,6 @@
 # Requirements traceability
 
-This matrix connects stable feature IDs to planned implementation boundaries, machine-readable contracts, current Linear discovery work, and minimum automated test suites. The core [OpenAPI and contract set](../../contracts/README.md) now exists for releases, external references, install plans, profiles, packs, CFG settings, crosshairs, errors, and fixtures. Contract/test names in the tables that are not present in that index remain intentionally planned extension contracts rather than broken links.
+This matrix connects stable feature IDs to planned implementation boundaries, machine-readable contracts, current Linear discovery work, and minimum automated test suites. The [active synthetic contract foundation](../../contracts/README.md) covers hosted releases, external references, install plans, profiles, packs, CFG settings, unverified registries and metadata-only fixtures. API, crosshair and error shapes remain deferred design, with no generated client or runtime acceptance. Contract/test names in the tables that are not present in that index remain intentionally planned extension contracts rather than broken links.
 
 ## Website
 

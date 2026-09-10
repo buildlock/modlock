@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "contract": "modlock.external-reference",
+  "external_reference_id": "ext_fixture_verified_002",
+  "state": "resolvable",
+  "observed_at": "2026-08-30T13:10:00Z",
+  "provider": {
+    "kind": "creator-hosted",
+    "provider_record_id": "fixture-record-001",
+    "provider_file_id": "fixture-file-001"
+  },
+  "creator": {
+    "creator_id": "creator_fixture_external",
+    "display_name": "Synthetic External Fixture Author",
+    "canonical_url": "https://source.example.invalid/creator"
+  },
+  "provenance": {
+    "kind": "external-linked",
+    "canonical_page": "https://source.example.invalid/releases/fixture",
+    "authoritative_host": "source.example.invalid",
+    "raw_metadata_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "source_statement": "Synthetic external-reference metadata only; no provider response or payload is present."
+  },
+  "rights": {
+    "license": {
+      "kind": "none",
+      "notice": "Synthetic metadata does not grant binary redistribution rights."
+    },
+    "hosting_authorization": "not-granted",
+    "redistribution": "restricted",
+    "modification": "restricted",
+    "third_party_assets": "none",
+    "uploader_affirmed_at": "2026-08-30T13:00:00Z"
+  },
+  "game": {
+    "app_id": 1422450,
+    "compatibility_state": "tested",
+    "tested_build_ids": [
+      "fixture-build-001"
+    ]
+  },
+  "artifact": {
+    "filename": "synthetic_dir.vpk",
+    "digest_state": "verified",
+    "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "size_bytes": 256,
+    "media_type": "application/x-vpk",
+    "target_kind": "vpk-addon",
+    "scan": {
+      "state": "clean",
+      "attestation_id": "att_fixture_external_002",
+      "artifact_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "scanner_version": "fixture-scanner-0",
+      "completed_at": "2026-08-30T13:05:00Z"
+    }
+  },
+  "storage_policy": "source-only",
+  "resolution_policy": "fresh-adapter-resolution"
+}

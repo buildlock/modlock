@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:modlock:contracts:v1:common",
+  "title": "Modlock V1 common definitions",
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 96,
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[0-9A-Za-z][0-9A-Za-z._+-]*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "modlock-date-time"
+    },
+    "https_url": {
+      "type": "string",
+      "format": "modlock-https-url",
+      "maxLength": 2048
+    },
+    "relative_path": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "creator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "creator_id",
+        "display_name",
+        "canonical_url"
+      ],
+      "properties": {
+        "creator_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "canonical_url": {
+          "$ref": "#/$defs/https_url"
+        }
+      }
+    },
+    "license": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "expression"
+          ],
+          "properties": {
+            "kind": {
+              "const": "spdx"
+            },
+            "expression": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "terms_url"
+          ],
+          "properties": {
+            "kind": {
+              "const": "custom"
+            },
+            "terms_url": {
+              "$ref": "#/$defs/https_url"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "notice"
+          ],
+          "properties": {
+            "kind": {
+              "const": "none"
+            },
+            "notice": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 300
+            }
+          }
+        }
+      ]
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "license",
+        "hosting_authorization",
+        "redistribution",
+        "modification",
+        "third_party_assets",
+        "uploader_affirmed_at"
+      ],
+      "properties": {
+        "license": {
+          "$ref": "#/$defs/license"
+        },
+        "hosting_authorization": {
+          "enum": [
+            "affirmed",
+            "not-granted",
+            "unknown"
+          ]
+        },
+        "redistribution": {
+          "enum": [
+            "allowed",
+            "restricted",
+            "unknown"
+          ]
+        },
+        "modification": {
+          "enum": [
+            "allowed",
+            "restricted",
+            "unknown"
+          ]
+        },
+        "third_party_assets": {
+          "enum": [
+            "none",
+            "disclosed",
+            "unknown"
+          ]
+        },
+        "uploader_affirmed_at": {
+          "$ref": "#/$defs/timestamp"
+        }
+      }
+    },
+    "game": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "app_id",
+        "compatibility_state",
+        "tested_build_ids"
+      ],
+      "properties": {
+        "app_id": {
+          "const": 1422450
+        },
+        "compatibility_state": {
+          "enum": [
+            "tested",
+            "author-declared",
+            "unknown"
+          ]
+        },
+        "tested_build_ids": {
+          "type": "array",
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96
+          }
+        }
+      }
+    },
+    "hosted_source_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "release_id",
+        "file_id",
+        "variant_id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "hosted-release"
+        },
+        "release_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "file_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "variant_id": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "external_source_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "external_reference_id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "external-reference"
+        },
+        "external_reference_id": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "source_ref": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/hosted_source_ref"
+        },
+        {
+          "$ref": "#/$defs/external_source_ref"
+        }
+      ]
+    }
+  }
+}

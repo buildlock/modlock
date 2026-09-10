@@ -1,10 +1,10 @@
 # Modlock documentation control plane
 
-Last inventoried: **2026-09-01**
+Contract integration updated: **2026-09-10**
 
 This page is the entry point for product, engineering, trust, operations, support, and evidence documentation. The repository contains a complete design baseline, not a finished product. Policy, moderation, and operations documents marked draft have **not** been approved by counsel or proven against production systems. Windows/game behavior remains provisional until the required Windows and sacrificial-install evidence is attached.
 
-See the [2026-09-01 deterministic project control packet](handoffs/2026-09-01-project-control-packet.md) for the live GitHub/CI/Linear/Graphify evidence, feature/readiness state, linked-worktree collision, exact dependency queue, and next eligible job. See the [documentation completeness matrix](project/documentation-matrix.md) for the status and remaining approval/evidence boundary of each package. See [delivery ownership](project/ownership.md) before assigning a human dependency.
+See the [September 10 integration record](handoffs/2026-09-10-contract-integration.md) and [current status](../STATUS.md) for source acceptance and the next job. The [September 1 control packet](handoffs/2026-09-01-project-control-packet.md) retains its dated audit and planning graph. See the [documentation completeness matrix](project/documentation-matrix.md) for the status and remaining approval/evidence boundary of each package. See [delivery ownership](project/ownership.md) before assigning a human dependency.
 
 ## Start by audience
 
@@ -34,7 +34,7 @@ Phase 0 is not complete until the human dependencies in [ownership](project/owne
 ### Phase 1 — website/platform MVP
 
 - Requirements: [WEB-001–WEB-012](features/README.md#website), [product specification](02-product-specification.md), and [information architecture](design/information-architecture.md).
-- Implementation contracts: [OpenAPI](../contracts/openapi/modlock-v1.openapi.json), release/external/error schemas, [API policy](api/versioning-and-deprecation.md), and [data model](data/erd.md).
+- Deferred API design: [OpenAPI](design/2026-09-01-contract-outline/openapi/modlock-v1.openapi.json), release/external/error schemas, [API policy](api/versioning-and-deprecation.md), and [data model](data/erd.md).
 - Trust boundary: upload/scanner ADR, threat model, moderation drafts, policy drafts, and retention design. Draft public policies require operator values and counsel before public accounts/uploads.
 
 ### Phase 2 — desktop core alpha
@@ -64,7 +64,7 @@ Phase 0 is not complete until the human dependencies in [ownership](project/owne
 - Core package: [executive brief](00-executive-brief.md), [ecosystem research](01-ecosystem-research.md), [product specification](02-product-specification.md), [platform architecture](03-platform-architecture.md), [desktop design](04-desktop-technical-design.md), [security/legal boundary](05-security-moderation-legal.md), [roadmap](06-roadmap.md), and [sources](07-sources.md).
 - Project controls: [ownership](project/ownership.md), [RACI](project/raci.md), [decision checklist](project/decision-checklist.md), [outreach packets](project/outreach-packets.md), [Windows test-host checklist](project/windows-test-host-checklist.md), [counsel review packet](project/counsel-review-packet.md), [risk register](project/risk-register.md), [glossary](project/glossary.md), [open questions](open-questions.md), and [Linear backlog mirror](linear-backlog.md).
 - Research execution: [interview plan](research/interview-plan.md) and [pilot recruitment checklist](research/pilot-recruitment-checklist.md).
-- Current checkpoint: [2026-09-01 deterministic project control packet](handoffs/2026-09-01-project-control-packet.md). Supporting baseline: [2026-09-01 complete documentation handoff](handoffs/2026-09-01-main-documentation-baseline.md). Historical checkpoint: [2026-08-26 research/architecture handoff](handoffs/2026-08-26-main-research-architecture.md).
+- Current checkpoint: [September 10 integration](handoffs/2026-09-10-contract-integration.md). Dated planning graph: [September 1 control packet](handoffs/2026-09-01-project-control-packet.md). Supporting baseline: [2026-09-01 complete documentation handoff](handoffs/2026-09-01-main-documentation-baseline.md). Historical checkpoint: [2026-08-26 research/architecture handoff](handoffs/2026-08-26-main-research-architecture.md).
 
 ### Architecture decision records
 
@@ -82,9 +82,10 @@ Phase 0 is not complete until the human dependencies in [ownership](project/owne
 
 ### Contracts and data
 
-- [Contract rules/index](../contracts/README.md) and [OpenAPI v1 outline](../contracts/openapi/modlock-v1.openapi.json).
-- JSON Schemas: [release](../contracts/schemas/release.schema.json), [external reference](../contracts/schemas/external-reference.schema.json), [install plan](../contracts/schemas/install-plan.schema.json), [profile](../contracts/schemas/profile.schema.json), [pack](../contracts/schemas/pack.schema.json), [CFG setting](../contracts/schemas/cfg-setting.schema.json), [crosshair](../contracts/schemas/crosshair.schema.json), [error](../contracts/schemas/error.schema.json), and [fixture manifest](../contracts/schemas/fixture-manifest.schema.json).
-- Contract examples: [release](../contracts/examples/release.example.json), [install plan](../contracts/examples/install-plan.example.json), [profile](../contracts/examples/profile.example.json), [pack](../contracts/examples/pack.example.json), [crosshair](../contracts/examples/crosshair.example.json), and [fixture manifest](../contracts/examples/fixture-manifest.example.json).
+- [Active contract rules](../contracts/README.md) and [V1 schema index](../contracts/v1/index.json).
+- Active JSON Schemas: [hosted release](../contracts/v1/schemas/hosted-release.schema.json), [external reference](../contracts/v1/schemas/external-reference.schema.json), [install plan](../contracts/v1/schemas/install-plan.schema.json), [profile](../contracts/v1/schemas/profile.schema.json), [pack](../contracts/v1/schemas/pack.schema.json), [CFG setting](../contracts/v1/schemas/cfg-setting.schema.json), [unverified CFG registry](../contracts/v1/schemas/cfg-registry.schema.json), and [synthetic fixture corpus](../contracts/v1/schemas/fixture-corpus.schema.json).
+- Positive and hostile [synthetic conformance fixtures](../fixtures/README.md); no real game or mod payloads.
+- [Deferred September 1 API/crosshair/error outline and superseded examples](design/2026-09-01-contract-outline/README.md); excluded from active generation/validation.
 - [Nonfunctional requirements](architecture/nonfunctional-requirements.md), [authorization matrix](architecture/authorization-matrix.md), [API versioning/errors/pagination/deprecation](api/versioning-and-deprecation.md), [error catalog](api/error-catalog.md), [ERD](data/erd.md), and [data dictionary](data/data-dictionary.md).
 
 ### Product and design

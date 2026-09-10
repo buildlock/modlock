@@ -1,50 +1,69 @@
 # Modlock status
 
-Last updated: **2026-09-01**
+Last updated: **2026-09-10**
 
-## Current state
+## Current source
 
-Modlock is a greenfield two-part Deadlock mod platform:
+`codex/sho-127-contract-integration` brings the previously uncommitted Phase 0
+contract foundation onto current main. Independent review chose **KEEP the
+foundation; REWORK integration** after fresh contract tests passed. The two
+SHO-275 defects—malformed HTTPS components and pack chronology—are corrected.
+The full integrated fresh gate passes all 28 tests, 138 Markdown files, 37 JSON
+files, 29 feature pages and 10 ADRs. Final integration review and CI remain
+before this source merges.
 
-1. A website for creator-controlled uploads, showcases, downloads, presets, and packs.
-2. A lightweight native Windows utility for transactional installs, profiles, CFG editing, crosshairs, and creator-approved player packs.
+The one active contract authority is [contracts/v1](contracts/v1/index.json):
+closed-world schemas, conservative UTC/URL/Windows-path validation, typed CFG
+values with auto-apply disabled, exact-digest source rights, and a five-document
+synthetic authority graph. Signature records are explicitly unverified. The
+[older API/schema outlines](docs/design/2026-09-01-contract-outline/README.md)
+are deferred design, excluded from active contract validation and generation.
 
-The full design-stage documentation baseline is complete. **VERIFIED CURRENT:** product implementation has not started on merged `main`; the repository contains documentation, design contracts/examples, an offline documentation validator, and documentation-only CI. No Modlock application, service, database, migration, provider configuration, deployment, or release is represented or production-proven.
+The historical August 31 manifest and old candidate worktree remain preserved.
+Fresh checks capture and verify the current source inventory around each run;
+they do not require evolving main to match a historical snapshot.
 
-**IMPLEMENTED BUT UNMERGED / SYNTHETIC OR TEST-ONLY:** a separate dirty worktree at `/Users/ahad/Dev/modlock-phase0-contracts` contains a stricter V1 contract/conformance candidate. It is four commits behind current main, unpushed, has no PR, uses metadata-only synthetic controls with no materialized payloads, and overlaps seven canonical files plus the contract source-of-truth layout. Its self-reported green gate is not independent acceptance. See the [project control packet](docs/handoffs/2026-09-01-project-control-packet.md).
+## What exists for users
 
-## Completed
+Modlock remains a planned creator website and native Windows utility. There is
+no usable application, API, installer, scanner, transaction journal, real mod
+corpus, game mutation or deployment. The contract fixtures contain synthetic
+metadata and zero materialized game/mod payloads. Contract acceptance does not
+complete Phase 0 or the wider SHO-127 API/client work.
 
-- Completed pinned September 1 DMM and GameBanana teardowns, GameBanana adapter specification, current snapshot, and explicit clean-room evidence boundary.
-- Completed 29 implementation-grade website/desktop feature pages, competitive capability matrix, and requirements traceability.
-- Added OpenAPI and nine JSON Schemas plus examples for releases, external references, install plans, profiles, packs, CFG, crosshairs, errors, and fixtures.
-- Completed ADRs, ERD/data dictionary, nonfunctional requirements, authorization, UX/accessibility/analytics, risk/ownership/RACI, test/fixture/fuzz/performance/QA plans, and developer handbook.
-- Completed threat/privacy design, moderation SOPs, provider-neutral operations/release/recovery runbooks, draft public policies, and player/creator/support guides.
-- Added an offline CI documentation gate covering JSON, `$ref` targets, Markdown links/fences, feature completeness/IDs, ADR metadata, required package files, and formatting.
-- Prepared send-ready Valve/GameBanana/creator outreach, counsel packet, research plan, Windows host checklist, and exact human dependency map.
-- Audited live GitHub/CI, Linear, Graphify, the linked Phase 0 worktree, and BuildLock/Deadlock-Infra boundaries; added a deterministic 50-job dependency queue with evidence gates and exactly one eligible engineering job.
+The September 1 documentation baseline remains available: 29 feature designs,
+clean-room research, architecture, threat/rights models, test plans, operating
+procedures, and owner decision records. These are designs, not runtime evidence.
 
-## Current milestone
+## Current job and next action
 
-**[Phase 0 — validation and risk retirement](https://linear.app/shopliftdigital/project/modlock-72fa0f6e1ed8)**
+- `MLK-P0-001`: independent candidate review complete; foundation retained.
+- `MLK-P0-003`: deliberate current-main integration prepared in this branch.
+- `MLK-P0-004`: independent integration review and fresh CI remain.
+- `SHO-275`: await integration acceptance before closing the release blockers.
+- `SHO-127`: remains In Progress; API/generated-client adoption and general
+  authority resolution are separate unfinished work.
+- After accepted source merge, `MLK-P0-005` may scaffold the pinned local
+  workspace. Journal/recovery work uses only disposable synthetic trees.
+- `SHO-124`, `SHO-129`, Windows proof and Phase 0 remain incomplete.
 
-The milestone still aims to prove the native footprint and transactional installer while clarifying Valve and GameBanana boundaries. The immediate gate is contract-candidate review and current-main reconciliation; scaffolding must not start first.
+See the [integration record](docs/handoffs/2026-09-10-contract-integration.md)
+for exact source provenance and path dispositions. The September 1 control
+packet remains a dated planning record; this status and the current handoff
+supersede its initial candidate-review pointer.
 
-## Next action
+## Owner and external gates
 
-Run **exactly one next eligible engineering job**: `MLK-P0-001` / SHO-275, an independent read-only review of the dirty Phase 0 candidate at source-manifest SHA `561c36ecf75137d636969f736d64a34eda19b786bc6a4ba271e7c432679eb5f3`. Require a different-model P0–P2 verdict, full fresh gate, and path-by-path collision/integration manifest. A keep verdict proceeds to deliberate integration; rework requires remediation and fresh re-review; discard routes to a clean current-main replacement plus independent review. Scaffolding stays blocked until one path is integrated, reviewed, accepted, and merged through an authorized lane.
+- Ahad must authorize any Valve/GameBanana outreach; no private permission or
+  current-build compatibility is established by local source tests.
+- A designated Windows reference host and separately approved sacrificial game
+  install are required for native/game evidence.
+- Real fixtures, redistribution, pilots and creator approval require exact
+  rights/consent records. Current fixtures contain no third-party payload.
+- Counsel, legal operator, signing identity, provider accounts and production
+  release decisions remain outside this source integration.
+- Shared identity/registry ownership choices remain with the portfolio owner.
 
-The authoritative dependency order, writer/reviewer split, collision groups, commands, and evidence requirements are in the [deterministic queue](docs/handoffs/2026-09-01-project-control-packet.md#deterministic-local-job-queue).
-
-## Known blockers and open decisions
-
-- Ahad must authorize/send Valve and GameBanana outreach; neither platform has granted a private integration/policy approval.
-- Ahad must provide the Windows reference host and approve a sacrificial Deadlock install for credible runtime evidence.
-- Counsel must approve operator/jurisdiction-specific public policies and platform/legal interpretations.
-- Ahad must recruit pilot creators/players and obtain exact hosting/fixture/artifact consent.
-- Legal operator, product-name clearance, signing identity, production accounts, and final business/risk choices remain owner decisions.
-- Ahad/portfolio architecture must resolve the canonical Modlock-vs-BuildLock mod registry, shared artifact envelope, and central identity issuer before cross-product implementation.
-
-See [delivery ownership](docs/project/ownership.md), [documentation matrix](docs/project/documentation-matrix.md), [open questions](docs/open-questions.md), and the [current handoff](HANDOFF.md).
-
-Linear execution is seeded in the Shoplift Digital workspace. The mirrored, reconstructable issue index is [docs/linear-backlog.md](docs/linear-backlog.md).
+[Open questions](docs/open-questions.md), [ownership](docs/project/ownership.md),
+[Linear backlog](docs/linear-backlog.md), and [handoff](HANDOFF.md) remain the
+entry points for those decisions. No provider or game action occurred here.

@@ -1,6 +1,6 @@
 # Linear seed backlog
 
-This file mirrors the Linear project and its evidence-backed reconciliation so the project can be reconstructed from Git history if external state is lost. Live status was audited `2026-09-01T01:28:24-07:00`; issue state is not implementation evidence.
+This file mirrors the Linear project and its evidence-backed reconciliation so the project can be reconstructed from Git history if external state is lost. Issue statuses were rechecked September 10, 2026; source integration is in progress; issue state is not implementation evidence.
 
 - [Modlock Linear project](https://linear.app/shopliftdigital/project/modlock-72fa0f6e1ed8)
 - [Documentation baseline and owner action queue](https://linear.app/shopliftdigital/document/modlock-documentation-baseline-and-owner-action-queue-3f4fa369309c)
@@ -12,8 +12,8 @@ All issues were unassigned at audit time.
 
 | Issue | Live state | Dependency/evidence state | Required reconciliation |
 |---|---|---|---|
-| [SHO-275 — Fix both independent release blockers](https://linear.app/shopliftdigital/issue/SHO-275/sho-127a-fix-both-independent-release-blockers) | In Progress | Blocks SHO-127. Writer reports local completion in dirty/unpushed worktree; independent acceptance absent. | Move to `In Review` only when a different reviewer claims `MLK-P0-001`; add Phase 0 milestone and reviewer. Never mark Done from the self-report. |
-| [SHO-127 — Define V1 contracts and manifests](https://linear.app/shopliftdigital/issue/SHO-127/define-v1-api-package-profile-pack-and-cfg-contracts) | In Progress | Correctly blocked by SHO-275. Current main and candidate have competing contract layouts. | Keep blocked through review, deliberate integration, independent exact-head review, CI, and authorized merge. |
+| [SHO-275 — Fix both independent release blockers](https://linear.app/shopliftdigital/issue/SHO-275/sho-127a-fix-both-independent-release-blockers) | In Progress | Blocks SHO-127. Independent candidate review retained the foundation; current-main integration review and CI remain. | Close only after the two fixes pass final integrated review/CI and source merge; synthetic contract scope only. |
+| [SHO-127 — Define V1 contracts and manifests](https://linear.app/shopliftdigital/issue/SHO-127/define-v1-api-package-profile-pack-and-cfg-contracts) | In Progress | Correctly blocked by SHO-275. The integration selects one active V1 layout; API/client and general resolver work remain unfinished. | Keep blocked through review, deliberate integration, independent exact-head review, CI, and authorized merge. |
 | [SHO-129 — Prototype Rust journal/recovery](https://linear.app/shopliftdigital/issue/SHO-129/prototype-rust-transaction-journal-and-crash-recovery) | Backlog | Merely related to SHO-127/275; no Rust/runtime exists on main. | Add formal `blockedBy SHO-127`; do not start before accepted contracts/scaffold/fixtures. |
 | [SHO-124 — Licensed/adversarial fixture corpus](https://linear.app/shopliftdigital/issue/SHO-124/build-licensed-and-adversarial-mod-fixture-corpus) | Backlog | Candidate has 13 metadata-only controls and zero materialized payloads. | Keep Backlog; split synthetic materialization from rights-cleared real fixtures during execution. |
 | [SHO-125 — GameBanana terms](https://linear.app/shopliftdigital/issue/SHO-125/confirm-gamebanana-api-and-one-click-manager-terms) | Backlog | Public technical audit complete; written terms/manager confirmation absent. | Keep Backlog until HUM-002 authorizes outreach; use outbound-link fallback. |
@@ -26,9 +26,9 @@ All issues were unassigned at audit time.
 
 ## Deterministic priority
 
-1. **NEXT ELIGIBLE:** `MLK-P0-001` / SHO-275 independent read-only candidate review.
-2. Follow the verdict: conditional candidate remediation plus fresh review, or a clean current-main replacement plus independent review after discard.
-3. SHO-127/275 current-main contract reconciliation and separate integration review/CI.
+1. **CURRENT:** `MLK-P0-003` deliberate current-main integration of the independently retained foundation.
+2. Finish `MLK-P0-004` integration review, fresh CI and accepted source merge.
+3. Close the narrow SHO-275 release defects; retain broader SHO-127 unfinished API/client/resolver scope.
 4. Scaffold pinned toolchains/workspaces/product CI.
 5. Materialize synthetic fixtures, then path/staging, journal, recovery, discovery, and parser proofs.
 6. Owner-authorized Valve/GameBanana/Windows/pilot and portfolio-architecture lanes may run in their separate collision groups.

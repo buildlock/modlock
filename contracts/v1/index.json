@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "contract": "modlock.contract-index",
+  "contracts": [
+    {
+      "name": "hosted-release",
+      "schema_id": "urn:modlock:contracts:v1:hosted-release",
+      "path": "schemas/hosted-release.schema.json"
+    },
+    {
+      "name": "external-reference",
+      "schema_id": "urn:modlock:contracts:v1:external-reference",
+      "path": "schemas/external-reference.schema.json"
+    },
+    {
+      "name": "install-plan",
+      "schema_id": "urn:modlock:contracts:v1:install-plan",
+      "path": "schemas/install-plan.schema.json"
+    },
+    {
+      "name": "profile",
+      "schema_id": "urn:modlock:contracts:v1:profile",
+      "path": "schemas/profile.schema.json"
+    },
+    {
+      "name": "pack",
+      "schema_id": "urn:modlock:contracts:v1:pack",
+      "path": "schemas/pack.schema.json"
+    },
+    {
+      "name": "cfg-setting",
+      "schema_id": "urn:modlock:contracts:v1:cfg-setting",
+      "path": "schemas/cfg-setting.schema.json"
+    },
+    {
+      "name": "cfg-registry",
+      "schema_id": "urn:modlock:contracts:v1:cfg-registry",
+      "path": "schemas/cfg-registry.schema.json"
+    },
+    {
+      "name": "fixture-corpus",
+      "schema_id": "urn:modlock:contracts:v1:fixture-corpus",
+      "path": "schemas/fixture-corpus.schema.json"
+    }
+  ],
+  "supporting_schemas": [
+    {
+      "name": "common",
+      "schema_id": "urn:modlock:contracts:v1:common",
+      "path": "schemas/common.schema.json"
+    }
+  ]
+}

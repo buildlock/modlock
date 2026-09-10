@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "contract": "modlock.pack",
+  "pack_id": "pack_fixture_player",
+  "pack_version_id": "pack_version_fixture_001",
+  "version": "1.0.0",
+  "version_sha256": "fd4f6a3efddfe29ac34aecb622c2565e8c0e7e2cd3219bac882e8681903d38e8",
+  "state": "published",
+  "creator": {
+    "creator_id": "creator_fixture_pack",
+    "display_name": "Synthetic Pack Curator",
+    "canonical_url": "https://example.invalid/fixture-pack-curator"
+  },
+  "provenance": {
+    "kind": "modlock-pack",
+    "canonical_page": "https://example.invalid/packs/synthetic-player-pack",
+    "created_at": "2026-08-30T15:00:00Z",
+    "source_statement": "Repository-authored synthetic reference manifest; no item payloads are embedded."
+  },
+  "rights_scope": "pack-metadata-only; item rights remain independent",
+  "approval": {
+    "status": "creator-verified",
+    "approver_creator_id": "creator_fixture_pack",
+    "approved_version_sha256": "fd4f6a3efddfe29ac34aecb622c2565e8c0e7e2cd3219bac882e8681903d38e8",
+    "approved_at": "2026-08-30T15:10:00Z",
+    "expires_at": "2026-09-30T15:10:00Z"
+  },
+  "embedded_payloads": false,
+  "items": [
+    {
+      "item_id": "pack_item_fixture_alpha",
+      "source": {
+        "kind": "hosted-release",
+        "release_id": "rel_fixture_cosmetic_001",
+        "file_id": "file_fixture_vpk_001",
+        "variant_id": "default"
+      },
+      "artifact_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "rights_sha256": "9b6c78f55833338c93b97293d1321c617004c82fd2a2cf878e1535d94f58f389",
+      "variant_id": "default",
+      "priority": 10,
+      "required": true,
+      "known_conflicts": [
+        "conflict_fixture_alpha",
+        "conflict_fixture_beta"
+      ]
+    },
+    {
+      "item_id": "pack_item_fixture_beta",
+      "source": {
+        "kind": "external-reference",
+        "external_reference_id": "ext_fixture_verified_002"
+      },
+      "artifact_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "rights_sha256": "d13cf996dcb71c1483eed334aa7f4e462ccb42529fc69f587db6f96bb80472b4",
+      "variant_id": "default",
+      "priority": 20,
+      "required": false,
+      "known_conflicts": []
+    }
+  ]
+}

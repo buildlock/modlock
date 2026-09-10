@@ -2,9 +2,16 @@
 
 The estimates below assume a small experienced team with product/design, web/backend, Windows/Rust, and moderation/operations coverage. They are sequencing ranges, not a fixed commitment.
 
-## Current deterministic gate — 2026-09-01
+## Current source gate — 2026-09-10
 
-Merged main is documentation/contracts-only. A stronger contract/conformance candidate exists in a dirty, unpushed linked worktree and conflicts with current-main canonical docs and contract layout. Therefore the next eligible engineering job is independent read-only review of SHO-275/the candidate, followed by deliberate current-main integration and separate review. Monorepo scaffolding and feature work are blocked until that gate passes. The exact queue and evidence contracts are in the [project control packet](handoffs/2026-09-01-project-control-packet.md#deterministic-local-job-queue).
+Independent review retained the preserved synthetic contract foundation and
+required deliberate integration. The current integration selects one active
+V1 layout and retains older API designs as a deferred archive. Final exact
+source review and fresh CI must pass before merge. The next eligible source
+step after that merge is the local scaffold, followed by synthetic fixtures
+and bounded journal/recovery proof. No application runtime exists yet.
+See the [integration record](handoffs/2026-09-10-contract-integration.md) and
+[current status](../STATUS.md); the September 1 planning graph is historical.
 
 Policy outreach, pilot recruitment, Windows-host preparation, and portfolio architecture decisions may proceed in their separate owner-authorized collision groups, but are not READY until their named human dependency is supplied.
 

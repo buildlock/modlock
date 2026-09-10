@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "contract": "modlock.install-plan",
+  "plan_id": "plan_fixture_001",
+  "state": "ready",
+  "issued_at": "2026-08-30T16:00:00Z",
+  "expires_at": "2026-08-30T16:15:00Z",
+  "source_request": {
+    "kind": "pack-version",
+    "pack_version_id": "pack_version_fixture_001",
+    "pack_version_sha256": "fd4f6a3efddfe29ac34aecb622c2565e8c0e7e2cd3219bac882e8681903d38e8"
+  },
+  "game": {
+    "app_id": 1422450,
+    "game_instance_id": "game_fixture_install_001",
+    "expected_build_id": "fixture-build-001",
+    "compatibility_state": "tested"
+  },
+  "safety": {
+    "mutation_mode": "transactional-reversible",
+    "game_running_policy": "block",
+    "staging_required": true,
+    "journal_required": true,
+    "validation_required": true,
+    "rollback_required": true,
+    "base_vpk_mutation_allowed": false
+  },
+  "items": [
+    {
+      "item_id": "item_fixture_plan_001",
+      "state": "ready",
+      "required": true,
+      "priority": 10,
+      "source": {
+        "kind": "hosted-release",
+        "release_id": "rel_fixture_cosmetic_001",
+        "file_id": "file_fixture_vpk_001",
+        "variant_id": "default"
+      },
+      "artifact": {
+        "filename": "synthetic_dir.vpk",
+        "size_bytes": 128,
+        "media_type": "application/x-vpk",
+        "digest_state": "exact",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "scan_state": "clean"
+      },
+      "target": {
+        "kind": "managed-vpk",
+        "root": "modlock-managed-addons",
+        "relative_path": "managed/pak01_dir.vpk"
+      },
+      "rights_sha256": "9b6c78f55833338c93b97293d1321c617004c82fd2a2cf878e1535d94f58f389",
+      "warnings": []
+    },
+    {
+      "item_id": "item_fixture_plan_002",
+      "state": "ready",
+      "required": false,
+      "priority": 20,
+      "source": {
+        "kind": "external-reference",
+        "external_reference_id": "ext_fixture_verified_002"
+      },
+      "artifact": {
+        "filename": "synthetic_dir.vpk",
+        "size_bytes": 256,
+        "media_type": "application/x-vpk",
+        "digest_state": "exact",
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "scan_state": "clean"
+      },
+      "target": {
+        "kind": "managed-vpk",
+        "root": "modlock-managed-addons",
+        "relative_path": "managed/pak02_dir.vpk"
+      },
+      "rights_sha256": "d13cf996dcb71c1483eed334aa7f4e462ccb42529fc69f587db6f96bb80472b4",
+      "warnings": []
+    }
+  ],
+  "block_reasons": []
+}

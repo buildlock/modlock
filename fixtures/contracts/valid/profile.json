@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "contract": "modlock.profile",
+  "profile_id": "profile_fixture_main",
+  "profile_version_id": "profile_version_fixture_001",
+  "name": "Synthetic Main",
+  "game_instance_id": "game_fixture_install_001",
+  "resolution_state": "resolved",
+  "desired_tree_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "activation_policy": {
+    "mode": "transactional-reversible",
+    "game_running_policy": "block",
+    "journal_required": true,
+    "rollback_required": true
+  },
+  "entries": [
+    {
+      "entry_id": "entry_fixture_alpha",
+      "source": {
+        "kind": "hosted-release",
+        "release_id": "rel_fixture_cosmetic_001",
+        "file_id": "file_fixture_vpk_001",
+        "variant_id": "default"
+      },
+      "object_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "rights_sha256": "9b6c78f55833338c93b97293d1321c617004c82fd2a2cf878e1535d94f58f389",
+      "enabled": true,
+      "priority": 10,
+      "target_root": "modlock-managed-addons",
+      "target_relative_path": "managed/pak01_dir.vpk"
+    },
+    {
+      "entry_id": "entry_fixture_beta",
+      "source": {
+        "kind": "external-reference",
+        "external_reference_id": "ext_fixture_verified_002"
+      },
+      "object_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "rights_sha256": "d13cf996dcb71c1483eed334aa7f4e462ccb42529fc69f587db6f96bb80472b4",
+      "enabled": false,
+      "priority": 20,
+      "target_root": "modlock-managed-addons",
+      "target_relative_path": "managed/pak02_dir.vpk"
+    }
+  ],
+  "cfg_selection": {
+    "preset_version_ids": [
+      "preset_version_fixture_alpha",
+      "preset_version_fixture_beta"
+    ],
+    "crosshair_version_id": null
+  }
+}

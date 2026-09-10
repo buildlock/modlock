@@ -1,5 +1,24 @@
 # Development log
 
+
+## 2026-09-10 — Integrate the preserved Phase 0 contract foundation
+
+Independent review retained the old candidate's contract/fixture/validator
+foundation and confirmed the two recorded SHO-275 repairs. Fresh diagnostic
+checks passed all 28 contract tests, 19 Markdown files and seven Python files.
+The old complete gate failed because September 5 handoff edits no longer
+matched its August 31 whole-repository manifest. Both old worktrees remain
+unchanged; no stale-manifest success is claimed.
+
+This current-main integration selects one active `contracts/v1` authority,
+archives the conflicting older schema/API designs, reconciles links and
+current ledgers, preserves the current checkout pin and isolated docs gate,
+and extends the protected check with pinned contract CI. Source snapshots are captured and verified per
+run; the old manifest remains historical. The full integrated fresh gate passes 28 tests, 138 Markdown files, 37 JSON
+files, 29 feature pages and 10 ADRs. Final independent review and CI are
+recorded with the source PR. No runtime, fixture payload,
+provider, game, signing or release action was performed.
+
 ## 2026-08-26 — Session 1: ecosystem research and product architecture
 
 - Created the Modlock greenfield workspace.

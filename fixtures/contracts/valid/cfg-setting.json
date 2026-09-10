@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "contract": "modlock.cfg-setting",
+  "setting": {
+    "name": "modlock_fixture_crosshair_r",
+    "status": "blocked",
+    "risk": "cosmetic",
+    "applies_to": "autoexec-owned-block",
+    "auto_apply": false,
+    "introduced_build_id": "fixture-build-001",
+    "last_verified_build_id": "fixture-build-001",
+    "provenance": {
+      "evidence_kind": "fixture-control",
+      "evidence_id": "evidence_fixture_cfg_r",
+      "observed_at": "2026-08-30T16:00:00Z",
+      "source_statement": "Synthetic conformance value only; not a verified Deadlock command."
+    },
+    "constraints": {
+      "value_type": "integer",
+      "minimum": 0,
+      "maximum": 255,
+      "default": 255
+    },
+    "render": "integer-decimal"
+  }
+}
