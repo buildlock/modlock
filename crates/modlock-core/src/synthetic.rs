@@ -136,6 +136,15 @@ pub struct Sandbox {
     initial: Inventory,
 }
 
+impl Drop for Sandbox {
+    fn drop(&mut self) {
+        // POSIX dup/fork can retain the same open file description. Closing our
+        // descriptor alone may leave its lock held until another child execs.
+        // Unlock the owned lease explicitly; File drop still closes the handle.
+        let _ = self._lock.unlock();
+    }
+}
+
 impl Sandbox {
     pub fn create(root: &Path, initial: Generation) -> Result<Self> {
         let parent = root.parent().ok_or(Error::UnsafePath)?.canonicalize()?;

@@ -62,10 +62,11 @@ then the parent calls the OS termination primitive. No unwind or destructor in
 the terminated process can repair its files. An independent byte-level oracle
 checks the exact active file set/content and an unowned sibling sentinel.
 
-- Local macOS Rust 1.98.1: 13 tests pass, including 41 abrupt activation
+- Local macOS Rust 1.98.1: 14 tests pass, including 41 abrupt activation
   boundaries and six reverse-recovery boundaries, repeat recovery, process lock
   contention/release, cancellation before every operation, staged hash mismatch,
-  external edits, corrupt/unbound records, path limits, Unix links and sockets.
+  external edits, corrupt/unbound records, path limits, Unix links and sockets,
+  and explicit lock release while a duplicated descriptor survives.
 - One ignored test is the subprocess entrypoint and is executed by its parent
   tests. It is not skipped feature coverage.
 - StorageFull, PermissionDenied and WriteZero injections exercise returned-error
@@ -77,12 +78,20 @@ checks the exact active file set/content and an unowned sibling sentinel.
   Local Linux container execution passed with actual StorageFull and verified
   cleanup. The same source also passed all 13 regular Linux tests, including
   the complete abrupt-termination matrix. CI repeats this on its own Linux host.
-- Windows CI runs the same process-termination tests and an actual open-file
-  test with delete sharing denied. Execution evidence is pending at this checkpoint.
+- Initial Windows Server CI passed all 13 applicable tests, including the same
+  process-termination suite and an actual open-file test with delete sharing
+  denied. The final corrected head must pass again before merge.
 - Cargo fmt, Clippy with warnings denied and the locked dependency audit pass
   locally. The RustSec database checked on September 10 reports zero findings.
   CI requires both Rust platforms before the existing protected documentation
   check can succeed; fresh Python contract/source checks remain required.
+
+Initial Linux CI exposed `Busy` immediately after dropping a sandbox while
+parallel tests spawned processes. A deterministic duplicated-descriptor test
+reproduced the same failure locally. The correction explicitly unlocks on scope
+drop before closing the handle; the regression and full local suite pass.
+This follows the [documented flock open-file-description semantics](https://man7.org/linux/man-pages/man2/flock.2.html).
+No retry, test serialization or weakened lock expectation hides the failure.
 
 File contents and published records use `sync_all`; Unix directories also flush
 after creation/rename. Windows directory/power-loss durability is not implemented

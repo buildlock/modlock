@@ -308,6 +308,20 @@ fn os_lock_excludes_a_second_process_and_releases_after_kill() {
     );
 }
 
+#[cfg(unix)]
+#[test]
+fn dropping_sandbox_unlocks_even_while_a_duplicated_descriptor_survives() {
+    let fixture = Fixture::new();
+    let sandbox = Sandbox::open(&fixture.root).unwrap();
+    // POSIX fork/dup shares the same open file description. A parallel process
+    // spawn can briefly retain this descriptor until close-on-exec takes effect.
+    let inherited = sandbox._lock.try_clone().unwrap();
+    drop(sandbox);
+    let mut reopened = Sandbox::open(&fixture.root).expect("scope drop must explicitly unlock");
+    assert_eq!(reopened.recover().unwrap(), Outcome::Unstarted);
+    drop(inherited);
+}
+
 #[test]
 fn cancellation_at_each_operation_preserves_original_on_recovery() {
     let baseline = Fixture::new();
