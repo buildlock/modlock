@@ -2,13 +2,16 @@
 
 ## Current resume action
 
-Review and verify `codex/sho-128-steam-fixtures` against protected main
-`a5f2ebbca4b565bb48e95ada4088959141b35920`. It adds bounded KeyValues parsing,
-read-only fixture discovery and fresh manual-selection validation. Read the
-[discovery guide](docs/testing/steam-discovery-proof.md) before extending scope.
+Review and verify `codex/sho-128-gameinfo-plan` against protected main
+`dc3a96b80ead8add2b857ebf4c522cdf4b91994d`. PR7's bounded discovery source passed
+independent review and all PR/main Linux/Windows checks. This next slice plans
+one owned gameinfo block against current bytes, retains unowned content and
+rejects stale-source application. Read the
+[gameinfo guide](docs/testing/gameinfo-plan-proof.md) before extending scope.
 The exact source, one independent verdict and CI remain its acceptance gate.
-Next engineering work is semantic owned-marker gameinfo repair in authored
-fixtures. No real Steam/game operation is selected.
+Assess SHO-128's combined narrow fixture prototype criteria after acceptance;
+production filesystem/process/game proof remains separate. No real Steam/game
+operation or general installer integration is selected.
 
 The legacy worktree `/Users/ahad/Dev/modlock-phase0-contracts` and its old-base
 uncommitted files were preserved byte for byte. Initial independent review
@@ -44,9 +47,10 @@ power-loss, provider and rights acceptance remain separate.
 3. [Current integration record](docs/handoffs/2026-09-10-contract-integration.md)
 4. [Synthetic journal proof and commands](docs/testing/synthetic-journal-proof.md)
 5. [Steam fixture discovery and parser limits](docs/testing/steam-discovery-proof.md)
-6. [Documentation control plane](docs/README.md)
-7. [September 1 control packet](docs/handoffs/2026-09-01-project-control-packet.md)
-8. [Ownership and human dependencies](docs/project/ownership.md)
+6. [Owned gameinfo byte planning](docs/testing/gameinfo-plan-proof.md)
+7. [Documentation control plane](docs/README.md)
+8. [September 1 control packet](docs/handoffs/2026-09-01-project-control-packet.md)
+9. [Ownership and human dependencies](docs/project/ownership.md)
 
 Historical candidate handoffs and the August 31 manifest remain dated records;
 their old paths, local-green claims, branch state and next-action wording are

@@ -7,7 +7,11 @@ The [Steam discovery prototype](../testing/steam-discovery-proof.md) accepts
 explicitly marked fixture trees only. `NotSynthetic` is expected for real Steam
 paths. `UnsafePath`, ambiguous metadata or missing game evidence requires fixing
 the authored fixture; never bypass checks or point tests at a player install.
-No game-running detection or gameinfo repair is present in this slice.
+Game-running detection is not present. The
+[gameinfo byte planner](../testing/gameinfo-plan-proof.md) now detects stale input
+and ambiguous ownership in authored fixtures. `Drift` requires re-reading and
+re-planning; `OwnershipConflict` or `UnknownStructure` requires inspection. It
+does not repair real files, and support must not restore a whole stale gameinfo.
 
 Developer-only implementation now exists for the
 [synthetic journal proof](../testing/synthetic-journal-proof.md). Its guide explains

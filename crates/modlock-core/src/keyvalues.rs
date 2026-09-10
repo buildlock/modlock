@@ -160,7 +160,7 @@ impl Parser<'_> {
             if !quoted && matches!(c, '#' | '[' | ']') {
                 return Err(Error::Unsupported);
             }
-            if !quoted && self.text[self.pos..].starts_with("/*") {
+            if !quoted && self.pos == start && self.text[self.pos..].starts_with("/*") {
                 return Err(Error::Unsupported);
             }
             self.pos += c.len_utf8();

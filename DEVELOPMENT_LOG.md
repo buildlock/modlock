@@ -1,5 +1,27 @@
 # Development log
 
+## 2026-09-10 — Plan owned gameinfo edits from current bytes
+
+After PR7 merged with independent acceptance and green PR/main Linux/Windows
+CI, implemented the next SHO-128 fixture slice. The pure planner inserts/removes
+one exact marked search-path entry, preserves all bytes outside that block,
+reports changes since a prior digest receipt and rejects a stale-source recheck.
+It stores no historical gameinfo content and performs no filesystem operation.
+
+Twelve local tests cover exact round trips, LF/CRLF/mixed endings, Unicode/BOM,
+multiple original path entries, idempotence, corrupt/relocated markers, unknown
+structure, namespace aliases, byte/input limits and hostile byte mutations.
+Owned filesystem tests simulate a Valve replacement; repair preserves new
+fields/paths, and unknown replacement structure remains unchanged. A test caught
+unmarked Windows trailing-dot/space aliases; conservative comparison now rejects
+them. The parser also accepts unquoted trailing wildcards, as shown by Valve's
+public format example, while continuing to reject block-comment tokens.
+
+See the [proof guide](docs/testing/gameinfo-plan-proof.md). This is a byte planner
+with an explicit disposable application harness, not the production Windows
+transaction adapter, current Deadlock compatibility or a game-running check.
+Final independent review and CI remain before source acceptance.
+
 ## 2026-09-10 — Read-only Steam fixture discovery
 
 After PR6's independent acceptance and green Linux/Windows PR/main CI, added

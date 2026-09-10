@@ -18,7 +18,7 @@ All issues were unassigned at audit time.
 | [SHO-124 — Licensed/adversarial fixture corpus](https://linear.app/shopliftdigital/issue/SHO-124/build-licensed-and-adversarial-mod-fixture-corpus) | Backlog | Candidate has 13 metadata-only controls and zero materialized payloads. | Keep Backlog; split synthetic materialization from rights-cleared real fixtures during execution. |
 | [SHO-125 — GameBanana terms](https://linear.app/shopliftdigital/issue/SHO-125/confirm-gamebanana-api-and-one-click-manager-terms) | Backlog | Public technical audit complete; written terms/manager confirmation absent. | Keep Backlog until HUM-002 authorizes outreach; use outbound-link fallback. |
 | [SHO-126 — Valve guidance](https://linear.app/shopliftdigital/issue/SHO-126/establish-valve-mod-policy-and-branding-guidance) | Backlog | Outreach packet exists; no authorization/response. | Keep Backlog until HUM-001 authorizes send; retain conservative fallback. |
-| [SHO-128 — Steam discovery/gameinfo](https://linear.app/shopliftdigital/issue/SHO-128/prototype-steam-discovery-and-safe-gameinfo-patching) | In Progress | Bounded KeyValues and read-only discovery/override prototype implemented in authored fixtures. | Review and verify this source, then implement semantic gameinfo repair; full issue acceptance remains open. |
+| [SHO-128 — Steam discovery/gameinfo](https://linear.app/shopliftdigital/issue/SHO-128/prototype-steam-discovery-and-safe-gameinfo-patching) | In Progress | PR7 discovery accepted with all PR/main CI; owned gameinfo byte planner now covers simulated replacement and unknown-structure refusal. | Review this source and combined narrow fixture criteria; production writer, real instance/game-running validation and Phase 0 remain open. |
 | [SHO-130 — Native Windows UI benchmark](https://linear.app/shopliftdigital/issue/SHO-130/benchmark-winui-3-rust-against-an-all-rust-native-ui) | Backlog | No Windows/runtime evidence. | Keep Backlog; repair stale ADR attachment to `docs/adr/0003-desktop-core-and-shell.md`. |
 | [SHO-131 — CFG/crosshair registry](https://linear.app/shopliftdigital/issue/SHO-131/validate-current-build-cfg-and-crosshair-command-registry) | Backlog | No current-build Windows/game proof. | Keep Backlog until HUM-003/004 evidence lane is authorized. |
 | [SHO-132 — Third-party contract probes](https://linear.app/shopliftdigital/issue/SHO-132/establish-third-party-api-snapshots-and-contract-probes) | Backlog | Dated manual evidence exists; automated replay/probes absent. | Keep Backlog until scaffold; execute bounded `MLK-P0-014`. |
@@ -26,7 +26,7 @@ All issues were unassigned at audit time.
 
 ## Deterministic priority
 
-1. **CURRENT:** review and verify the bounded SHO-128 discovery slice on accepted PR6.
+1. **CURRENT:** review and verify the SHO-128 owned gameinfo byte planner on accepted PR7.
 2. Preserve the wider unfinished workspace, fixture, production path/installer and API/client scope explicitly.
 3. Extend the smallest useful fixture-backed path/journal/discovery/parser behavior after source acceptance.
 4. Owner-authorized Valve/GameBanana/Windows/pilot and portfolio-architecture lanes may run in their separate collision groups.
