@@ -14,6 +14,10 @@ network or game operation; dependency installation is separate. The
 [synthetic proof guide](../testing/synthetic-journal-proof.md) contains the example,
 actual Linux ENOSPC runner and remaining platform boundaries.
 
+`cargo test steam` and `cargo test keyvalues` exercise the next
+[read-only discovery slice](../testing/steam-discovery-proof.md). They create and
+remove authored metadata/marker trees; no existing Steam folder or account is used.
+
 CI tests Linux and Windows Server with the pinned Rust toolchain, then requires
 both before the protected documentation/contracts gate can succeed. Dependency
 audit uses cargo-audit 0.22.2. Windows reference-machine and game proof remain

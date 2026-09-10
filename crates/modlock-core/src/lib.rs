@@ -1,9 +1,10 @@
-//! A bounded, single-transaction proof in a newly created synthetic sandbox.
-//!
-//! This is not a game installer or the production Windows filesystem adapter.
-//! All inputs are inert text, paths are fixed, and previous/candidate trees are
-//! retained for inspection. No network, game discovery, archive, SQLite, UI or
-//! public install-plan contract is implemented here.
+//! UI-independent Modlock prototypes: synthetic transaction/recovery, bounded
+//! KeyValues parsing and read-only discovery in explicitly marked fixture trees.
+//! No real Steam registration, game process, installer, network, archive, SQLite,
+//! UI or public install-plan consumption is implemented here.
+
+pub mod keyvalues;
+pub mod steam;
 
 mod synthetic;
 

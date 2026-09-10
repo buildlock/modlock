@@ -1,5 +1,23 @@
 # Development log
 
+## 2026-09-10 — Read-only Steam fixture discovery
+
+After PR6's independent acceptance and green Linux/Windows PR/main CI, added
+the next SHO-128 slice: a bounded KeyValues parser, typed library/app metadata,
+multiple-library fixture discovery and fresh manual-selection validation. The
+implementation uses Valve's published format notes and authored synthetic tests;
+no DMM implementation was copied or translated. The
+[discovery guide](docs/testing/steam-discovery-proof.md) records exact limits.
+
+Local macOS checks pass 27 regular tests, including 13 new parser/discovery
+groups and the prior journal/crash suite. The original long Unix-socket fixture
+exceeded macOS's bind-name limit; the harness now binds a short owned path then
+renames its inode into the manifest slot. Discovery rejects that real socket.
+Clippy and formatting pass; final source review and Linux/Windows CI remain.
+No real Steam file, game process, mutation, provider or network is used by tests.
+SHO-129 is Done for its accepted narrow prototype. SHO-128 stays open for
+semantic gameinfo repair and the remaining prototype criteria.
+
 ## 2026-09-10 — First executable Rust transaction proof
 
 After accepted contract PR5 and green main CI, added only the pinned Cargo core,

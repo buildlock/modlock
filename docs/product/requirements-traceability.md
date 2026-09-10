@@ -26,6 +26,11 @@ Current partial implementation for DESK-004/013 lives in
 maps actual tests and platform evidence; the broader component/contracts/test
 table below remains a plan, and neither feature is fully implemented.
 
+DESK-002 now has a [read-only synthetic discovery slice](../testing/steam-discovery-proof.md)
+in `keyvalues.rs` and `steam.rs`: actual parser limits, multiple fixture libraries,
+fresh overrides and moved/unsafe-candidate rejection. Registry/process detection,
+persistent associations and current-game compatibility remain unimplemented.
+
 | Feature | Primary components | Planned contracts | Existing Linear foundation | Minimum planned tests |
 |---|---|---|---|---|
 | [DESK-001](../features/desktop/DESK-001-onboarding.md) Onboarding | `apps/desktop`, `crates/modlock-core` | `local-settings.schema.json`, `game-instance.schema.json` | SHO-126, SHO-128, SHO-130 | `onboarding-offline`, `onboarding-no-write`, `onboarding-resume`, `onboarding-a11y` |
