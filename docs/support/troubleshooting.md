@@ -3,6 +3,12 @@
 Status: pre-release draft  
 Last reviewed: 2026-09-01
 
+The [Steam discovery prototype](../testing/steam-discovery-proof.md) accepts
+explicitly marked fixture trees only. `NotSynthetic` is expected for real Steam
+paths. `UnsafePath`, ambiguous metadata or missing game evidence requires fixing
+the authored fixture; never bypass checks or point tests at a player install.
+No game-running detection or gameinfo repair is present in this slice.
+
 Developer-only implementation now exists for the
 [synthetic journal proof](../testing/synthetic-journal-proof.md). Its guide explains
 recorded commits, recovery errors and preserved inspection files. The player

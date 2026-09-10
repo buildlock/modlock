@@ -12,6 +12,13 @@ Every binary fixture has a sidecar conforming to `docs/design/2026-09-01-contrac
 
 ## Synthetic valid fixtures
 
+The [Steam discovery tests](../../crates/modlock-core/src/steam/tests.rs) now
+materialize FIX-008-like VDF/ACF inputs and inert exact marker files inside owned
+temporary folders, including multiple Unicode-named libraries and hostile paths.
+The [discovery guide](steam-discovery-proof.md) distinguishes these authored
+oracles from unverified real Steam/current-Deadlock compatibility. No licensed
+game/mod bytes are present, and this does not close the full SHO-124 corpus.
+
 The current [Rust journal proof](synthetic-journal-proof.md) generates only inert
 ASCII `.txt` files directly from test source, with original/desired byte oracles
 and a sibling unowned sentinel. These are authored synthetic bytes, not a mod

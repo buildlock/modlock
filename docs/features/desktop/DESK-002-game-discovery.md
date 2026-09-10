@@ -50,5 +50,12 @@ Opt-in outcome/error buckets, number-of-instances bucket, and duration; never pa
 
 ## Dependencies and open questions
 
-Tracked by SHO-128; supports DESK-001/004/007/013. Network-library support is explicitly deferred.
+The [synthetic discovery proof](../../testing/steam-discovery-proof.md) implements
+bounded KeyValues parsing, multiple registered fixture libraries, app/build/depot
+metadata, fresh override validation and missing/moved/lookalike rejection without
+writes. Source review and final Linux/Windows CI remain. Tests use authored
+metadata and exact inert evidence markers; current Valve file compatibility,
+Steam registry lookup, persistent associations and game-running detection are
+not implemented or inferred. This feature remains incomplete.
 
+Tracked by SHO-128; supports DESK-001/004/007/013. Network-library support is explicitly deferred.

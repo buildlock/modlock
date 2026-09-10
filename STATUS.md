@@ -9,12 +9,19 @@ independent acceptance and green local, clean-clone and Linux CI. Post-merge CI
 passed. The two SHO-275 defects—malformed HTTPS components and pack chronology—
 are corrected; that narrow issue is Done. Superseded documentation PR4 is closed.
 
-`codex/sho-129-journal-proof` adds the first pinned Rust core and a bounded,
+PR6 merged as `a5f2ebbca4b565bb48e95ada4088959141b35920` with one independent
+acceptance and all PR/main Linux/Windows checks passed. It adds the first Rust core and a bounded,
 single-use synthetic transaction/recovery prototype. Local tests terminate a
 separate process at 41 activation boundaries and six reverse-recovery boundaries.
 The [proof record](docs/testing/synthetic-journal-proof.md) describes exact scope,
-evidence and limitations. Independent review and CI acceptance remain for this
-new source; no game or production deployment is implied.
+evidence and limitations. SHO-129 is Done for its narrow synthetic prototype;
+the wider production adapter and game scope remain open.
+
+`codex/sho-128-steam-fixtures` adds bounded KeyValues parsing and read-only
+discovery/override validation inside explicitly marked disposable fixture trees.
+The [discovery guide](docs/testing/steam-discovery-proof.md) records source,
+limits and tests. This source still needs independent review and final CI.
+SHO-128 remains In Progress for semantic gameinfo repair and full acceptance.
 
 The one active contract authority is [contracts/v1](contracts/v1/index.json):
 closed-world schemas, conservative UTC/URL/Windows-path validation, typed CFG
@@ -32,7 +39,7 @@ they do not require evolving main to match a historical snapshot.
 Modlock remains a planned creator website and native Windows utility. There is
 no usable player application, API, installer, scanner, real mod corpus, game
 mutation or deployment. A developer can run the synthetic Rust journal example
-and its fault tests. The contract fixtures contain synthetic
+and its fault tests, plus Steam metadata/discovery tests. The contract fixtures contain synthetic
 metadata and zero materialized game/mod payloads. Contract acceptance does not
 complete Phase 0 or the wider SHO-127 API/client work.
 
@@ -47,11 +54,13 @@ procedures, and owner decision records. These are designs, not runtime evidence.
 - `SHO-275`: Done for its two contract release blockers.
 - `SHO-127`: remains In Progress; API/generated-client adoption and general
   authority resolution are separate unfinished work.
-- `SHO-129`: In Progress. Review and verify the bounded synthetic Rust proof;
-  wider path/fixture/install-plan/runtime acceptance remains unfinished.
+- `SHO-129`: Done for the accepted single-use synthetic journal prototype.
+  Wider path/fixture/install-plan/runtime acceptance remains unfinished.
+- `SHO-128`: In Progress. Verify the bounded discovery slice; semantic owned
+  gameinfo repair, real Steam registration and game-process validation remain.
 - Only the necessary Rust/toolchain/fixture portions of MLK-P0-005/006/008/009/010
   are combined here. Web/API shells, generators and general installer scope remain.
-- `SHO-124`, `SHO-129`, Windows proof and Phase 0 remain incomplete.
+- `SHO-124`, full Windows/game proof and Phase 0 remain incomplete.
 
 See the [integration record](docs/handoffs/2026-09-10-contract-integration.md)
 for exact source provenance and path dispositions. The September 1 control

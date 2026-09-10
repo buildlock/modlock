@@ -1,6 +1,6 @@
 # Linear seed backlog
 
-This file mirrors the Linear project and its evidence-backed reconciliation so the project can be reconstructed from Git history if external state is lost. SHO-275 and SHO-129 were rechecked September 10, 2026 after contract PR5 merged; other issue rows retain their dated audit. Issue state is not implementation evidence.
+This file mirrors the Linear project and its evidence-backed reconciliation so the project can be reconstructed from Git history if external state is lost. SHO-275, SHO-129 and SHO-128 were rechecked September 10, 2026 after PR5/6 merged; other issue rows retain their dated audit. Issue state is not implementation evidence.
 
 - [Modlock Linear project](https://linear.app/shopliftdigital/project/modlock-72fa0f6e1ed8)
 - [Documentation baseline and owner action queue](https://linear.app/shopliftdigital/document/modlock-documentation-baseline-and-owner-action-queue-3f4fa369309c)
@@ -14,11 +14,11 @@ All issues were unassigned at audit time.
 |---|---|---|---|
 | [SHO-275 — Fix both independent release blockers](https://linear.app/shopliftdigital/issue/SHO-275/sho-127a-fix-both-independent-release-blockers) | Done | PR5 accepted and merged as 955a80b8; post-merge CI passed. | Complete only for the two recorded synthetic contract defects. |
 | [SHO-127 — Define V1 contracts and manifests](https://linear.app/shopliftdigital/issue/SHO-127/define-v1-api-package-profile-pack-and-cfg-contracts) | In Progress | Contract foundation accepted; API/client and general resolver work remain unfinished. | Keep broader scope open; do not hold independent synthetic core proof on the unfinished API work. |
-| [SHO-129 — Prototype Rust journal/recovery](https://linear.app/shopliftdigital/issue/SHO-129/prototype-rust-transaction-journal-and-crash-recovery) | In Progress | Pinned Rust/synthetic transaction proof implemented locally; review and CI remain. | Keep open for full acceptance; the single-use proof is not the production filesystem adapter or installer. |
+| [SHO-129 — Prototype Rust journal/recovery](https://linear.app/shopliftdigital/issue/SHO-129/prototype-rust-transaction-journal-and-crash-recovery) | Done | PR6 accepted and merged; all PR/main Linux/Windows checks passed. | Narrow single-use prototype criteria only; production filesystem adapter, repeated transactions and game installer remain open. |
 | [SHO-124 — Licensed/adversarial fixture corpus](https://linear.app/shopliftdigital/issue/SHO-124/build-licensed-and-adversarial-mod-fixture-corpus) | Backlog | Candidate has 13 metadata-only controls and zero materialized payloads. | Keep Backlog; split synthetic materialization from rights-cleared real fixtures during execution. |
 | [SHO-125 — GameBanana terms](https://linear.app/shopliftdigital/issue/SHO-125/confirm-gamebanana-api-and-one-click-manager-terms) | Backlog | Public technical audit complete; written terms/manager confirmation absent. | Keep Backlog until HUM-002 authorizes outreach; use outbound-link fallback. |
 | [SHO-126 — Valve guidance](https://linear.app/shopliftdigital/issue/SHO-126/establish-valve-mod-policy-and-branding-guidance) | Backlog | Outreach packet exists; no authorization/response. | Keep Backlog until HUM-001 authorizes send; retain conservative fallback. |
-| [SHO-128 — Steam discovery/gameinfo](https://linear.app/shopliftdigital/issue/SHO-128/prototype-steam-discovery-and-safe-gameinfo-patching) | Backlog | Design/fixtures plan only; no parser or prototype. | Keep Backlog; execute `MLK-P0-011` then `MLK-P0-012`. |
+| [SHO-128 — Steam discovery/gameinfo](https://linear.app/shopliftdigital/issue/SHO-128/prototype-steam-discovery-and-safe-gameinfo-patching) | In Progress | Bounded KeyValues and read-only discovery/override prototype implemented in authored fixtures. | Review and verify this source, then implement semantic gameinfo repair; full issue acceptance remains open. |
 | [SHO-130 — Native Windows UI benchmark](https://linear.app/shopliftdigital/issue/SHO-130/benchmark-winui-3-rust-against-an-all-rust-native-ui) | Backlog | No Windows/runtime evidence. | Keep Backlog; repair stale ADR attachment to `docs/adr/0003-desktop-core-and-shell.md`. |
 | [SHO-131 — CFG/crosshair registry](https://linear.app/shopliftdigital/issue/SHO-131/validate-current-build-cfg-and-crosshair-command-registry) | Backlog | No current-build Windows/game proof. | Keep Backlog until HUM-003/004 evidence lane is authorized. |
 | [SHO-132 — Third-party contract probes](https://linear.app/shopliftdigital/issue/SHO-132/establish-third-party-api-snapshots-and-contract-probes) | Backlog | Dated manual evidence exists; automated replay/probes absent. | Keep Backlog until scaffold; execute bounded `MLK-P0-014`. |
@@ -26,7 +26,7 @@ All issues were unassigned at audit time.
 
 ## Deterministic priority
 
-1. **CURRENT:** review and verify the bounded SHO-129 Rust transaction proof on accepted PR5.
+1. **CURRENT:** review and verify the bounded SHO-128 discovery slice on accepted PR6.
 2. Preserve the wider unfinished workspace, fixture, production path/installer and API/client scope explicitly.
 3. Extend the smallest useful fixture-backed path/journal/discovery/parser behavior after source acceptance.
 4. Owner-authorized Valve/GameBanana/Windows/pilot and portfolio-architecture lanes may run in their separate collision groups.

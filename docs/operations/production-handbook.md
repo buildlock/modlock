@@ -5,6 +5,12 @@ Last reviewed: 2026-09-01
 
 ## Environment isolation
 
+The current [Steam fixture discovery prototype](../testing/steam-discovery-proof.md)
+is read-only and requires an authored synthetic root and inert marker files.
+It is not a provider service, production game probe or deployment artifact.
+Do not connect this fixture adapter to real Steam paths; the production Windows
+filesystem/process boundary requires separate implementation and evidence.
+
 Production, staging, preview, CI, and local use separate databases, object namespaces/accounts, auth clients, email domains, signing/update roles, and credentials. No production database dump or unrestricted credential belongs on a developer workstation.
 
 ## Service inventory
@@ -52,4 +58,3 @@ Document variable names and rotation dates, never values. Emergency access is ti
 ## Production access review
 
 Monthly during beta and quarterly thereafter: users/service accounts/roles, MFA/passkeys, inactive access, CI environments, branch rules, cloud federation, signing roles, audit export, backup access, and emergency accounts.
-
