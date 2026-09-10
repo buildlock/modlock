@@ -1,0 +1,299 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:modlock:contracts:v1:pack",
+  "title": "Modlock reference-based pack V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract",
+    "pack_id",
+    "pack_version_id",
+    "version",
+    "version_sha256",
+    "state",
+    "creator",
+    "provenance",
+    "rights_scope",
+    "approval",
+    "embedded_payloads",
+    "items"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "contract": {
+      "const": "modlock.pack"
+    },
+    "pack_id": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+    },
+    "pack_version_id": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/version"
+    },
+    "version_sha256": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/sha256"
+    },
+    "state": {
+      "enum": [
+        "draft",
+        "published",
+        "revoked",
+        "expired"
+      ]
+    },
+    "creator": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/creator"
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "canonical_page",
+        "created_at",
+        "source_statement"
+      ],
+      "properties": {
+        "kind": {
+          "const": "modlock-pack"
+        },
+        "canonical_page": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/https_url"
+        },
+        "created_at": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+        },
+        "source_statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      }
+    },
+    "rights_scope": {
+      "const": "pack-metadata-only; item rights remain independent"
+    },
+    "approval": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "approver_creator_id",
+            "approved_version_sha256",
+            "approved_at",
+            "expires_at"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "creator-verified",
+                "creator-contributed"
+              ]
+            },
+            "approver_creator_id": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+            },
+            "approved_version_sha256": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/sha256"
+            },
+            "approved_at": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+            },
+            "expires_at": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "evidence_url",
+            "approved_version_sha256",
+            "observed_at",
+            "expires_at"
+          ],
+          "properties": {
+            "status": {
+              "const": "community-reported"
+            },
+            "evidence_url": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/https_url"
+            },
+            "approved_version_sha256": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/sha256"
+            },
+            "observed_at": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+            },
+            "expires_at": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "previous_status",
+            "approved_version_sha256",
+            "changed_at",
+            "change_reason",
+            "expires_at"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "expired",
+                "revoked"
+              ]
+            },
+            "previous_status": {
+              "enum": [
+                "creator-verified",
+                "creator-contributed",
+                "community-reported"
+              ]
+            },
+            "approver_creator_id": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+            },
+            "evidence_url": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/https_url"
+            },
+            "approved_version_sha256": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/sha256"
+            },
+            "approved_at": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+            },
+            "observed_at": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+            },
+            "expires_at": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+            },
+            "changed_at": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+            },
+            "change_reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "previous_status": {
+                    "enum": [
+                      "creator-verified",
+                      "creator-contributed"
+                    ]
+                  }
+                },
+                "required": [
+                  "previous_status"
+                ]
+              },
+              "then": {
+                "required": [
+                  "approver_creator_id",
+                  "approved_at"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "previous_status": {
+                    "const": "community-reported"
+                  }
+                },
+                "required": [
+                  "previous_status"
+                ]
+              },
+              "then": {
+                "required": [
+                  "evidence_url",
+                  "observed_at"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "embedded_payloads": {
+      "const": false
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 512,
+      "items": {
+        "$ref": "#/$defs/item"
+      }
+    }
+  },
+  "$defs": {
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "item_id",
+        "source",
+        "artifact_sha256",
+        "rights_sha256",
+        "variant_id",
+        "priority",
+        "required",
+        "known_conflicts"
+      ],
+      "properties": {
+        "item_id": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+        },
+        "source": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/source_ref"
+        },
+        "artifact_sha256": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/sha256"
+        },
+        "rights_sha256": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/sha256"
+        },
+        "variant_id": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9999
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "known_conflicts": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 64,
+          "items": {
+            "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+          }
+        }
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@
 Status: awaiting owner answers where marked  
 Last reviewed: 2026-09-01
 
-Answers should be committed as an ADR or policy update. Defaults below allow safe prototyping without silently deciding the business.
+Answers should be committed as an ADR or policy update. Defaults below allow safe prototyping without silently deciding the business. The [project control packet](../handoffs/2026-09-01-project-control-packet.md#owner-decisions) adds the plain-language question, options, recommendation, waiting consequence, and blocked jobs for HUM-001–HUM-010.
 
 | Decision | Safe working default | Owner answer needed by |
 |---|---|---|
@@ -19,6 +19,8 @@ Answers should be committed as an ADR or policy update. Defaults below allow saf
 | Third-party file mirroring | Prohibited without explicit rights | Before source adapters ship |
 | Automatic live crosshair switching | Prohibited unless supported and cleared | After technical/policy proof |
 | VPK merging | Deferred and opt-in only | Post V1 evidence review |
+| Canonical portfolio mod registry and artifact envelope | Modlock owns canonical mods/releases/scans/packs; BuildLock receives projections/deep links only | Before physical Modlock schema or BuildLock mod-registry implementation |
+| Shared identity issuer and creator-ID ownership | Synthetic/local opaque IDs only; no public/cross-product identity claim | Before public accounts, verification, or production auth selection |
 
 ## Release approval questions
 
@@ -30,4 +32,3 @@ Answers should be committed as an ADR or policy update. Defaults below allow saf
 6. Can malware/revoked content be blocked immediately?
 7. Can production data and signing metadata be restored from tested backups?
 8. Are public support, security, legal, and takedown contacts staffed?
-

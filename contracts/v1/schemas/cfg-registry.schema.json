@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:modlock:contracts:v1:cfg-registry",
+  "title": "Modlock typed CFG registry V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract",
+    "registry_id",
+    "registry_version",
+    "state",
+    "game",
+    "settings"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "contract": {
+      "const": "modlock.cfg-registry"
+    },
+    "registry_id": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+    },
+    "registry_version": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/version"
+    },
+    "state": {
+      "enum": [
+        "draft",
+        "signature-present-unverified",
+        "revoked"
+      ]
+    },
+    "game": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "app_id",
+        "build_id",
+        "snapshot_at"
+      ],
+      "properties": {
+        "app_id": {
+          "const": 1422450
+        },
+        "build_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96
+        },
+        "snapshot_at": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+        }
+      }
+    },
+    "settings": {
+      "type": "array",
+      "maxItems": 2048,
+      "items": {
+        "$ref": "urn:modlock:contracts:v1:cfg-setting#/$defs/setting"
+      }
+    },
+    "registry_sha256": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/sha256"
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "key_id",
+        "signature_base64",
+        "verification_state"
+      ],
+      "properties": {
+        "algorithm": {
+          "enum": [
+            "ed25519",
+            "ecdsa-p256-sha256"
+          ]
+        },
+        "key_id": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+        },
+        "signature_base64": {
+          "type": "string",
+          "minLength": 12,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9+/]+={0,2}$"
+        },
+        "verification_state": {
+          "const": "not-verified"
+        }
+      }
+    },
+    "revocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason_code",
+        "revoked_at"
+      ],
+      "properties": {
+        "reason_code": {
+          "enum": [
+            "signing-key",
+            "game-build",
+            "unsafe-setting",
+            "superseded",
+            "other"
+          ]
+        },
+        "revoked_at": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "signature-present-unverified"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "registry_sha256",
+          "signature"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "revoked"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "registry_sha256",
+          "signature",
+          "revocation"
+        ]
+      }
+    }
+  ]
+}

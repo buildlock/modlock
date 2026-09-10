@@ -1,0 +1,2299 @@
+{
+  "schema_version": 1,
+  "contract": "modlock.contract-conformance-suite",
+  "suite_id": "contracts_v1_phase0_synthetic",
+  "cases": [
+    {
+      "case_id": "hosted_scan_digest_mismatch",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/variants/0/files/0/scan/artifact_sha256",
+          "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/variants/0/files/0/scan/artifact_sha256",
+          "code": "hosted.scan_digest_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_digest_is_exact_lowercase_sha256",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/variants/0/files/0/object_sha256",
+          "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/variants/0/files/0/object_sha256",
+          "code": "schema.pattern"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_unsafe_source_path",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/variants/0/files/0/source_path",
+          "value": "../escape.vpk"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/variants/0/files/0/source_path",
+          "code": "path.unsafe_relative"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_published_without_authorization",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/rights/hosting_authorization",
+          "value": "unknown"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/rights/hosting_authorization",
+          "code": "hosted.published_without_hosting_authorization"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_published_scan_not_clean",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/variants/0/files/0/scan/state",
+          "value": "needs-review"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/variants/0/files/0/scan/state",
+          "code": "hosted.published_scan_not_clean"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_creator_provenance_mismatch",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/provenance/submitted_by_creator_id",
+          "value": "creator_fixture_other"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/provenance/submitted_by_creator_id",
+          "code": "hosted.provenance_creator_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "external_resolvable_requires_digest",
+      "base_contract": "external-reference",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/artifact",
+          "value": {
+            "filename": "synthetic_dir.vpk",
+            "digest_state": "unavailable"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/artifact/digest_state",
+          "code": "external.resolvable_without_exact_digest"
+        }
+      ]
+    },
+    {
+      "case_id": "external_provider_provenance_mismatch",
+      "base_contract": "external-reference",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/provenance/kind",
+          "value": "gamebanana-linked"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/provenance/kind",
+          "code": "external.provider_provenance_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "external_canonical_host_matches_provenance",
+      "base_contract": "external-reference",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/provenance/authoritative_host",
+          "value": "other.example.invalid"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/provenance/authoritative_host",
+          "code": "external.canonical_host_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "external_storage_policy_is_source_only",
+      "base_contract": "external-reference",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/storage_policy",
+          "value": "mirror"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/storage_policy",
+          "code": "schema.const"
+        }
+      ]
+    },
+    {
+      "case_id": "install_unsafe_target_path",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/items/0/target/relative_path",
+          "value": "../../pak01_dir.vpk"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/items/0/target/relative_path",
+          "code": "path.unsafe_relative"
+        }
+      ]
+    },
+    {
+      "case_id": "install_expiry_must_follow_issue",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/expires_at",
+          "value": "2026-08-30T13:59:59Z"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/expires_at",
+          "code": "install.expiry_not_after_issue"
+        }
+      ]
+    },
+    {
+      "case_id": "install_ready_requires_exact_clean_artifact",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/items/0/artifact",
+          "value": {
+            "filename": "synthetic_dir.vpk",
+            "digest_state": "establish-before-mutation",
+            "scan_state": "requires-local-scan"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/items/0/artifact/digest_state",
+          "code": "install.ready_without_exact_digest"
+        },
+        {
+          "kind": "semantic",
+          "path": "/items/0/artifact/scan_state",
+          "code": "install.ready_without_clean_scan"
+        }
+      ]
+    },
+    {
+      "case_id": "install_rights_digest_is_exact_sha256",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/items/0/rights_sha256",
+          "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/items/0/rights_sha256",
+          "code": "schema.pattern"
+        }
+      ]
+    },
+    {
+      "case_id": "install_targets_are_unique",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "copy",
+          "from": "/items/0",
+          "path": "/items/-"
+        },
+        {
+          "op": "replace",
+          "path": "/items/2/item_id",
+          "value": "item_fixture_plan_003"
+        },
+        {
+          "op": "replace",
+          "path": "/items/2/priority",
+          "value": 30
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/items",
+          "code": "install.duplicate_source_reference"
+        },
+        {
+          "kind": "semantic",
+          "path": "/items",
+          "code": "install.duplicate_target"
+        }
+      ]
+    },
+    {
+      "case_id": "install_base_vpk_target_forbidden",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/items/0/target/relative_path",
+          "value": "game/citadel/pak01_dir.vpk"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/items/0/target/relative_path",
+          "code": "install.base_vpk_target_forbidden"
+        }
+      ]
+    },
+    {
+      "case_id": "install_target_root_matches_kind",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/items/0/target/root",
+          "value": "modlock-owned-cfg-block"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/items/0/target/root",
+          "code": "install.target_root_kind_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "install_ready_has_no_block_reasons",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "add",
+          "path": "/block_reasons/-",
+          "value": "game-build-unknown"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/block_reasons",
+          "code": "install.ready_with_block_reasons"
+        }
+      ]
+    },
+    {
+      "case_id": "install_journal_is_mandatory",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/safety/journal_required",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/safety/journal_required",
+          "code": "schema.const"
+        }
+      ]
+    },
+    {
+      "case_id": "profile_unsafe_target_path",
+      "base_contract": "profile",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/entries/0/target_relative_path",
+          "value": "C:/game/citadel/pak01_dir.vpk"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/entries/0/target_relative_path",
+          "code": "path.unsafe_relative"
+        }
+      ]
+    },
+    {
+      "case_id": "profile_entries_are_canonical",
+      "base_contract": "profile",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/entries/0/priority",
+          "value": 30
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/entries",
+          "code": "profile.noncanonical_order"
+        }
+      ]
+    },
+    {
+      "case_id": "profile_sources_are_unique",
+      "base_contract": "profile",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/entries/1/source",
+          "value": {
+            "kind": "hosted-release",
+            "release_id": "rel_fixture_cosmetic_001",
+            "file_id": "file_fixture_vpk_001",
+            "variant_id": "default"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/entries",
+          "code": "profile.duplicate_source_reference"
+        }
+      ]
+    },
+    {
+      "case_id": "profile_targets_are_unique",
+      "base_contract": "profile",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/entries/1/target_relative_path",
+          "value": "managed/pak01_dir.vpk"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/entries",
+          "code": "profile.duplicate_target"
+        }
+      ]
+    },
+    {
+      "case_id": "profile_journal_is_mandatory",
+      "base_contract": "profile",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/activation_policy/journal_required",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/activation_policy/journal_required",
+          "code": "schema.const"
+        }
+      ]
+    },
+    {
+      "case_id": "pack_embedded_payloads_forbidden",
+      "base_contract": "pack",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/embedded_payloads",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/embedded_payloads",
+          "code": "schema.const"
+        }
+      ]
+    },
+    {
+      "case_id": "pack_approval_pins_exact_version",
+      "base_contract": "pack",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/approval/approved_version_sha256",
+          "value": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/approval/approved_version_sha256",
+          "code": "pack.approval_digest_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "pack_items_are_canonical",
+      "base_contract": "pack",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/items/0/priority",
+          "value": 30
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/items",
+          "code": "pack.noncanonical_order"
+        },
+        {
+          "kind": "semantic",
+          "path": "/version_sha256",
+          "code": "pack.version_digest_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "pack_sources_are_unique",
+      "base_contract": "pack",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/items/1/source",
+          "value": {
+            "kind": "hosted-release",
+            "release_id": "rel_fixture_cosmetic_001",
+            "file_id": "file_fixture_vpk_001",
+            "variant_id": "default"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/items",
+          "code": "pack.duplicate_source_reference"
+        },
+        {
+          "kind": "semantic",
+          "path": "/version_sha256",
+          "code": "pack.version_digest_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "pack_payload_field_is_unknown",
+      "base_contract": "pack",
+      "operations": [
+        {
+          "op": "add",
+          "path": "/payload",
+          "value": "forbidden"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/",
+          "code": "schema.additionalProperties"
+        }
+      ]
+    },
+    {
+      "case_id": "cfg_default_must_be_in_range",
+      "base_contract": "cfg-setting",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/setting/constraints/default",
+          "value": 300
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/setting/constraints/default",
+          "code": "cfg.default_out_of_range"
+        }
+      ]
+    },
+    {
+      "case_id": "cfg_auto_apply_requires_future_verified_allowlist",
+      "base_contract": "cfg-setting",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/setting/status",
+          "value": "supported"
+        },
+        {
+          "op": "replace",
+          "path": "/setting/risk",
+          "value": "competitive-risk"
+        },
+        {
+          "op": "replace",
+          "path": "/setting/auto_apply",
+          "value": true
+        },
+        {
+          "op": "replace",
+          "path": "/setting/provenance/evidence_kind",
+          "value": "game-build-probe"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/setting/auto_apply",
+          "code": "schema.const"
+        }
+      ]
+    },
+    {
+      "case_id": "cfg_synthetic_control_auto_apply_is_closed",
+      "base_contract": "cfg-setting",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/setting/auto_apply",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/setting/auto_apply",
+          "code": "schema.const"
+        }
+      ]
+    },
+    {
+      "case_id": "cfg_render_matches_type",
+      "base_contract": "cfg-setting",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/setting/render",
+          "value": "boolean-01"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/setting/render",
+          "code": "cfg.render_type_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "registry_settings_are_canonical",
+      "base_contract": "cfg-registry",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/settings/0/name",
+          "value": "z_fixture_setting"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/settings",
+          "code": "registry.noncanonical_order"
+        }
+      ]
+    },
+    {
+      "case_id": "registry_setting_names_are_unique",
+      "base_contract": "cfg-registry",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/settings/1/name",
+          "value": "modlock_fixture_crosshair_b"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/settings",
+          "code": "registry.duplicate_setting_name"
+        }
+      ]
+    },
+    {
+      "case_id": "registry_signature_matches_state",
+      "base_contract": "cfg-registry",
+      "operations": [
+        {
+          "op": "add",
+          "path": "/registry_sha256",
+          "value": "2ce8b95de48e3d0d696049952f42fc2858d0ec0394ce57319d41496f9c81c424"
+        },
+        {
+          "op": "add",
+          "path": "/signature",
+          "value": {
+            "algorithm": "ed25519",
+            "key_id": "fixture_signing_key",
+            "signature_base64": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+            "verification_state": "not-verified"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/state",
+          "code": "registry.signature_state_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "registry_signed_state_is_not_v1",
+      "base_contract": "cfg-registry",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/state",
+          "value": "signed"
+        },
+        {
+          "op": "add",
+          "path": "/registry_sha256",
+          "value": "2ce8b95de48e3d0d696049952f42fc2858d0ec0394ce57319d41496f9c81c424"
+        },
+        {
+          "op": "add",
+          "path": "/signature",
+          "value": {
+            "algorithm": "ed25519",
+            "key_id": "fixture_signing_key",
+            "signature_base64": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+            "verification_state": "not-verified"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/state",
+          "code": "schema.enum"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_published_rejects_unknown_redistribution",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/rights/redistribution",
+          "value": "unknown"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/rights/redistribution",
+          "code": "hosted.published_with_unknown_redistribution"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_published_rejects_unknown_modification_rights",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/rights/modification",
+          "value": "unknown"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/rights/modification",
+          "code": "hosted.published_with_unknown_modification_rights"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_published_rejects_unknown_third_party_assets",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/rights/third_party_assets",
+          "value": "unknown"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/rights/third_party_assets",
+          "code": "hosted.published_with_unknown_third_party_assets"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_source_paths_are_windows_case_unique",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "copy",
+          "from": "/variants/0/files/0",
+          "path": "/variants/0/files/-"
+        },
+        {
+          "op": "replace",
+          "path": "/variants/0/files/1/file_id",
+          "value": "file_fixture_vpk_002"
+        },
+        {
+          "op": "replace",
+          "path": "/variants/0/files/1/source_path",
+          "value": "PAYLOAD/SYNTHETIC_DIR.VPK"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/variants",
+          "code": "hosted.duplicate_source_path"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_windows_device_alias_is_unsafe",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/variants/0/files/0/source_path",
+          "value": "payload/COM¹.vpk"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/variants/0/files/0/source_path",
+          "code": "path.unsafe_relative"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_scan_must_precede_publication",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/published_at",
+          "value": "2026-08-30T12:10:00Z"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/variants/0/files/0/scan/completed_at",
+          "code": "hosted.scan_after_publication"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_published_requires_tested_build",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/game/compatibility_state",
+          "value": "unknown"
+        },
+        {
+          "op": "replace",
+          "path": "/game/tested_build_ids",
+          "value": []
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/game/compatibility_state",
+          "code": "hosted.published_without_tested_build"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_capabilities_are_canonical",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "add",
+          "path": "/capabilities/-",
+          "value": "vpk.audio"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/capabilities",
+          "code": "hosted.capabilities_noncanonical"
+        }
+      ]
+    },
+    {
+      "case_id": "external_artifact_filename_is_path_safe",
+      "base_contract": "external-reference",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/artifact/filename",
+          "value": "COM¹.vpk"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/artifact/filename",
+          "code": "path.unsafe_artifact_filename"
+        }
+      ]
+    },
+    {
+      "case_id": "external_gamebanana_host_is_pinned",
+      "base_contract": "external-reference",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/provider/kind",
+          "value": "gamebanana"
+        },
+        {
+          "op": "replace",
+          "path": "/provenance/kind",
+          "value": "gamebanana-linked"
+        },
+        {
+          "op": "replace",
+          "path": "/provenance/canonical_page",
+          "value": "https://www.gamebanana.com/mods/fixture"
+        },
+        {
+          "op": "replace",
+          "path": "/provenance/authoritative_host",
+          "value": "www.gamebanana.com"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/provenance/authoritative_host",
+          "code": "external.gamebanana_host_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "install_ready_requires_tested_build_compatibility",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/game/compatibility_state",
+          "value": "unknown"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/game/compatibility_state",
+          "code": "install.ready_without_tested_build_compatibility"
+        }
+      ]
+    },
+    {
+      "case_id": "install_blocked_requires_reason",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/state",
+          "value": "blocked"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/block_reasons",
+          "code": "install.blocked_without_reasons"
+        }
+      ]
+    },
+    {
+      "case_id": "install_artifact_filename_is_path_safe",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/items/0/artifact/filename",
+          "value": "synthetic?.vpk"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/items/0/artifact/filename",
+          "code": "path.unsafe_artifact_filename"
+        }
+      ]
+    },
+    {
+      "case_id": "install_item_cannot_self_assert_rights_state",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "add",
+          "path": "/items/0/rights_state",
+          "value": "confirmed"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/items/0",
+          "code": "schema.additionalProperties"
+        }
+      ]
+    },
+    {
+      "case_id": "profile_preset_version_ids_are_canonical",
+      "base_contract": "profile",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/cfg_selection/preset_version_ids",
+          "value": [
+            "preset_version_fixture_beta",
+            "preset_version_fixture_alpha"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/cfg_selection/preset_version_ids",
+          "code": "profile.preset_version_ids_noncanonical"
+        }
+      ]
+    },
+    {
+      "case_id": "pack_hosted_variant_is_bound_and_versioned",
+      "base_contract": "pack",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/items/0/variant_id",
+          "value": "alternate"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/items/0/variant_id",
+          "code": "pack.hosted_variant_mismatch"
+        },
+        {
+          "kind": "semantic",
+          "path": "/version_sha256",
+          "code": "pack.version_digest_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "pack_known_conflicts_are_canonical_and_versioned",
+      "base_contract": "pack",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/items/0/known_conflicts",
+          "value": [
+            "conflict_fixture_beta",
+            "conflict_fixture_alpha"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/items/0/known_conflicts",
+          "code": "pack.known_conflicts_noncanonical"
+        },
+        {
+          "kind": "semantic",
+          "path": "/version_sha256",
+          "code": "pack.version_digest_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "pack_item_cannot_self_assert_creator",
+      "base_contract": "pack",
+      "operations": [
+        {
+          "op": "add",
+          "path": "/items/0/creator",
+          "value": "self-asserted"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/items/0",
+          "code": "schema.additionalProperties"
+        }
+      ]
+    },
+    {
+      "case_id": "cfg_string_rejects_newline_control",
+      "base_contract": "cfg-setting",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/setting/constraints",
+          "value": {
+            "value_type": "string",
+            "min_length": 0,
+            "max_length": 64,
+            "default": "safe\nvalue"
+          }
+        },
+        {
+          "op": "replace",
+          "path": "/setting/render",
+          "value": "quoted-string"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/setting/constraints/default",
+          "code": "cfg.unsafe_string_value"
+        }
+      ]
+    },
+    {
+      "case_id": "cfg_string_rejects_script_like_value",
+      "base_contract": "cfg-setting",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/setting/constraints",
+          "value": {
+            "value_type": "string",
+            "min_length": 0,
+            "max_length": 64,
+            "default": "exec synthetic"
+          }
+        },
+        {
+          "op": "replace",
+          "path": "/setting/render",
+          "value": "quoted-string"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/setting/constraints/default",
+          "code": "cfg.unsafe_string_value"
+        }
+      ]
+    },
+    {
+      "case_id": "cfg_string_rejects_command_separator",
+      "base_contract": "cfg-setting",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/setting/constraints",
+          "value": {
+            "value_type": "string",
+            "min_length": 0,
+            "max_length": 64,
+            "default": "safe;unsafe"
+          }
+        },
+        {
+          "op": "replace",
+          "path": "/setting/render",
+          "value": "quoted-string"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/setting/constraints/default",
+          "code": "cfg.unsafe_string_value"
+        }
+      ]
+    },
+    {
+      "case_id": "cfg_command_name_remains_manual_only",
+      "base_contract": "cfg-setting",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/setting/name",
+          "value": "exec"
+        }
+      ],
+      "expected": []
+    },
+    {
+      "case_id": "cfg_arbitrary_regex_is_not_a_v1_field",
+      "base_contract": "cfg-setting",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/setting/constraints",
+          "value": {
+            "value_type": "string",
+            "min_length": 0,
+            "max_length": 64,
+            "pattern": "(a+)+$",
+            "default": "a"
+          }
+        },
+        {
+          "op": "replace",
+          "path": "/setting/render",
+          "value": "quoted-string"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/setting/constraints",
+          "code": "schema.oneOf"
+        }
+      ]
+    },
+    {
+      "case_id": "registry_ed25519_signature_is_exact_raw_64_bytes",
+      "base_contract": "cfg-registry",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/state",
+          "value": "signature-present-unverified"
+        },
+        {
+          "op": "add",
+          "path": "/registry_sha256",
+          "value": "2ce8b95de48e3d0d696049952f42fc2858d0ec0394ce57319d41496f9c81c424"
+        },
+        {
+          "op": "add",
+          "path": "/signature",
+          "value": {
+            "algorithm": "ed25519",
+            "key_id": "fixture_signing_key",
+            "signature_base64": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "verification_state": "not-verified"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/signature/signature_base64",
+          "code": "registry.signature_encoding_invalid"
+        }
+      ]
+    },
+    {
+      "case_id": "registry_ecdsa_signature_requires_canonical_der",
+      "base_contract": "cfg-registry",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/state",
+          "value": "signature-present-unverified"
+        },
+        {
+          "op": "add",
+          "path": "/registry_sha256",
+          "value": "2ce8b95de48e3d0d696049952f42fc2858d0ec0394ce57319d41496f9c81c424"
+        },
+        {
+          "op": "add",
+          "path": "/signature",
+          "value": {
+            "algorithm": "ecdsa-p256-sha256",
+            "key_id": "fixture_signing_key",
+            "signature_base64": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+            "verification_state": "not-verified"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/signature/signature_base64",
+          "code": "registry.signature_encoding_invalid"
+        }
+      ]
+    },
+    {
+      "case_id": "corpus_materialized_payload_count_is_zero",
+      "base_contract": "fixture-corpus",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/materialized_payload_count",
+          "value": 1
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/materialized_payload_count",
+          "code": "schema.const"
+        }
+      ]
+    },
+    {
+      "case_id": "corpus_game_bytes_are_forbidden",
+      "base_contract": "fixture-corpus",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/content_assertions/contains_game_bytes",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/content_assertions/contains_game_bytes",
+          "code": "schema.const"
+        }
+      ]
+    },
+    {
+      "case_id": "corpus_planned_controls_have_no_payload_path",
+      "base_contract": "fixture-corpus",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/planned_controls/0/payload_path",
+          "value": "fixtures/payload.zip"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/planned_controls/0/payload_path",
+          "code": "schema.type"
+        }
+      ]
+    },
+    {
+      "case_id": "timestamp_leap_second_is_rejected_without_exception",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/expires_at",
+          "value": "2026-08-30T16:15:60Z"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/expires_at",
+          "code": "schema.format"
+        }
+      ]
+    },
+    {
+      "case_id": "timestamp_24_hour_is_rejected_without_exception",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/expires_at",
+          "value": "2026-08-30T24:00:00Z"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/expires_at",
+          "code": "schema.format"
+        }
+      ]
+    },
+    {
+      "case_id": "timestamp_year_zero_is_rejected_without_exception",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/expires_at",
+          "value": "0000-08-30T16:15:00Z"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/expires_at",
+          "code": "schema.format"
+        }
+      ]
+    },
+    {
+      "case_id": "timestamp_oversized_year_is_rejected_without_exception",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/expires_at",
+          "value": "10000-08-30T16:15:00Z"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/expires_at",
+          "code": "schema.format"
+        }
+      ]
+    },
+    {
+      "case_id": "https_nfkc_netloc_delimiter_is_rejected_without_exception",
+      "base_contract": "external-reference",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/provenance/canonical_page",
+          "value": "https://example.invalid／evil"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/provenance/canonical_page",
+          "code": "schema.format"
+        }
+      ]
+    },
+    {
+      "case_id": "https_malformed_ipv6_is_rejected_without_exception",
+      "base_contract": "external-reference",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/provenance/canonical_page",
+          "value": "https://[x"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/provenance/canonical_page",
+          "code": "schema.format"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_nfkc_traversal_is_unsafe",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/variants/0/files/0/source_path",
+          "value": "payload／..／escape.vpk"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/variants/0/files/0/source_path",
+          "code": "path.unsafe_relative"
+        }
+      ]
+    },
+    {
+      "case_id": "external_nfkc_separator_filename_is_unsafe",
+      "base_contract": "external-reference",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/artifact/filename",
+          "value": "payload／escape.vpk"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/artifact/filename",
+          "code": "path.unsafe_artifact_filename"
+        }
+      ]
+    },
+    {
+      "case_id": "install_nfkc_base_vpk_alias_is_unsafe_and_forbidden",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/items/0/target/relative_path",
+          "value": "pak０１_dir.vpk"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/items/0/target/relative_path",
+          "code": "install.base_vpk_target_forbidden"
+        },
+        {
+          "kind": "semantic",
+          "path": "/items/0/target/relative_path",
+          "code": "path.unsafe_relative"
+        }
+      ]
+    },
+    {
+      "case_id": "hosted_revocation_cannot_predate_release",
+      "base_contract": "hosted-release",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/state",
+          "value": "revoked"
+        },
+        {
+          "op": "add",
+          "path": "/revocation",
+          "value": {
+            "reason_code": "policy",
+            "revoked_at": "2026-08-30T11:59:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/revocation/revoked_at",
+          "code": "hosted.revocation_before_creation"
+        },
+        {
+          "kind": "semantic",
+          "path": "/revocation/revoked_at",
+          "code": "hosted.revocation_before_publication"
+        }
+      ]
+    },
+    {
+      "case_id": "external_revocation_cannot_predate_observation",
+      "base_contract": "external-reference",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/state",
+          "value": "revoked"
+        },
+        {
+          "op": "add",
+          "path": "/revocation",
+          "value": {
+            "reason_code": "policy",
+            "revoked_at": "2026-08-30T12:59:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/revocation/revoked_at",
+          "code": "external.revocation_before_observation"
+        }
+      ]
+    },
+    {
+      "case_id": "registry_signature_cannot_self_assert_verification",
+      "base_contract": "cfg-registry",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/state",
+          "value": "signature-present-unverified"
+        },
+        {
+          "op": "add",
+          "path": "/registry_sha256",
+          "value": "2ce8b95de48e3d0d696049952f42fc2858d0ec0394ce57319d41496f9c81c424"
+        },
+        {
+          "op": "add",
+          "path": "/signature",
+          "value": {
+            "algorithm": "ed25519",
+            "key_id": "fixture_signing_key",
+            "signature_base64": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+            "verification_state": "verified"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/signature/verification_state",
+          "code": "schema.const"
+        }
+      ]
+    },
+    {
+      "case_id": "pack_community_evidence_requires_version_digest",
+      "base_contract": "pack",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/approval",
+          "value": {
+            "status": "community-reported",
+            "evidence_url": "https://example.invalid/evidence/fixture-pack",
+            "observed_at": "2026-08-30T15:20:00Z",
+            "expires_at": "2026-09-30T15:20:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "schema",
+          "path": "/approval",
+          "code": "schema.oneOf"
+        }
+      ]
+    },
+    {
+      "case_id": "install_revocation_cannot_predate_issue",
+      "base_contract": "install-plan",
+      "operations": [
+        {
+          "op": "replace",
+          "path": "/state",
+          "value": "revoked"
+        },
+        {
+          "op": "add",
+          "path": "/revocation",
+          "value": {
+            "reason_code": "policy",
+            "revoked_at": "2026-08-30T15:59:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "semantic",
+          "path": "/revocation/revoked_at",
+          "code": "install.revocation_before_issue"
+        }
+      ]
+    }
+  ],
+  "graph_cases": [
+    {
+      "case_id": "graph_ready_plan_hosted_source_id_must_resolve",
+      "operations": [
+        {
+          "document": "install-plan",
+          "op": "replace",
+          "path": "/items/0/source/release_id",
+          "value": "rel_fixture_missing"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items",
+          "code": "graph.plan_pack_items_mismatch"
+        },
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/0/source/release_id",
+          "code": "graph.source_missing"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_ready_plan_artifact_digest_is_authoritative",
+      "operations": [
+        {
+          "document": "install-plan",
+          "op": "replace",
+          "path": "/items/0/artifact/sha256",
+          "value": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items",
+          "code": "graph.plan_pack_items_mismatch"
+        },
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/0/artifact/sha256",
+          "code": "graph.artifact_digest_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_ready_plan_rights_digest_is_authoritative",
+      "operations": [
+        {
+          "document": "install-plan",
+          "op": "replace",
+          "path": "/items/0/rights_sha256",
+          "value": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items",
+          "code": "graph.plan_pack_items_mismatch"
+        },
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/0/rights_sha256",
+          "code": "graph.rights_digest_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_profile_external_source_id_must_resolve",
+      "operations": [
+        {
+          "document": "profile",
+          "op": "replace",
+          "path": "/entries/1/source/external_reference_id",
+          "value": "ext_fixture_missing"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/profile/entries/1/source/external_reference_id",
+          "code": "graph.source_missing"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_profile_artifact_digest_is_authoritative",
+      "operations": [
+        {
+          "document": "profile",
+          "op": "replace",
+          "path": "/entries/1/object_sha256",
+          "value": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/profile/entries/1/object_sha256",
+          "code": "graph.artifact_digest_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_profile_rights_digest_is_authoritative",
+      "operations": [
+        {
+          "document": "profile",
+          "op": "replace",
+          "path": "/entries/1/rights_sha256",
+          "value": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/profile/entries/1/rights_sha256",
+          "code": "graph.rights_digest_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_pack_external_source_id_must_resolve",
+      "operations": [
+        {
+          "document": "pack",
+          "op": "replace",
+          "path": "/items/1/source/external_reference_id",
+          "value": "ext_fixture_missing"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items",
+          "code": "graph.plan_pack_items_mismatch"
+        },
+        {
+          "kind": "graph",
+          "path": "/pack/items/1/source/external_reference_id",
+          "code": "graph.source_missing"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_pack_artifact_digest_is_authoritative",
+      "operations": [
+        {
+          "document": "pack",
+          "op": "replace",
+          "path": "/items/1/artifact_sha256",
+          "value": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items",
+          "code": "graph.plan_pack_items_mismatch"
+        },
+        {
+          "kind": "graph",
+          "path": "/pack/items/1/artifact_sha256",
+          "code": "graph.artifact_digest_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_pack_rights_digest_is_authoritative",
+      "operations": [
+        {
+          "document": "pack",
+          "op": "replace",
+          "path": "/items/1/rights_sha256",
+          "value": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items",
+          "code": "graph.plan_pack_items_mismatch"
+        },
+        {
+          "kind": "graph",
+          "path": "/pack/items/1/rights_sha256",
+          "code": "graph.rights_digest_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_ready_plan_pack_version_must_resolve",
+      "operations": [
+        {
+          "document": "install-plan",
+          "op": "replace",
+          "path": "/source_request/pack_version_id",
+          "value": "pack_version_fixture_missing"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/source_request/pack_version_id",
+          "code": "graph.pack_version_missing"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_ready_plan_expected_build_is_authoritative",
+      "operations": [
+        {
+          "document": "install-plan",
+          "op": "replace",
+          "path": "/game/expected_build_id",
+          "value": "fixture-build-missing"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/0/source",
+          "code": "graph.source_build_not_tested"
+        },
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/1/source",
+          "code": "graph.source_build_not_tested"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_ready_plan_filename_is_authoritative",
+      "operations": [
+        {
+          "document": "install-plan",
+          "op": "replace",
+          "path": "/items/0/artifact/filename",
+          "value": "renamed.vpk"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/0/artifact/filename",
+          "code": "graph.artifact_filename_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_ready_plan_media_type_is_authoritative",
+      "operations": [
+        {
+          "document": "install-plan",
+          "op": "replace",
+          "path": "/items/0/artifact/media_type",
+          "value": "text/plain"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/0/artifact/media_type",
+          "code": "graph.artifact_media_type_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_ready_plan_size_is_authoritative",
+      "operations": [
+        {
+          "document": "install-plan",
+          "op": "replace",
+          "path": "/items/0/artifact/size_bytes",
+          "value": 129
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/0/artifact/size_bytes",
+          "code": "graph.artifact_size_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_ready_plan_scan_state_is_authoritative",
+      "operations": [
+        {
+          "document": "install-plan",
+          "op": "replace",
+          "path": "/items/0/artifact/scan_state",
+          "value": "requires-local-scan"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/0/artifact/scan_state",
+          "code": "graph.scan_state_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_vpk_authority_cannot_become_cfg_target",
+      "operations": [
+        {
+          "document": "hosted-release",
+          "op": "replace",
+          "path": "/variants/0/files/0/target_kind",
+          "value": "cfg-typed-artifact"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/0/target/kind",
+          "code": "graph.target_kind_mismatch"
+        },
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/0/target/root",
+          "code": "graph.target_root_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_ready_external_unknown_rights_fail_closed",
+      "operations": [
+        {
+          "document": "external-reference",
+          "op": "replace",
+          "path": "/rights/redistribution",
+          "value": "unknown"
+        },
+        {
+          "document": "install-plan",
+          "op": "replace",
+          "path": "/items/1/rights_sha256",
+          "value": "9d8f337f4ab764e0724ebcbb1bbdc2d32cdc14c70b3f77a681efe987a9ea2a0c"
+        },
+        {
+          "document": "profile",
+          "op": "replace",
+          "path": "/entries/1/rights_sha256",
+          "value": "9d8f337f4ab764e0724ebcbb1bbdc2d32cdc14c70b3f77a681efe987a9ea2a0c"
+        },
+        {
+          "document": "pack",
+          "op": "replace",
+          "path": "/items/1/rights_sha256",
+          "value": "9d8f337f4ab764e0724ebcbb1bbdc2d32cdc14c70b3f77a681efe987a9ea2a0c"
+        },
+        {
+          "document": "pack",
+          "op": "replace",
+          "path": "/version_sha256",
+          "value": "50ac6bed1ab19f795082b8f26167fb5605fdaa058991449aecf59c8b4ecf8a6d"
+        },
+        {
+          "document": "pack",
+          "op": "replace",
+          "path": "/approval/approved_version_sha256",
+          "value": "50ac6bed1ab19f795082b8f26167fb5605fdaa058991449aecf59c8b4ecf8a6d"
+        },
+        {
+          "document": "install-plan",
+          "op": "replace",
+          "path": "/source_request/pack_version_sha256",
+          "value": "50ac6bed1ab19f795082b8f26167fb5605fdaa058991449aecf59c8b4ecf8a6d"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/1/source",
+          "code": "graph.external_rights_unknown"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_external_unclean_scan_is_not_installable",
+      "operations": [
+        {
+          "document": "external-reference",
+          "op": "replace",
+          "path": "/artifact/scan/state",
+          "value": "needs-review"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/1/artifact/scan_state",
+          "code": "graph.scan_state_mismatch"
+        },
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/1/source",
+          "code": "graph.source_not_installable"
+        },
+        {
+          "kind": "graph",
+          "path": "/pack/items/1/source",
+          "code": "graph.source_not_installable"
+        },
+        {
+          "kind": "graph",
+          "path": "/profile/entries/1/source",
+          "code": "graph.source_not_installable"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_pack_request_pins_version_digest",
+      "operations": [
+        {
+          "document": "install-plan",
+          "op": "replace",
+          "path": "/source_request/pack_version_sha256",
+          "value": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/source_request/pack_version_sha256",
+          "code": "graph.pack_version_digest_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_ready_plan_requires_published_pack",
+      "operations": [
+        {
+          "document": "pack",
+          "op": "replace",
+          "path": "/state",
+          "value": "draft"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/pack/state",
+          "code": "graph.pack_not_published"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_pack_evidence_must_predate_plan_issue",
+      "operations": [
+        {
+          "document": "pack",
+          "op": "replace",
+          "path": "/approval/approved_at",
+          "value": "2026-08-30T16:05:00Z"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/issued_at",
+          "code": "graph.pack_evidence_after_plan_issue"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_pack_evidence_covers_full_plan_lifetime",
+      "operations": [
+        {
+          "document": "pack",
+          "op": "replace",
+          "path": "/approval/expires_at",
+          "value": "2026-08-30T16:10:00Z"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/expires_at",
+          "code": "graph.plan_outlives_pack_evidence"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_revoked_pack_evidence_cannot_authorize_ready_plan",
+      "operations": [
+        {
+          "document": "pack",
+          "op": "replace",
+          "path": "/state",
+          "value": "revoked"
+        },
+        {
+          "document": "pack",
+          "op": "replace",
+          "path": "/approval",
+          "value": {
+            "status": "revoked",
+            "previous_status": "creator-verified",
+            "approver_creator_id": "creator_fixture_pack",
+            "approved_version_sha256": "fd4f6a3efddfe29ac34aecb622c2565e8c0e7e2cd3219bac882e8681903d38e8",
+            "approved_at": "2026-08-30T15:10:00Z",
+            "expires_at": "2026-09-30T15:10:00Z",
+            "changed_at": "2026-08-30T15:30:00Z",
+            "change_reason": "Synthetic lifecycle regression."
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/pack/approval/status",
+          "code": "graph.pack_evidence_inactive"
+        },
+        {
+          "kind": "graph",
+          "path": "/pack/state",
+          "code": "graph.pack_not_published"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_direct_release_cannot_mix_external_source",
+      "operations": [
+        {
+          "document": "install-plan",
+          "op": "replace",
+          "path": "/source_request",
+          "value": {
+            "kind": "release",
+            "release_id": "rel_fixture_cosmetic_001"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/1/source",
+          "code": "graph.direct_release_source_mismatch"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_external_outbound_only_is_not_installable",
+      "operations": [
+        {
+          "document": "external-reference",
+          "op": "replace",
+          "path": "/resolution_policy",
+          "value": "outbound-link-only"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/1/source",
+          "code": "graph.source_not_installable"
+        },
+        {
+          "kind": "graph",
+          "path": "/pack/items/1/source",
+          "code": "graph.source_not_installable"
+        },
+        {
+          "kind": "graph",
+          "path": "/profile/entries/1/source",
+          "code": "graph.source_not_installable"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_external_author_declared_build_is_not_ready",
+      "operations": [
+        {
+          "document": "external-reference",
+          "op": "replace",
+          "path": "/game/compatibility_state",
+          "value": "author-declared"
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/install-plan/items/1/source",
+          "code": "graph.source_build_not_tested"
+        }
+      ]
+    },
+    {
+      "case_id": "graph_community_evidence_digest_is_authoritative",
+      "operations": [
+        {
+          "document": "pack",
+          "op": "replace",
+          "path": "/approval",
+          "value": {
+            "status": "community-reported",
+            "evidence_url": "https://example.invalid/evidence/fixture-pack",
+            "approved_version_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "observed_at": "2026-08-30T15:20:00Z",
+            "expires_at": "2026-09-30T15:20:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "kind": "graph",
+          "path": "/pack/approval/approved_version_sha256",
+          "code": "graph.pack_evidence_digest_mismatch"
+        }
+      ]
+    }
+  ]
+}

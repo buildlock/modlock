@@ -1,0 +1,269 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:modlock:contracts:v1:cfg-setting",
+  "title": "Modlock typed CFG setting V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract",
+    "setting"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "contract": {
+      "const": "modlock.cfg-setting"
+    },
+    "setting": {
+      "$ref": "#/$defs/setting"
+    }
+  },
+  "$defs": {
+    "setting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "status",
+        "risk",
+        "applies_to",
+        "auto_apply",
+        "introduced_build_id",
+        "last_verified_build_id",
+        "provenance",
+        "constraints",
+        "render"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "status": {
+          "enum": [
+            "supported",
+            "deprecated",
+            "blocked"
+          ]
+        },
+        "risk": {
+          "enum": [
+            "cosmetic",
+            "accessibility",
+            "performance",
+            "gameplay-input",
+            "competitive-risk",
+            "unknown"
+          ]
+        },
+        "applies_to": {
+          "enum": [
+            "autoexec-owned-block",
+            "machine-convars-allowlist"
+          ]
+        },
+        "auto_apply": {
+          "const": false
+        },
+        "introduced_build_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96
+        },
+        "last_verified_build_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96
+        },
+        "provenance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "evidence_kind",
+            "evidence_id",
+            "observed_at",
+            "source_statement"
+          ],
+          "properties": {
+            "evidence_kind": {
+              "enum": [
+                "game-build-probe",
+                "official-documentation",
+                "fixture-control"
+              ]
+            },
+            "evidence_id": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+            },
+            "observed_at": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+            },
+            "source_url": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/https_url"
+            },
+            "source_statement": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500
+            }
+          }
+        },
+        "constraints": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/integer_constraints"
+            },
+            {
+              "$ref": "#/$defs/number_constraints"
+            },
+            {
+              "$ref": "#/$defs/boolean_constraints"
+            },
+            {
+              "$ref": "#/$defs/string_constraints"
+            },
+            {
+              "$ref": "#/$defs/enum_constraints"
+            }
+          ]
+        },
+        "render": {
+          "enum": [
+            "integer-decimal",
+            "number-decimal",
+            "boolean-01",
+            "quoted-string",
+            "token"
+          ]
+        }
+      }
+    },
+    "integer_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value_type",
+        "minimum",
+        "maximum",
+        "default"
+      ],
+      "properties": {
+        "value_type": {
+          "const": "integer"
+        },
+        "minimum": {
+          "type": "integer"
+        },
+        "maximum": {
+          "type": "integer"
+        },
+        "default": {
+          "type": "integer"
+        }
+      }
+    },
+    "number_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value_type",
+        "minimum",
+        "maximum",
+        "default"
+      ],
+      "properties": {
+        "value_type": {
+          "const": "number"
+        },
+        "minimum": {
+          "type": "number"
+        },
+        "maximum": {
+          "type": "number"
+        },
+        "default": {
+          "type": "number"
+        }
+      }
+    },
+    "boolean_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value_type",
+        "default"
+      ],
+      "properties": {
+        "value_type": {
+          "const": "boolean"
+        },
+        "default": {
+          "type": "boolean"
+        }
+      }
+    },
+    "string_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value_type",
+        "min_length",
+        "max_length",
+        "default"
+      ],
+      "properties": {
+        "value_type": {
+          "const": "string"
+        },
+        "min_length": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1024
+        },
+        "max_length": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1024
+        },
+        "default": {
+          "type": "string",
+          "maxLength": 1024
+        }
+      }
+    },
+    "enum_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value_type",
+        "allowed_values",
+        "default"
+      ],
+      "properties": {
+        "value_type": {
+          "const": "enum"
+        },
+        "allowed_values": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        "default": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      }
+    }
+  }
+}

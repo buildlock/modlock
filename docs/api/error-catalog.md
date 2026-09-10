@@ -1,9 +1,14 @@
 # Error catalog
 
+> Deferred API or real-corpus design. Current synthetic conformance is governed
+> by [contracts/v1](../../contracts/README.md); archived outline schemas are
+> not a second active format.
+
+
 Status: initial stable namespace  
 Last reviewed: 2026-09-01
 
-Errors are represented by `contracts/schemas/error.schema.json`. Codes are machine-stable; messages are actionable/localizable. Security-sensitive details stay in restricted logs keyed by `request_id`.
+Errors are represented by `docs/design/2026-09-01-contract-outline/schemas/error.schema.json`. Codes are machine-stable; messages are actionable/localizable. Security-sensitive details stay in restricted logs keyed by `request_id`.
 
 | Namespace/examples | Meaning and client behavior |
 |---|---|

@@ -1,5 +1,24 @@
 # Development log
 
+
+## 2026-09-10 — Integrate the preserved Phase 0 contract foundation
+
+Independent review retained the old candidate's contract/fixture/validator
+foundation and confirmed the two recorded SHO-275 repairs. Fresh diagnostic
+checks passed all 28 contract tests, 19 Markdown files and seven Python files.
+The old complete gate failed because September 5 handoff edits no longer
+matched its August 31 whole-repository manifest. Both old worktrees remain
+unchanged; no stale-manifest success is claimed.
+
+This current-main integration selects one active `contracts/v1` authority,
+archives the conflicting older schema/API designs, reconciles links and
+current ledgers, preserves the current checkout pin and isolated docs gate,
+and extends the protected check with pinned contract CI. Source snapshots are captured and verified per
+run; the old manifest remains historical. The full integrated fresh gate passes 28 tests, 138 Markdown files, 37 JSON
+files, 29 feature pages and 10 ADRs. Final independent review and CI are
+recorded with the source PR. No runtime, fixture payload,
+provider, game, signing or release action was performed.
+
 ## 2026-08-26 — Session 1: ecosystem research and product architecture
 
 - Created the Modlock greenfield workspace.
@@ -31,4 +50,15 @@ No application code or automated test suite exists yet.
 - Separated Codex-owned work from ten human-only dependencies and prepared outreach, research, counsel, consent, and Windows-host packets.
 - Expanded offline documentation CI to validate JSON, contract references, internal links, fences, features, ADRs, package completeness, and formatting.
 
-Application code is still intentionally absent. The next engineering checkpoint is the contract-generated monorepo plus synthetic fixture and Rust transaction/recovery walking slice.
+Application code was still intentionally absent. At that checkpoint, the planned next work was a contract-generated monorepo plus synthetic fixtures and a Rust transaction/recovery walking slice; Session 3 supersedes that ordering after discovering the unmerged candidate.
+
+## 2026-09-01 — Session 3: deterministic portfolio orchestration audit
+
+- Audited the exact repository tree, instructions, worktrees, current remote/default branch, GitHub protection/PR/CI state, Linear project/issues/comments/dependencies, and a live Graphify index/query at current main `1f2ba129...`.
+- Recorded that merged main remains documentation/contracts-only and has no product runtime, migrations, deployment, providers, or production evidence.
+- Identified `/Users/ahad/Dev/modlock-phase0-contracts` as a dirty, unpushed, four-commits-behind **IMPLEMENTED BUT UNMERGED** contract/conformance candidate with **SYNTHETIC OR TEST-ONLY** fixtures, an unverified self-reported gate, seven exact canonical-file collisions, and a competing contract layout.
+- Audited BuildLock and Deadlock-Infra boundaries. Recorded Modlock as canonical owner of mod metadata/releases, binary quarantine/scanning, resolution, and local installation/recovery; BuildLock may consume presentation projections but must not own a second mod registry. Shared artifact identity and central account/creator issuance remain target-state decisions.
+- Added the dated project control packet with all 29 feature states, separate readiness dimensions, a deterministic 50-job queue, writer/reviewer separation, commands, evidence gates, parallel/collision groups, ten owner decisions, and Linear reconciliation.
+- Changed the next checkpoint: independent read-only SHO-275/candidate review and deliberate current-main integration now precede scaffolding.
+
+No runtime code, candidate-worktree source, Linear state, provider, credential, production system, migration, deployment, permission, GitHub setting, or merge was changed.

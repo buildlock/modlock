@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "contract": "modlock.fixture-corpus",
+  "corpus_id": "phase0_synthetic_controls",
+  "state": "scaffold-only",
+  "scope": "SHO-124 synthetic controls only; no representative corpus claim",
+  "content_assertions": {
+    "contains_game_bytes": false,
+    "contains_mod_bytes": false,
+    "contains_provider_bytes": false,
+    "contains_archive_or_vpk_payloads": false,
+    "content_origin": "repository-authored-synthetic-metadata",
+    "rights": {
+      "license_state": "repository-license-pending",
+      "reuse_scope": "internal-conformance-only",
+      "third_party_assets": "none"
+    }
+  },
+  "materialized_payload_count": 0,
+  "planned_controls": [
+    {
+      "control_id": "zip_representative_vpk",
+      "case_kind": "representative",
+      "target_format": "zip",
+      "state": "metadata-only",
+      "expected_decision": "accept-after-future-proof",
+      "payload_path": null,
+      "rights_state": "synthetic-control-only",
+      "notes": "Future separately licensed ZIP containing one synthetic VPK; no archive exists in this slice."
+    },
+    {
+      "control_id": "zip_parent_traversal",
+      "case_kind": "adversarial",
+      "target_format": "zip",
+      "state": "metadata-only",
+      "expected_decision": "reject",
+      "payload_path": null,
+      "rights_state": "synthetic-control-only",
+      "notes": "Future traversal entry control for path normalization; metadata only."
+    },
+    {
+      "control_id": "zip_absolute_device_path",
+      "case_kind": "adversarial",
+      "target_format": "zip",
+      "state": "metadata-only",
+      "expected_decision": "reject",
+      "payload_path": null,
+      "rights_state": "synthetic-control-only",
+      "notes": "Future absolute, drive, UNC, device, and alternate-stream path control; metadata only."
+    },
+    {
+      "control_id": "zip_link_reparse_entry",
+      "case_kind": "adversarial",
+      "target_format": "zip",
+      "state": "metadata-only",
+      "expected_decision": "reject",
+      "payload_path": null,
+      "rights_state": "synthetic-control-only",
+      "notes": "Future link and reparse-point entry control; metadata only."
+    },
+    {
+      "control_id": "zip_resource_exhaustion",
+      "case_kind": "adversarial",
+      "target_format": "zip",
+      "state": "metadata-only",
+      "expected_decision": "reject",
+      "payload_path": null,
+      "rights_state": "synthetic-control-only",
+      "notes": "Future expanded-size, ratio, entry-count, nesting, and path-depth ceilings; metadata only."
+    },
+    {
+      "control_id": "raw_vpk_representative",
+      "case_kind": "representative",
+      "target_format": "raw-vpk",
+      "state": "metadata-only",
+      "expected_decision": "accept-after-future-proof",
+      "payload_path": null,
+      "rights_state": "synthetic-control-only",
+      "notes": "Future clean-room synthetic raw VPK; no VPK bytes or parser support exist here."
+    },
+    {
+      "control_id": "vpk_malformed_ranges",
+      "case_kind": "adversarial",
+      "target_format": "raw-vpk",
+      "state": "metadata-only",
+      "expected_decision": "reject",
+      "payload_path": null,
+      "rights_state": "synthetic-control-only",
+      "notes": "Future malformed header, tree, and range cases; metadata only."
+    },
+    {
+      "control_id": "split_vpk_representative",
+      "case_kind": "representative",
+      "target_format": "split-vpk",
+      "state": "metadata-only",
+      "expected_decision": "accept-after-future-proof",
+      "payload_path": null,
+      "rights_state": "synthetic-control-only",
+      "notes": "Future synthetic directory and numbered parts with exact relationships; no VPK bytes exist here."
+    },
+    {
+      "control_id": "rar_support_gate",
+      "case_kind": "representative",
+      "target_format": "rar",
+      "state": "metadata-only",
+      "expected_decision": "block-until-supported",
+      "payload_path": null,
+      "rights_state": "synthetic-control-only",
+      "notes": "Planning control only; no RAR library, payload, extraction, or support decision is included."
+    },
+    {
+      "control_id": "seven_zip_support_gate",
+      "case_kind": "representative",
+      "target_format": "7z",
+      "state": "metadata-only",
+      "expected_decision": "block-until-supported",
+      "payload_path": null,
+      "rights_state": "synthetic-control-only",
+      "notes": "Planning control only; no 7z library, payload, extraction, or support decision is included."
+    },
+    {
+      "control_id": "gameinfo_patch_reset",
+      "case_kind": "mutation-boundary",
+      "target_format": "game-install-tree",
+      "state": "metadata-only",
+      "expected_decision": "recover-or-rollback",
+      "payload_path": null,
+      "rights_state": "synthetic-control-only",
+      "notes": "Future Deadlock-like sacrificial tree authored from synthetic text only; no Valve game file is present."
+    },
+    {
+      "control_id": "activation_interruption_boundaries",
+      "case_kind": "mutation-boundary",
+      "target_format": "game-install-tree",
+      "state": "metadata-only",
+      "expected_decision": "recover-or-rollback",
+      "payload_path": null,
+      "rights_state": "synthetic-control-only",
+      "notes": "Future terminate-after-every-mutation control for the separate SHO-129 runtime proof."
+    },
+    {
+      "control_id": "cfg_marker_corruption",
+      "case_kind": "adversarial",
+      "target_format": "cfg",
+      "state": "metadata-only",
+      "expected_decision": "reject",
+      "payload_path": null,
+      "rights_state": "synthetic-control-only",
+      "notes": "Future duplicated, nested, and truncated owned-marker controls using synthetic CFG text."
+    }
+  ],
+  "conformance_fixtures": [
+    {
+      "contract_name": "cfg-registry",
+      "path": "fixtures/contracts/valid/cfg-registry.json",
+      "sha256": "87ffc5651fb28ce6d8225f27d6085fee4ed1254c431cd5047cbc4d8e37fe0199",
+      "content_origin": "repository-authored-synthetic-json",
+      "contains_third_party_bytes": false
+    },
+    {
+      "contract_name": "cfg-setting",
+      "path": "fixtures/contracts/valid/cfg-setting.json",
+      "sha256": "e6b95a626b7a626fd04830ac959a53673ace970c8d7bc5609df0d7be65d11182",
+      "content_origin": "repository-authored-synthetic-json",
+      "contains_third_party_bytes": false
+    },
+    {
+      "contract_name": "external-reference",
+      "path": "fixtures/contracts/valid/external-reference.json",
+      "sha256": "41d45ebf9e07bcdc01f99f8b64828ac852381d5890fb7129b02889b05ab6fa73",
+      "content_origin": "repository-authored-synthetic-json",
+      "contains_third_party_bytes": false
+    },
+    {
+      "contract_name": "hosted-release",
+      "path": "fixtures/contracts/valid/hosted-release.json",
+      "sha256": "a2b9a0c42de19a719b93de019ec5190c1664d8cf2b656a43222e2d2f8c5dd2d0",
+      "content_origin": "repository-authored-synthetic-json",
+      "contains_third_party_bytes": false
+    },
+    {
+      "contract_name": "install-plan",
+      "path": "fixtures/contracts/valid/install-plan.json",
+      "sha256": "7e1e190a455241ca8e343da00241b97a8417a0a78816be7c7e7ea2796a8b6e0b",
+      "content_origin": "repository-authored-synthetic-json",
+      "contains_third_party_bytes": false
+    },
+    {
+      "contract_name": "pack",
+      "path": "fixtures/contracts/valid/pack.json",
+      "sha256": "092a1f66e51f6b95e7a8305cba65294b0bbf59a0f1aa547d2f8e741c5fa49c63",
+      "content_origin": "repository-authored-synthetic-json",
+      "contains_third_party_bytes": false
+    },
+    {
+      "contract_name": "profile",
+      "path": "fixtures/contracts/valid/profile.json",
+      "sha256": "bc75ccb55dc8e27b7cf97dc14bc65c927b29f2d8517a0b449a5869f5d6ab244c",
+      "content_origin": "repository-authored-synthetic-json",
+      "contains_third_party_bytes": false
+    }
+  ]
+}

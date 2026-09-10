@@ -1,9 +1,14 @@
 # Fixture catalog and rights manifest
 
+> Deferred API or real-corpus design. Current synthetic conformance is governed
+> by [contracts/v1](../../contracts/README.md); archived outline schemas are
+> not a second active format.
+
+
 Status: specification complete; real licensed corpus requires creator permission  
 Last reviewed: 2026-09-01
 
-Every binary fixture has a sidecar conforming to `contracts/schemas/fixture-manifest.schema.json`. Synthetic fixtures are generated from non-copyrightable test bytes/resources; licensed real-world fixtures require documented permission and may be stored in a separate access-controlled repository.
+Every binary fixture has a sidecar conforming to `docs/design/2026-09-01-contract-outline/schemas/fixture-manifest.schema.json`. Synthetic fixtures are generated from non-copyrightable test bytes/resources; licensed real-world fixtures require documented permission and may be stored in a separate access-controlled repository.
 
 ## Synthetic valid fixtures
 

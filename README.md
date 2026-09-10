@@ -51,4 +51,6 @@ packages/
 docs/
 ```
 
-Core data/API contracts and proposed ADRs are committed, but application implementation has not started. Phase 0 now moves into the synthetic fixture, Rust transaction/recovery, source-adapter contract, and Windows benchmark proofs while human-only platform, hardware, legal, and creator approvals proceed.
+The [active V1 synthetic contract foundation](contracts/README.md) defines schema/semantic conformance and runs in a fresh hash-locked Python environment. The [older API and schema outline](docs/design/2026-09-01-contract-outline/README.md) remains deferred design. Application implementation has not started. Final contract integration review, CI and merge precede local scaffolding or journal/recovery work; Windows/game, provider, legal and rights proofs remain separate.
+
+Run `mise exec -- python scripts/check_fresh.py` with the pinned Python 3.13.15 toolchain. The runner creates and removes its own environment and verifies that source bytes do not change during the checks.

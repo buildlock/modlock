@@ -53,16 +53,26 @@ REQUIRED_FILES = (
     "SECURITY.md",
     "scripts/check_docs.py",
     "contracts/README.md",
-    "contracts/openapi/modlock-v1.openapi.json",
-    "contracts/schemas/cfg-setting.schema.json",
-    "contracts/schemas/crosshair.schema.json",
-    "contracts/schemas/error.schema.json",
-    "contracts/schemas/external-reference.schema.json",
-    "contracts/schemas/fixture-manifest.schema.json",
-    "contracts/schemas/install-plan.schema.json",
-    "contracts/schemas/pack.schema.json",
-    "contracts/schemas/profile.schema.json",
-    "contracts/schemas/release.schema.json",
+    "contracts/v1/index.json",
+    "contracts/v1/schemas/common.schema.json",
+    "contracts/v1/schemas/hosted-release.schema.json",
+    "contracts/v1/schemas/external-reference.schema.json",
+    "contracts/v1/schemas/install-plan.schema.json",
+    "contracts/v1/schemas/profile.schema.json",
+    "contracts/v1/schemas/pack.schema.json",
+    "contracts/v1/schemas/cfg-setting.schema.json",
+    "contracts/v1/schemas/cfg-registry.schema.json",
+    "contracts/v1/schemas/fixture-corpus.schema.json",
+    "docs/design/2026-09-01-contract-outline/openapi/modlock-v1.openapi.json",
+    "docs/design/2026-09-01-contract-outline/schemas/cfg-setting.schema.json",
+    "docs/design/2026-09-01-contract-outline/schemas/crosshair.schema.json",
+    "docs/design/2026-09-01-contract-outline/schemas/error.schema.json",
+    "docs/design/2026-09-01-contract-outline/schemas/external-reference.schema.json",
+    "docs/design/2026-09-01-contract-outline/schemas/fixture-manifest.schema.json",
+    "docs/design/2026-09-01-contract-outline/schemas/install-plan.schema.json",
+    "docs/design/2026-09-01-contract-outline/schemas/pack.schema.json",
+    "docs/design/2026-09-01-contract-outline/schemas/profile.schema.json",
+    "docs/design/2026-09-01-contract-outline/schemas/release.schema.json",
     "docs/00-executive-brief.md",
     "docs/01-ecosystem-research.md",
     "docs/02-product-specification.md",
@@ -254,7 +264,8 @@ def walk_refs(value: object, location: str = "$") -> Iterator[tuple[str, object]
 def check_contract_refs(parsed_json: dict[Path, object], failures: list[str]) -> None:
     contracts_root = ROOT / "contracts"
     for document, value in parsed_json.items():
-        if contracts_root not in document.parents:
+        deferred_root = ROOT / "docs/design/2026-09-01-contract-outline"
+        if contracts_root not in document.parents and deferred_root not in document.parents:
             continue
         for location, raw_ref in walk_refs(value):
             if not isinstance(raw_ref, str):

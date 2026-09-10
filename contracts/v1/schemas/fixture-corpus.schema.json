@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:modlock:contracts:v1:fixture-corpus",
+  "title": "Modlock synthetic fixture-corpus control manifest V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract",
+    "corpus_id",
+    "state",
+    "scope",
+    "content_assertions",
+    "materialized_payload_count",
+    "planned_controls",
+    "conformance_fixtures"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "contract": {
+      "const": "modlock.fixture-corpus"
+    },
+    "corpus_id": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+    },
+    "state": {
+      "const": "scaffold-only"
+    },
+    "scope": {
+      "const": "SHO-124 synthetic controls only; no representative corpus claim"
+    },
+    "content_assertions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contains_game_bytes",
+        "contains_mod_bytes",
+        "contains_provider_bytes",
+        "contains_archive_or_vpk_payloads",
+        "content_origin",
+        "rights"
+      ],
+      "properties": {
+        "contains_game_bytes": {
+          "const": false
+        },
+        "contains_mod_bytes": {
+          "const": false
+        },
+        "contains_provider_bytes": {
+          "const": false
+        },
+        "contains_archive_or_vpk_payloads": {
+          "const": false
+        },
+        "content_origin": {
+          "const": "repository-authored-synthetic-metadata"
+        },
+        "rights": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "license_state",
+            "reuse_scope",
+            "third_party_assets"
+          ],
+          "properties": {
+            "license_state": {
+              "const": "repository-license-pending"
+            },
+            "reuse_scope": {
+              "const": "internal-conformance-only"
+            },
+            "third_party_assets": {
+              "const": "none"
+            }
+          }
+        }
+      }
+    },
+    "materialized_payload_count": {
+      "const": 0
+    },
+    "planned_controls": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {
+        "$ref": "#/$defs/planned_control"
+      }
+    },
+    "conformance_fixtures": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {
+        "$ref": "#/$defs/conformance_fixture"
+      }
+    }
+  },
+  "$defs": {
+    "planned_control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "control_id",
+        "case_kind",
+        "target_format",
+        "state",
+        "expected_decision",
+        "payload_path",
+        "rights_state",
+        "notes"
+      ],
+      "properties": {
+        "control_id": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+        },
+        "case_kind": {
+          "enum": [
+            "representative",
+            "adversarial",
+            "mutation-boundary"
+          ]
+        },
+        "target_format": {
+          "enum": [
+            "zip",
+            "raw-vpk",
+            "split-vpk",
+            "rar",
+            "7z",
+            "game-install-tree",
+            "cfg"
+          ]
+        },
+        "state": {
+          "const": "metadata-only"
+        },
+        "expected_decision": {
+          "enum": [
+            "accept-after-future-proof",
+            "reject",
+            "block-until-supported",
+            "recover-or-rollback"
+          ]
+        },
+        "payload_path": {
+          "type": "null"
+        },
+        "rights_state": {
+          "const": "synthetic-control-only"
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      }
+    },
+    "conformance_fixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_name",
+        "path",
+        "sha256",
+        "content_origin",
+        "contains_third_party_bytes"
+      ],
+      "properties": {
+        "contract_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "path": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/relative_path"
+        },
+        "sha256": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/sha256"
+        },
+        "content_origin": {
+          "const": "repository-authored-synthetic-json"
+        },
+        "contains_third_party_bytes": {
+          "const": false
+        }
+      }
+    }
+  }
+}

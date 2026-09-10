@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "contract": "modlock.hosted-release",
+  "release_id": "rel_fixture_cosmetic_001",
+  "mod_id": "mod_fixture_cosmetic",
+  "release_version": "1.0.0",
+  "state": "published",
+  "created_at": "2026-08-30T12:00:00Z",
+  "published_at": "2026-08-30T12:30:00Z",
+  "creator": {
+    "creator_id": "creator_fixture_author",
+    "display_name": "Modlock Synthetic Fixture Author",
+    "canonical_url": "https://example.invalid/fixture-author"
+  },
+  "provenance": {
+    "kind": "modlock-hosted",
+    "canonical_page": "https://example.invalid/mods/synthetic-cosmetic",
+    "submission_id": "submission_fixture_001",
+    "submitted_by_creator_id": "creator_fixture_author",
+    "source_statement": "Repository-authored synthetic contract metadata; no mod or game bytes exist."
+  },
+  "rights": {
+    "license": {
+      "kind": "none",
+      "notice": "Synthetic fixture metadata; no redistribution license is asserted by this fixture."
+    },
+    "hosting_authorization": "affirmed",
+    "redistribution": "restricted",
+    "modification": "restricted",
+    "third_party_assets": "none",
+    "uploader_affirmed_at": "2026-08-30T12:00:00Z"
+  },
+  "game": {
+    "app_id": 1422450,
+    "compatibility_state": "tested",
+    "tested_build_ids": [
+      "fixture-build-001"
+    ]
+  },
+  "variants": [
+    {
+      "variant_id": "default",
+      "label": "Synthetic metadata only",
+      "files": [
+        {
+          "file_id": "file_fixture_vpk_001",
+          "source_path": "payload/synthetic_dir.vpk",
+          "target_kind": "vpk-addon",
+          "size_bytes": 128,
+          "media_type": "application/x-vpk",
+          "object_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "scan": {
+            "state": "clean",
+            "attestation_id": "att_fixture_001",
+            "artifact_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "scanner_version": "fixture-scanner-0",
+            "completed_at": "2026-08-30T12:20:00Z"
+          }
+        }
+      ]
+    }
+  ],
+  "capabilities": [
+    "vpk.cosmetic"
+  ]
+}

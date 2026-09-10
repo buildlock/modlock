@@ -1,23 +1,39 @@
 # Linear seed backlog
 
-This file mirrors the initial Linear project so the project can be reconstructed from Git history if external project state is lost.
+This file mirrors the Linear project and its evidence-backed reconciliation so the project can be reconstructed from Git history if external state is lost. Issue statuses were rechecked September 10, 2026; source integration is in progress; issue state is not implementation evidence.
 
 - [Modlock Linear project](https://linear.app/shopliftdigital/project/modlock-72fa0f6e1ed8)
 - [Documentation baseline and owner action queue](https://linear.app/shopliftdigital/document/modlock-documentation-baseline-and-owner-action-queue-3f4fa369309c)
 - Milestone: `Phase 0 — Validation and risk retirement`
 
-## Priority order
+## Live issue mirror and reconciliation
 
-1. [SHO-126 — Establish Valve mod-policy and branding guidance](https://linear.app/shopliftdigital/issue/SHO-126/establish-valve-mod-policy-and-branding-guidance) — document outreach, responses, conservative fallback rules, and product implications.
-2. [SHO-125 — Confirm GameBanana API and one-click integration terms](https://linear.app/shopliftdigital/issue/SHO-125/confirm-gamebanana-api-and-one-click-manager-terms) — API/caching/attribution/download behavior, manager registration, and fallback.
-3. [SHO-124 — Build the licensed and adversarial mod fixture corpus](https://linear.app/shopliftdigital/issue/SHO-124/build-licensed-and-adversarial-mod-fixture-corpus) — 20–30 representative and malicious ZIP/VPK/RAR/7z samples with rights and expected outcomes.
-4. [SHO-127 — Define V1 contracts and manifests](https://linear.app/shopliftdigital/issue/SHO-127/define-v1-api-package-profile-pack-and-cfg-contracts) — hosted release, external reference, install plan, profile, pack, typed CFG setting, and versioning rules.
-5. [SHO-129 — Prototype the Rust transaction journal and crash recovery](https://linear.app/shopliftdigital/issue/SHO-129/prototype-rust-transaction-journal-and-crash-recovery) — stage, journal, activate, terminate at every step, recover or roll back.
-6. [SHO-128 — Prototype Steam discovery and safe gameinfo patching](https://linear.app/shopliftdigital/issue/SHO-128/prototype-steam-discovery-and-safe-gameinfo-patching) — find app 1422450, patch owned search path, survive a simulated game patch.
-7. [SHO-130 — Benchmark native Windows UI options](https://linear.app/shopliftdigital/issue/SHO-130/benchmark-winui-3-rust-against-an-all-rust-native-ui) — WinUI 3 + Rust against all-Rust native UI using production-like work.
-8. [SHO-131 — Validate CFG and crosshair command registry](https://linear.app/shopliftdigital/issue/SHO-131/validate-current-build-cfg-and-crosshair-command-registry) — current-build key/range verification, owned-block behavior, persisted-convar conflicts.
-9. [SHO-132 — Probe third-party API contracts and establish snapshots](https://linear.app/shopliftdigital/issue/SHO-132/establish-third-party-api-snapshots-and-contract-probes) — GameBanana, DMM API, and deadlock-api schema tests, caching, kill switches.
-10. [SHO-133 — Recruit pilot creators and verify content rights](https://linear.app/shopliftdigital/issue/SHO-133/recruit-pilot-creators-and-verify-content-rights) — 3–5 opt-in creators/players, exact-version approval flow, licensed pilot files.
+All issues were unassigned at audit time.
+
+| Issue | Live state | Dependency/evidence state | Required reconciliation |
+|---|---|---|---|
+| [SHO-275 — Fix both independent release blockers](https://linear.app/shopliftdigital/issue/SHO-275/sho-127a-fix-both-independent-release-blockers) | In Progress | Blocks SHO-127. Independent candidate review retained the foundation; current-main integration review and CI remain. | Close only after the two fixes pass final integrated review/CI and source merge; synthetic contract scope only. |
+| [SHO-127 — Define V1 contracts and manifests](https://linear.app/shopliftdigital/issue/SHO-127/define-v1-api-package-profile-pack-and-cfg-contracts) | In Progress | Correctly blocked by SHO-275. The integration selects one active V1 layout; API/client and general resolver work remain unfinished. | Keep blocked through review, deliberate integration, independent exact-head review, CI, and authorized merge. |
+| [SHO-129 — Prototype Rust journal/recovery](https://linear.app/shopliftdigital/issue/SHO-129/prototype-rust-transaction-journal-and-crash-recovery) | Backlog | Merely related to SHO-127/275; no Rust/runtime exists on main. | Add formal `blockedBy SHO-127`; do not start before accepted contracts/scaffold/fixtures. |
+| [SHO-124 — Licensed/adversarial fixture corpus](https://linear.app/shopliftdigital/issue/SHO-124/build-licensed-and-adversarial-mod-fixture-corpus) | Backlog | Candidate has 13 metadata-only controls and zero materialized payloads. | Keep Backlog; split synthetic materialization from rights-cleared real fixtures during execution. |
+| [SHO-125 — GameBanana terms](https://linear.app/shopliftdigital/issue/SHO-125/confirm-gamebanana-api-and-one-click-manager-terms) | Backlog | Public technical audit complete; written terms/manager confirmation absent. | Keep Backlog until HUM-002 authorizes outreach; use outbound-link fallback. |
+| [SHO-126 — Valve guidance](https://linear.app/shopliftdigital/issue/SHO-126/establish-valve-mod-policy-and-branding-guidance) | Backlog | Outreach packet exists; no authorization/response. | Keep Backlog until HUM-001 authorizes send; retain conservative fallback. |
+| [SHO-128 — Steam discovery/gameinfo](https://linear.app/shopliftdigital/issue/SHO-128/prototype-steam-discovery-and-safe-gameinfo-patching) | Backlog | Design/fixtures plan only; no parser or prototype. | Keep Backlog; execute `MLK-P0-011` then `MLK-P0-012`. |
+| [SHO-130 — Native Windows UI benchmark](https://linear.app/shopliftdigital/issue/SHO-130/benchmark-winui-3-rust-against-an-all-rust-native-ui) | Backlog | No Windows/runtime evidence. | Keep Backlog; repair stale ADR attachment to `docs/adr/0003-desktop-core-and-shell.md`. |
+| [SHO-131 — CFG/crosshair registry](https://linear.app/shopliftdigital/issue/SHO-131/validate-current-build-cfg-and-crosshair-command-registry) | Backlog | No current-build Windows/game proof. | Keep Backlog until HUM-003/004 evidence lane is authorized. |
+| [SHO-132 — Third-party contract probes](https://linear.app/shopliftdigital/issue/SHO-132/establish-third-party-api-snapshots-and-contract-probes) | Backlog | Dated manual evidence exists; automated replay/probes absent. | Keep Backlog until scaffold; execute bounded `MLK-P0-014`. |
+| [SHO-133 — Pilot creators/rights](https://linear.app/shopliftdigital/issue/SHO-133/recruit-pilot-creators-and-verify-content-rights) | Backlog | No participants, exact-version consent, or rights evidence. | Keep Backlog until HUM-006 supplies participants/authority. |
+
+## Deterministic priority
+
+1. **CURRENT:** `MLK-P0-003` deliberate current-main integration of the independently retained foundation.
+2. Finish `MLK-P0-004` integration review, fresh CI and accepted source merge.
+3. Close the narrow SHO-275 release defects; retain broader SHO-127 unfinished API/client/resolver scope.
+4. Scaffold pinned toolchains/workspaces/product CI.
+5. Materialize synthetic fixtures, then path/staging, journal, recovery, discovery, and parser proofs.
+6. Owner-authorized Valve/GameBanana/Windows/pilot and portfolio-architecture lanes may run in their separate collision groups.
+
+The complete 50-job scheduling and execution contract is the [project control packet](handoffs/2026-09-01-project-control-packet.md#deterministic-local-job-queue). Create future Linear tickets just in time rather than as a stale batch.
 
 ## Phase 0 definition of done
 

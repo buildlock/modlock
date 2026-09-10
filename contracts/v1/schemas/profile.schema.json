@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:modlock:contracts:v1:profile",
+  "title": "Modlock desired-state profile V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract",
+    "profile_id",
+    "profile_version_id",
+    "name",
+    "game_instance_id",
+    "resolution_state",
+    "activation_policy",
+    "entries",
+    "cfg_selection"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "contract": {
+      "const": "modlock.profile"
+    },
+    "profile_id": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+    },
+    "profile_version_id": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "game_instance_id": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+    },
+    "resolution_state": {
+      "enum": [
+        "unresolved",
+        "resolved",
+        "blocked"
+      ]
+    },
+    "desired_tree_sha256": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/sha256"
+    },
+    "activation_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "game_running_policy",
+        "journal_required",
+        "rollback_required"
+      ],
+      "properties": {
+        "mode": {
+          "const": "transactional-reversible"
+        },
+        "game_running_policy": {
+          "const": "block"
+        },
+        "journal_required": {
+          "const": true
+        },
+        "rollback_required": {
+          "const": true
+        }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "maxItems": 512,
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    },
+    "cfg_selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preset_version_ids",
+        "crosshair_version_id"
+      ],
+      "properties": {
+        "preset_version_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 64,
+          "items": {
+            "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+          }
+        },
+        "crosshair_version_id": {
+          "oneOf": [
+            {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "resolution_state": {
+            "const": "resolved"
+          }
+        },
+        "required": [
+          "resolution_state"
+        ]
+      },
+      "then": {
+        "required": [
+          "desired_tree_sha256"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entry_id",
+        "source",
+        "object_sha256",
+        "rights_sha256",
+        "enabled",
+        "priority",
+        "target_root",
+        "target_relative_path"
+      ],
+      "properties": {
+        "entry_id": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+        },
+        "source": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/source_ref"
+        },
+        "object_sha256": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/sha256"
+        },
+        "rights_sha256": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/sha256"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9999
+        },
+        "target_root": {
+          "const": "modlock-managed-addons"
+        },
+        "target_relative_path": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/relative_path"
+        }
+      }
+    }
+  }
+}

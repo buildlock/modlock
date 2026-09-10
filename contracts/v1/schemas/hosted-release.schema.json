@@ -1,0 +1,275 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:modlock:contracts:v1:hosted-release",
+  "title": "Modlock hosted immutable release V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract",
+    "release_id",
+    "mod_id",
+    "release_version",
+    "state",
+    "created_at",
+    "creator",
+    "provenance",
+    "rights",
+    "game",
+    "variants",
+    "capabilities"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "contract": {
+      "const": "modlock.hosted-release"
+    },
+    "release_id": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+    },
+    "mod_id": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+    },
+    "release_version": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/version"
+    },
+    "state": {
+      "enum": [
+        "approved",
+        "published",
+        "revoked",
+        "deprecated"
+      ]
+    },
+    "created_at": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+    },
+    "published_at": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+    },
+    "revocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason_code",
+        "revoked_at"
+      ],
+      "properties": {
+        "reason_code": {
+          "enum": [
+            "malware",
+            "rights",
+            "policy",
+            "creator-request",
+            "other"
+          ]
+        },
+        "revoked_at": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+        }
+      }
+    },
+    "creator": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/creator"
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "canonical_page",
+        "submission_id",
+        "submitted_by_creator_id",
+        "source_statement"
+      ],
+      "properties": {
+        "kind": {
+          "const": "modlock-hosted"
+        },
+        "canonical_page": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/https_url"
+        },
+        "submission_id": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+        },
+        "submitted_by_creator_id": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+        },
+        "source_statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      }
+    },
+    "rights": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/rights"
+    },
+    "game": {
+      "$ref": "urn:modlock:contracts:v1:common#/$defs/game"
+    },
+    "variants": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {
+        "$ref": "#/$defs/variant"
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 32,
+      "items": {
+        "enum": [
+          "vpk.cosmetic",
+          "vpk.audio",
+          "vpk.hud",
+          "cfg.typed"
+        ]
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "published"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "published_at"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "revoked"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "revocation"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "variant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "variant_id",
+        "label",
+        "files"
+      ],
+      "properties": {
+        "variant_id": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/file"
+          }
+        }
+      }
+    },
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file_id",
+        "source_path",
+        "target_kind",
+        "size_bytes",
+        "media_type",
+        "object_sha256",
+        "scan"
+      ],
+      "properties": {
+        "file_id": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+        },
+        "source_path": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/relative_path"
+        },
+        "target_kind": {
+          "enum": [
+            "vpk-addon",
+            "vpk-split-directory",
+            "vpk-split-part",
+            "cfg-typed-artifact"
+          ]
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483648
+        },
+        "media_type": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "object_sha256": {
+          "$ref": "urn:modlock:contracts:v1:common#/$defs/sha256"
+        },
+        "scan": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "attestation_id",
+            "artifact_sha256",
+            "scanner_version",
+            "completed_at"
+          ],
+          "properties": {
+            "state": {
+              "enum": [
+                "clean",
+                "needs-review",
+                "rejected",
+                "revoked"
+              ]
+            },
+            "attestation_id": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/identifier"
+            },
+            "artifact_sha256": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/sha256"
+            },
+            "scanner_version": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/version"
+            },
+            "completed_at": {
+              "$ref": "urn:modlock:contracts:v1:common#/$defs/timestamp"
+            }
+          }
+        }
+      }
+    }
+  }
+}

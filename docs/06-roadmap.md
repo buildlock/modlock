@@ -2,6 +2,19 @@
 
 The estimates below assume a small experienced team with product/design, web/backend, Windows/Rust, and moderation/operations coverage. They are sequencing ranges, not a fixed commitment.
 
+## Current source gate — 2026-09-10
+
+Independent review retained the preserved synthetic contract foundation and
+required deliberate integration. The current integration selects one active
+V1 layout and retains older API designs as a deferred archive. Final exact
+source review and fresh CI must pass before merge. The next eligible source
+step after that merge is the local scaffold, followed by synthetic fixtures
+and bounded journal/recovery proof. No application runtime exists yet.
+See the [integration record](handoffs/2026-09-10-contract-integration.md) and
+[current status](../STATUS.md); the September 1 planning graph is historical.
+
+Policy outreach, pilot recruitment, Windows-host preparation, and portfolio architecture decisions may proceed in their separate owner-authorized collision groups, but are not READY until their named human dependency is supplied.
+
 ## Phase 0 — validation and risk retirement (2–3 weeks)
 
 ### Product and policy
@@ -148,15 +161,17 @@ The website and desktop foundations can run in parallel after the manifest/API c
 - Preset/pack re-verification freshness.
 - Retained active users measured without invasive background telemetry.
 
-## First ten implementation tickets after Phase 0
+## First ten engineering checkpoints from the current gate
 
-1. Define OpenAPI/JSON Schemas for hosted release, external reference, install plan, profile, pack, and typed CFG setting.
-2. Create the adversarial and representative fixture repository with rights metadata.
-3. Implement Rust path normalization, safe staging primitives, and fuzz targets.
-4. Implement journal state machine and crash-recovery harness.
-5. Implement Steam/Deadlock instance discovery against fixtures.
-6. Implement raw/split VPK inventory and collision model.
-7. Scaffold PostgreSQL release/provenance/blob/scan invariants.
-8. Build direct-to-quarantine upload plus idempotent scan job.
-9. Build native shell around local library and transaction progress events.
-10. Establish code-signing/updater test keys, SBOM generation, and staged CI artifacts.
+This order supersedes the earlier assumption that contract definition and scaffolding could start directly.
+
+1. Independently review the Phase 0 candidate and issue a P0–P2 keep/rework/discard verdict plus collision manifest (`MLK-P0-001`, SHO-275).
+2. Follow the verdict deterministically: remediate and re-review the candidate (`MLK-P0-002`), or author and independently review a clean current-main replacement if the candidate is discarded (`MLK-P0-002D/002R`).
+3. Reconcile the independently accepted candidate or replacement onto current main with exactly one contract source of truth (`MLK-P0-003`, SHO-127/275).
+4. Independently rerun the fresh contract gate, review the integration PR, and require exact-head CI (`MLK-P0-004`).
+5. Scaffold the pinned Rust/web workspace, generators, task runner, and product CI without feature behavior (`MLK-P0-005`).
+6. Materialize the synthetic/adversarial fixture corpus with rights metadata and oracles (`MLK-P0-006`, SHO-124).
+7. Implement Rust path validation and staging primitives (`MLK-P0-008`, SHO-129).
+8. Implement the install-journal state machine (`MLK-P0-009`, SHO-129).
+9. Build the kill-at-every-boundary recovery harness (`MLK-P0-010`, SHO-129).
+10. Implement Steam fixture discovery, followed by semantic owned-marker `gameinfo.gi` repair (`MLK-P0-011/012`, SHO-128).
