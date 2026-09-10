@@ -2,6 +2,10 @@
 
 Contract integration updated: **2026-09-10**
 
+The first executable core slice is the [synthetic journal proof](testing/synthetic-journal-proof.md).
+It is a bounded developer experiment; source acceptance and remaining game/runtime
+work are tracked in [current status](../STATUS.md).
+
 This page is the entry point for product, engineering, trust, operations, support, and evidence documentation. The repository contains a complete design baseline, not a finished product. Policy, moderation, and operations documents marked draft have **not** been approved by counsel or proven against production systems. Windows/game behavior remains provisional until the required Windows and sacrificial-install evidence is attached.
 
 See the [September 10 integration record](handoffs/2026-09-10-contract-integration.md) and [current status](../STATUS.md) for source acceptance and the next job. The [September 1 control packet](handoffs/2026-09-01-project-control-packet.md) retains its dated audit and planning graph. See the [documentation completeness matrix](project/documentation-matrix.md) for the status and remaining approval/evidence boundary of each package. See [delivery ownership](project/ownership.md) before assigning a human dependency.

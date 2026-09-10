@@ -3,6 +3,11 @@
 Status: pre-release draft  
 Last reviewed: 2026-09-01
 
+Developer-only implementation now exists for the
+[synthetic journal proof](../testing/synthetic-journal-proof.md). Its guide explains
+recorded commits, recovery errors and preserved inspection files. The player
+flows below remain draft; no released Modlock recovery UI exists yet.
+
 | Symptom | Safe first action | Do not do |
 |---|---|---|
 | Game is running | Close it normally and retry | Force writes into active files |
@@ -17,4 +22,3 @@ Last reviewed: 2026-09-01
 | Wrong crosshair | Verify active preset and game hero-specific default behavior | Use injection/input automation |
 
 Support should ask for the transaction/error ID and a user-previewed redacted diagnostic bundle. Any instruction that disables signatures, hashes, scanning, antivirus broadly, path validation, or rollback is invalid.
-

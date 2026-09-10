@@ -4,12 +4,12 @@ The estimates below assume a small experienced team with product/design, web/bac
 
 ## Current source gate — 2026-09-10
 
-Independent review retained the preserved synthetic contract foundation and
-required deliberate integration. The current integration selects one active
-V1 layout and retains older API designs as a deferred archive. Final exact
-source review and fresh CI must pass before merge. The next eligible source
-step after that merge is the local scaffold, followed by synthetic fixtures
-and bounded journal/recovery proof. No application runtime exists yet.
+Contract PR5 is accepted and merged, with post-merge CI passed. One active V1
+layout remains; older API designs are a deferred archive. The current source
+slice combines only the pinned Rust scaffold, inert text fixtures and bounded
+single-use journal/recovery proof needed for a runnable experiment. Its
+[proof record](testing/synthetic-journal-proof.md) tracks review/CI evidence and
+limits. Wider workspace/generation, installer, native shell and game proof remain.
 See the [integration record](handoffs/2026-09-10-contract-integration.md) and
 [current status](../STATUS.md); the September 1 planning graph is historical.
 
@@ -163,7 +163,9 @@ The website and desktop foundations can run in parallel after the manifest/API c
 
 ## First ten engineering checkpoints from the current gate
 
-This order supersedes the earlier assumption that contract definition and scaffolding could start directly.
+This historical checkpoint order describes the broader scope. Steps 1–4 are
+accepted through PR5; the current synthetic proof implements only necessary
+parts of steps 5–9. It does not mark each full checkpoint complete.
 
 1. Independently review the Phase 0 candidate and issue a P0–P2 keep/rework/discard verdict plus collision manifest (`MLK-P0-001`, SHO-275).
 2. Follow the verdict deterministically: remediate and re-review the candidate (`MLK-P0-002`), or author and independently review a clean current-main replacement if the candidate is discarded (`MLK-P0-002D/002R`).

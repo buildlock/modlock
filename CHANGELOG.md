@@ -1,10 +1,15 @@
 # Changelog
 
-All notable project changes are recorded here. The project is pre-implementation and unreleased.
+All notable project changes are recorded here. The project is unreleased;
+the first executable core remains a bounded synthetic prototype.
 
 ## Unreleased
 
 ### Added
+
+- Pinned Rust core with a single-use synthetic journal, OS locking, staged tree
+  activation, exact digest verification, immediate/restart recovery, abrupt
+  process-termination harness, Linux/Windows CI and dependency auditing.
 
 - Full discovery and architecture package for the Modlock platform and desktop utility.
 - Pinned Deadlock Mod Manager and GameBanana teardown dossiers.

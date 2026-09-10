@@ -4,13 +4,17 @@ Last updated: **2026-09-10**
 
 ## Current source
 
-`codex/sho-127-contract-integration` brings the previously uncommitted Phase 0
-contract foundation onto current main. Independent review chose **KEEP the
-foundation; REWORK integration** after fresh contract tests passed. The two
-SHO-275 defects—malformed HTTPS components and pack chronology—are corrected.
-The full integrated fresh gate passes all 28 tests, 138 Markdown files, 37 JSON
-files, 29 feature pages and 10 ADRs. Final integration review and CI remain
-before this source merges.
+Contract PR5 merged as `955a80b83c0c5fcd07b82337ec71a1eb96f7ae54` after
+independent acceptance and green local, clean-clone and Linux CI. Post-merge CI
+passed. The two SHO-275 defects—malformed HTTPS components and pack chronology—
+are corrected; that narrow issue is Done. Superseded documentation PR4 is closed.
+
+`codex/sho-129-journal-proof` adds the first pinned Rust core and a bounded,
+single-use synthetic transaction/recovery prototype. Local tests terminate a
+separate process at 41 activation boundaries and six reverse-recovery boundaries.
+The [proof record](docs/testing/synthetic-journal-proof.md) describes exact scope,
+evidence and limitations. Independent review and CI acceptance remain for this
+new source; no game or production deployment is implied.
 
 The one active contract authority is [contracts/v1](contracts/v1/index.json):
 closed-world schemas, conservative UTC/URL/Windows-path validation, typed CFG
@@ -26,8 +30,9 @@ they do not require evolving main to match a historical snapshot.
 ## What exists for users
 
 Modlock remains a planned creator website and native Windows utility. There is
-no usable application, API, installer, scanner, transaction journal, real mod
-corpus, game mutation or deployment. The contract fixtures contain synthetic
+no usable player application, API, installer, scanner, real mod corpus, game
+mutation or deployment. A developer can run the synthetic Rust journal example
+and its fault tests. The contract fixtures contain synthetic
 metadata and zero materialized game/mod payloads. Contract acceptance does not
 complete Phase 0 or the wider SHO-127 API/client work.
 
@@ -38,13 +43,14 @@ procedures, and owner decision records. These are designs, not runtime evidence.
 ## Current job and next action
 
 - `MLK-P0-001`: independent candidate review complete; foundation retained.
-- `MLK-P0-003`: deliberate current-main integration prepared in this branch.
-- `MLK-P0-004`: independent integration review and fresh CI remain.
-- `SHO-275`: await integration acceptance before closing the release blockers.
+- `MLK-P0-003/004`: contract integration accepted and merged; post-merge CI passed.
+- `SHO-275`: Done for its two contract release blockers.
 - `SHO-127`: remains In Progress; API/generated-client adoption and general
   authority resolution are separate unfinished work.
-- After accepted source merge, `MLK-P0-005` may scaffold the pinned local
-  workspace. Journal/recovery work uses only disposable synthetic trees.
+- `SHO-129`: In Progress. Review and verify the bounded synthetic Rust proof;
+  wider path/fixture/install-plan/runtime acceptance remains unfinished.
+- Only the necessary Rust/toolchain/fixture portions of MLK-P0-005/006/008/009/010
+  are combined here. Web/API shells, generators and general installer scope remain.
 - `SHO-124`, `SHO-129`, Windows proof and Phase 0 remain incomplete.
 
 See the [integration record](docs/handoffs/2026-09-10-contract-integration.md)

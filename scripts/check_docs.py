@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from collections.abc import Iterator
@@ -97,14 +98,16 @@ REQUIRED_FILES = (
 
 
 def repository_files(suffixes: tuple[str, ...]) -> list[Path]:
-    """Return matching regular files while excluding Git internals."""
-    return sorted(
-        path
-        for path in ROOT.rglob("*")
-        if path.is_file()
-        and ".git" not in path.parts
-        and path.suffix.lower() in suffixes
-    )
+    """Inspect source documentation, pruning dependency and build outputs."""
+    files = []
+    excluded = {".git", ".venv", "__pycache__", "node_modules", "target"}
+    for directory, children, names in os.walk(ROOT, followlinks=False):
+        children[:] = sorted(child for child in children if child not in excluded)
+        for name in names:
+            path = Path(directory) / name
+            if path.is_file() and path.suffix.lower() in suffixes:
+                files.append(path)
+    return sorted(files)
 
 
 def display(path: Path) -> str:

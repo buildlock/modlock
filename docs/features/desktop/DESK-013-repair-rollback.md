@@ -5,7 +5,7 @@
 | ID | `DESK-013` |
 | Owner | Desktop core/security |
 | Phase | Phase 2 |
-| Status | Draft |
+| Status | In_progress |
 
 ## Problem and user stories
 
@@ -50,5 +50,9 @@ Opt-in drift/failure category, repair/rollback outcome and duration, journal sta
 
 ## Dependencies and open questions
 
-Tracked by SHO-128/129; depends on DESK-002/004/005/006/007/010/016 and SHO-124 fault fixtures.
+Current partial evidence: the [synthetic journal proof](../../testing/synthetic-journal-proof.md)
+tests abrupt termination during activation and reverse recovery, exact digests,
+and preservation of changed files. It covers only fresh inert text trees;
+gameinfo semantics, repeated transactions, production path races and UI remain open.
 
+Tracked by SHO-128/129; depends on DESK-002/004/005/006/007/010/016 and SHO-124 fault fixtures.

@@ -25,6 +25,11 @@ Testing proves that untrusted content cannot escape its boundaries, game/config 
 
 ## Transaction oracle
 
+The first executable instance is the [single-use synthetic journal proof](synthetic-journal-proof.md).
+Its separate-process harness, independent byte oracle, simulated failures and
+actual platform tests are distinguished in that record. Broader game, Windows
+reference-host, physical power-loss and full install-flow coverage remain open.
+
 For every filesystem mutation boundary:
 
 1. Record pre-state tree/content digests.
@@ -56,4 +61,3 @@ Test results attach environment, game/client/service build, fixture IDs, contrac
 - Metrics and logs are documented and privacy-filtered.
 - Rollback/migration behavior is proven.
 - Documentation and support changes ship with code.
-

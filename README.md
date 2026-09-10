@@ -51,6 +51,16 @@ packages/
 docs/
 ```
 
-The [active V1 synthetic contract foundation](contracts/README.md) defines schema/semantic conformance and runs in a fresh hash-locked Python environment. The [older API and schema outline](docs/design/2026-09-01-contract-outline/README.md) remains deferred design. Application implementation has not started. Final contract integration review, CI and merge precede local scaffolding or journal/recovery work; Windows/game, provider, legal and rights proofs remain separate.
+The [active V1 synthetic contract foundation](contracts/README.md) is merged and
+defines schema/semantic conformance in a fresh hash-locked Python environment.
+The [older API and schema outline](docs/design/2026-09-01-contract-outline/README.md)
+remains deferred design. The first [Rust journal proof](docs/testing/synthetic-journal-proof.md)
+uses only fresh synthetic folders and inert text files; its example and abrupt
+process-termination tests are runnable. There is no usable player application.
+Windows/game, provider, legal and rights proofs remain separate.
 
 Run `mise exec -- python scripts/check_fresh.py` with the pinned Python 3.13.15 toolchain. The runner creates and removes its own environment and verifies that source bytes do not change during the checks.
+
+Run `cargo test --workspace --locked` with pinned Rust 1.98.1 for the core.
+See the proof record for the developer demonstration, recovery rules, Linux
+storage-exhaustion test and explicit production limitations.

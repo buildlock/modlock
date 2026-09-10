@@ -1,6 +1,6 @@
 # Linear seed backlog
 
-This file mirrors the Linear project and its evidence-backed reconciliation so the project can be reconstructed from Git history if external state is lost. Issue statuses were rechecked September 10, 2026; source integration is in progress; issue state is not implementation evidence.
+This file mirrors the Linear project and its evidence-backed reconciliation so the project can be reconstructed from Git history if external state is lost. SHO-275 and SHO-129 were rechecked September 10, 2026 after contract PR5 merged; other issue rows retain their dated audit. Issue state is not implementation evidence.
 
 - [Modlock Linear project](https://linear.app/shopliftdigital/project/modlock-72fa0f6e1ed8)
 - [Documentation baseline and owner action queue](https://linear.app/shopliftdigital/document/modlock-documentation-baseline-and-owner-action-queue-3f4fa369309c)
@@ -12,9 +12,9 @@ All issues were unassigned at audit time.
 
 | Issue | Live state | Dependency/evidence state | Required reconciliation |
 |---|---|---|---|
-| [SHO-275 — Fix both independent release blockers](https://linear.app/shopliftdigital/issue/SHO-275/sho-127a-fix-both-independent-release-blockers) | In Progress | Blocks SHO-127. Independent candidate review retained the foundation; current-main integration review and CI remain. | Close only after the two fixes pass final integrated review/CI and source merge; synthetic contract scope only. |
-| [SHO-127 — Define V1 contracts and manifests](https://linear.app/shopliftdigital/issue/SHO-127/define-v1-api-package-profile-pack-and-cfg-contracts) | In Progress | Correctly blocked by SHO-275. The integration selects one active V1 layout; API/client and general resolver work remain unfinished. | Keep blocked through review, deliberate integration, independent exact-head review, CI, and authorized merge. |
-| [SHO-129 — Prototype Rust journal/recovery](https://linear.app/shopliftdigital/issue/SHO-129/prototype-rust-transaction-journal-and-crash-recovery) | Backlog | Merely related to SHO-127/275; no Rust/runtime exists on main. | Add formal `blockedBy SHO-127`; do not start before accepted contracts/scaffold/fixtures. |
+| [SHO-275 — Fix both independent release blockers](https://linear.app/shopliftdigital/issue/SHO-275/sho-127a-fix-both-independent-release-blockers) | Done | PR5 accepted and merged as 955a80b8; post-merge CI passed. | Complete only for the two recorded synthetic contract defects. |
+| [SHO-127 — Define V1 contracts and manifests](https://linear.app/shopliftdigital/issue/SHO-127/define-v1-api-package-profile-pack-and-cfg-contracts) | In Progress | Contract foundation accepted; API/client and general resolver work remain unfinished. | Keep broader scope open; do not hold independent synthetic core proof on the unfinished API work. |
+| [SHO-129 — Prototype Rust journal/recovery](https://linear.app/shopliftdigital/issue/SHO-129/prototype-rust-transaction-journal-and-crash-recovery) | In Progress | Pinned Rust/synthetic transaction proof implemented locally; review and CI remain. | Keep open for full acceptance; the single-use proof is not the production filesystem adapter or installer. |
 | [SHO-124 — Licensed/adversarial fixture corpus](https://linear.app/shopliftdigital/issue/SHO-124/build-licensed-and-adversarial-mod-fixture-corpus) | Backlog | Candidate has 13 metadata-only controls and zero materialized payloads. | Keep Backlog; split synthetic materialization from rights-cleared real fixtures during execution. |
 | [SHO-125 — GameBanana terms](https://linear.app/shopliftdigital/issue/SHO-125/confirm-gamebanana-api-and-one-click-manager-terms) | Backlog | Public technical audit complete; written terms/manager confirmation absent. | Keep Backlog until HUM-002 authorizes outreach; use outbound-link fallback. |
 | [SHO-126 — Valve guidance](https://linear.app/shopliftdigital/issue/SHO-126/establish-valve-mod-policy-and-branding-guidance) | Backlog | Outreach packet exists; no authorization/response. | Keep Backlog until HUM-001 authorizes send; retain conservative fallback. |
@@ -26,14 +26,12 @@ All issues were unassigned at audit time.
 
 ## Deterministic priority
 
-1. **CURRENT:** `MLK-P0-003` deliberate current-main integration of the independently retained foundation.
-2. Finish `MLK-P0-004` integration review, fresh CI and accepted source merge.
-3. Close the narrow SHO-275 release defects; retain broader SHO-127 unfinished API/client/resolver scope.
-4. Scaffold pinned toolchains/workspaces/product CI.
-5. Materialize synthetic fixtures, then path/staging, journal, recovery, discovery, and parser proofs.
-6. Owner-authorized Valve/GameBanana/Windows/pilot and portfolio-architecture lanes may run in their separate collision groups.
+1. **CURRENT:** review and verify the bounded SHO-129 Rust transaction proof on accepted PR5.
+2. Preserve the wider unfinished workspace, fixture, production path/installer and API/client scope explicitly.
+3. Extend the smallest useful fixture-backed path/journal/discovery/parser behavior after source acceptance.
+4. Owner-authorized Valve/GameBanana/Windows/pilot and portfolio-architecture lanes may run in their separate collision groups.
 
-The complete 50-job scheduling and execution contract is the [project control packet](handoffs/2026-09-01-project-control-packet.md#deterministic-local-job-queue). Create future Linear tickets just in time rather than as a stale batch.
+The [September 1 project control packet](handoffs/2026-09-01-project-control-packet.md#deterministic-local-job-queue) retains its historical 50-job planning scope. Current status and the proof record document the bounded combined source slice; this is not 50 completed deliveries. Create future Linear tickets just in time rather than as a stale batch.
 
 ## Phase 0 definition of done
 
