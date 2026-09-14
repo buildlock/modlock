@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Barlow_Condensed, Manrope } from "next/font/google";
 import "./globals.css";
+import "./accounts.css";
 const display = Barlow_Condensed({
   subsets: ["latin"],
   weight: ["600", "700", "800"],
@@ -20,7 +21,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${display.variable} ${body.variable}`}
+    >
       <body>
         <a className="skip-link" href="#main">
           Skip to content

@@ -1,0 +1,21 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema",
+ "$id":"urn:modlock:web:v1:crosshair-design",
+ "title":"Modlock crosshair preview design",
+ "type":"object","additionalProperties":false,
+ "required":["contract","schema_version","gameValidated","design"],
+ "properties":{
+  "contract":{"const":"modlock.crosshair-design"},"schema_version":{"const":1},"gameValidated":{"const":false},
+  "design":{"type":"object","additionalProperties":false,
+   "required":["length","thickness","gap","dot","opacity","outline","color"],
+   "properties":{
+    "length":{"type":"integer","minimum":0,"maximum":40},
+    "thickness":{"type":"integer","minimum":1,"maximum":10},
+    "gap":{"type":"integer","minimum":0,"maximum":30},
+    "dot":{"type":"integer","minimum":0,"maximum":12},
+    "opacity":{"type":"integer","minimum":10,"maximum":100},
+    "outline":{"type":"boolean"},"color":{"type":"string","pattern":"^#[0-9a-fA-F]{6}$"}
+   }
+  }
+ }
+}

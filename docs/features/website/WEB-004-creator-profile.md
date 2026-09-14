@@ -52,3 +52,9 @@ Verification initiation/completion, role changes, approval/revocation, and profi
 
 Depends on WEB-005, WEB-007, WEB-009, WEB-010, WEB-011, SHO-133, and the player/streamer consent policy in OQ6.
 
+
+## Implemented local slice — 2026-09-14
+
+**Source creator pages and opt-in member profiles.** Imported GameBanana submitters have a directory and `/creators/gamebanana-<id>` pages derived from eligible catalog listings. Modlock members use `/members/<handle>`, private by default; a public page exposes only display name, handle, bio and HTTPS website. Names never establish creator ownership, verification or approval. Team membership, ownership claims and badges remain design work.
+
+Evidence: [website parity record](../../product/website-parity-2026-09-13.md), [setup and test runbook](../../../apps/web/README.md), `apps/web/tests/accounts.integration.ts`, `apps/web/tests/http.integration.ts`, and `apps/web/tests/tools.test.ts`. These tests support the bounded local slice; the full feature design above is not marked complete. Deployment remains on hold.

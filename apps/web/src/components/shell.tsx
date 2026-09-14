@@ -1,5 +1,13 @@
 import Link from "next/link";
-import { ArrowUpRight, Banana, Box, ChevronRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  Banana,
+  Bookmark,
+  Box,
+  ChevronRight,
+  UserRound,
+} from "lucide-react";
+import { currentSession } from "@/server/session";
 export function Brand() {
   return (
     <Link href="/" className="brand" aria-label="Modlock home">
@@ -13,11 +21,12 @@ export function Brand() {
     </Link>
   );
 }
-export function Header({
-  active = "discover",
+export async function Header({
+  active,
 }: {
-  active?: "discover" | "about";
+  active?: "discover" | "about" | "creators" | "tools";
 }) {
+  const session = await currentSession();
   return (
     <header className="site-header">
       <div className="header-inner">
@@ -30,7 +39,20 @@ export function Header({
           >
             Discover
           </Link>
-          <Link href="/#catalog">Browse mods</Link>
+          <Link
+            href="/creators"
+            className={active === "creators" ? "nav-active" : undefined}
+            aria-current={active === "creators" ? "page" : undefined}
+          >
+            Creators
+          </Link>
+          <Link
+            href="/tools"
+            className={active === "tools" ? "nav-active" : undefined}
+            aria-current={active === "tools" ? "page" : undefined}
+          >
+            Tools
+          </Link>
           <Link
             href="/about"
             className={active === "about" ? "nav-active" : undefined}
@@ -39,15 +61,27 @@ export function Header({
             About Modlock
           </Link>
         </nav>
-        <a
-          className="source-nav"
-          href="https://gamebanana.com/games/20948"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GameBanana <ArrowUpRight size={15} />
-        </a>
-        <span className="preview-label">WEBSITE PREVIEW</span>
+        <div className="header-account">
+          {session?.user.emailVerified && (
+            <Link
+              href="/library"
+              className="header-library"
+              aria-label="Your saved mods"
+            >
+              <Bookmark size={18} />
+              <span>Saved mods</span>
+            </Link>
+          )}
+          <Link
+            href={session?.user.emailVerified ? "/account" : "/sign-in"}
+            className="account-link"
+          >
+            <UserRound size={17} />
+            <span>
+              {session?.user.emailVerified ? session.user.name : "Sign in"}
+            </span>
+          </Link>
+        </div>
       </div>
     </header>
   );
@@ -67,9 +101,14 @@ export function Footer() {
           <span>Discover here. Support the original creators.</span>
         </p>
       </div>
-      <Link href="/about">
-        About this preview <ChevronRight size={16} />
-      </Link>
+      <nav className="footer-links" aria-label="More about Modlock">
+        <Link href="/help">Help</Link>
+        <Link href="/status">Catalog status</Link>
+        <Link href="/privacy">Privacy</Link>
+        <Link href="/about">
+          About <ChevronRight size={14} />
+        </Link>
+      </nav>
     </footer>
   );
 }

@@ -44,6 +44,7 @@ export type ModListing = Pick<
   | "images"
 > & { submitter: { name: string; url: string | null } };
 import { ModImage } from "./mod-image";
+import { SaveModButton } from "./save-mod";
 const categoryOptions = [
   { name: "All mods", icon: Grid2X2 },
   { name: "Skins", icon: Paintbrush },
@@ -61,7 +62,17 @@ export const compact = (n: number | null) =>
         notation: "compact",
         maximumFractionDigits: 1,
       }).format(n);
-function Card({ mod, list }: { mod: ModListing; list: boolean }) {
+function Card({
+  mod,
+  list,
+  saved,
+  signedIn,
+}: {
+  mod: ModListing;
+  list: boolean;
+  saved: boolean;
+  signedIn: boolean;
+}) {
   return (
     <article className={`mod-card${list ? " mod-row" : ""}`}>
       <Link
@@ -89,9 +100,11 @@ function Card({ mod, list }: { mod: ModListing; list: boolean }) {
         <p className="mod-author">
           Submitted by{" "}
           <a
-            href={mod.submitter.url ?? undefined}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={
+              mod.submitter.url
+                ? `/creators/gamebanana-${mod.submitter.url.split("/").at(-1)}`
+                : undefined
+            }
           >
             {mod.submitter.name}
           </a>
@@ -105,15 +118,26 @@ function Card({ mod, list }: { mod: ModListing; list: boolean }) {
             <Heart size={13} />
             {compact(mod.likes)}
           </span>
-          <span className="mod-kind">
-            {mod.model === "Sound" ? "SOUND" : "MOD"}
-          </span>
+          <SaveModButton
+            modKey={mod.key}
+            initialSaved={saved}
+            signedIn={signedIn}
+            compact
+          />
         </div>
       </div>
     </article>
   );
 }
-export function CatalogBrowser({ mods }: { mods: ModListing[] }) {
+export function CatalogBrowser({
+  mods,
+  savedKeys = [],
+  signedIn = false,
+}: {
+  mods: ModListing[];
+  savedKeys?: string[];
+  signedIn?: boolean;
+}) {
   const searchParams = useSearchParams();
   const state = parseCatalogState(new URLSearchParams(searchParams.toString()));
   const { category, query, sort, page, list } = state;
@@ -336,7 +360,13 @@ export function CatalogBrowser({ mods }: { mods: ModListing[] }) {
             <>
               <div className={list ? "mod-list" : "mod-grid"}>
                 {results.slice((current - 1) * 24, current * 24).map((mod) => (
-                  <Card key={mod.key} mod={mod} list={list} />
+                  <Card
+                    key={mod.key}
+                    mod={mod}
+                    list={list}
+                    saved={savedKeys.includes(mod.key)}
+                    signedIn={signedIn}
+                  />
                 ))}
               </div>
               <div className="pagination">

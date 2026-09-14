@@ -52,3 +52,9 @@ Validation failures by key/risk, publication/approval/expiry, preset opens, desk
 
 Depends on WEB-004/005/011, DESK-010/011, SHO-126/131/133, OQ5/OQ6, and a current-build command registry.
 
+
+## Implemented local slice — 2026-09-14
+
+**Crosshair preview studio.** The local `/tools/crosshair` studio implements bounded geometry/color controls, an approximate preview, strict JSON/share-link exchange and up to 100 private account saves. Its separate `modlock.crosshair-design` web contract requires `gameValidated: false` and contains no console commands. Verified game presets, creator approval, hosted publication and CFG application remain incomplete pending a current-build registry and their own acceptance criteria.
+
+Evidence: [website parity record](../../product/website-parity-2026-09-13.md), [setup and test runbook](../../../apps/web/README.md), `apps/web/tests/accounts.integration.ts`, `apps/web/tests/http.integration.ts`, and `apps/web/tests/tools.test.ts`. These tests support the bounded local slice; the full feature design above is not marked complete. Deployment remains on hold.

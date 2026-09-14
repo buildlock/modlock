@@ -5,6 +5,9 @@ import { ArrowLeft, ArrowUpRight, ChevronRight } from "lucide-react";
 import { getCatalog } from "@/lib/catalog";
 import { Header, Footer } from "@/components/shell";
 import { Gallery } from "@/components/gallery";
+import { SaveModButton } from "@/components/save-mod";
+import { currentSession } from "@/server/session";
+import { savedMods } from "@/server/community";
 export const dynamic = "force-dynamic";
 async function findMod(key: string) {
   if (!/^(mod|sound)-[1-9]\d{0,9}$/.test(key)) return undefined;
@@ -28,6 +31,12 @@ export default async function ModPage({
 }) {
   const mod = await findMod((await params).key);
   if (!mod) notFound();
+  const session = await currentSession();
+  const saved = session?.user.emailVerified
+    ? (await savedMods(session.user.id)).some(
+        (item) => item.mod_key === mod.key,
+      )
+    : false;
   return (
     <>
       <Header />
@@ -47,13 +56,11 @@ export default async function ModPage({
             <h1>{mod.title}</h1>
             <p>
               Submitted by{" "}
-              <a
-                href={mod.submitter.url!}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={`/creators/gamebanana-${mod.submitter.url!.split("/").at(-1)}`}
               >
                 {mod.submitter.name} <ArrowUpRight size={11} />
-              </a>{" "}
+              </Link>{" "}
               · Hosted by GameBanana
             </p>
           </div>
@@ -96,6 +103,11 @@ export default async function ModPage({
             )}
           </div>
           <aside className="detail-sidebar">
+            <SaveModButton
+              modKey={mod.key}
+              initialSaved={saved}
+              signedIn={!!session?.user.emailVerified}
+            />
             <div className="source-panel">
               <span className="overline">ORIGINAL SOURCE</span>
               <h2>Get it on GameBanana.</h2>
@@ -176,6 +188,9 @@ export default async function ModPage({
         <div className="detail-bottom">
           <Link className="text-link" href="/#catalog">
             <ArrowLeft size={16} /> Back to all mods
+          </Link>
+          <Link className="text-link" href={`/mods/${mod.key}/report`}>
+            Report a concern
           </Link>
         </div>
       </main>

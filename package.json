@@ -1,4 +1,20 @@
 {
-  "name": "modlock", "private": true, "packageManager": "pnpm@10.33.0",
-  "scripts": {"dev": "pnpm --filter @modlock/web dev", "build": "pnpm --filter @modlock/web build", "test:web": "pnpm --filter @modlock/web test", "ingest": "pnpm --filter @modlock/web ingest", "typecheck": "pnpm --filter @modlock/web typecheck"}
+  "name": "modlock",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "dev": "pnpm --filter @modlock/web dev",
+    "build": "pnpm --filter @modlock/web build",
+    "test:web": "pnpm --filter @modlock/web test",
+    "ingest": "pnpm --filter @modlock/web ingest",
+    "typecheck": "pnpm --filter @modlock/web typecheck",
+    "accounts:setup": "pnpm --filter @modlock/web accounts:setup",
+    "accounts:migrate": "pnpm --filter @modlock/web accounts:migrate",
+    "accounts:staff": "pnpm --filter @modlock/web accounts:staff",
+    "accounts:mail": "pnpm --filter @modlock/web accounts:mail",
+    "db:up": "docker compose --env-file apps/web/.env.local -f compose.web.yml up -d --wait",
+    "db:stop": "docker compose --env-file apps/web/.env.local -f compose.web.yml stop",
+    "test:accounts": "pnpm --filter @modlock/web test:accounts",
+    "test:http": "pnpm --filter @modlock/web test:http"
+  }
 }

@@ -10,9 +10,15 @@ import { getCatalog } from "@/lib/catalog";
 import { Header, Footer, EmptyCatalog } from "@/components/shell";
 import { CatalogBrowser } from "@/components/catalog";
 import { ModImage } from "@/components/mod-image";
+import { currentSession } from "@/server/session";
+import { savedMods } from "@/server/community";
 export const dynamic = "force-dynamic";
 export default async function Home() {
   const catalog = await getCatalog();
+  const session = await currentSession();
+  const savedKeys = session?.user.emailVerified
+    ? (await savedMods(session.user.id)).map((m) => m.mod_key)
+    : [];
   const featured = catalog?.mods
     .filter((mod) => mod.images.length && mod.category === "Skins")
     .sort((a, b) => (b.likes ?? 0) - (a.likes ?? 0))[0];
@@ -22,7 +28,7 @@ export default async function Home() {
   const age = catalog ? Date.now() - Date.parse(catalog.syncedAt) : 0;
   return (
     <>
-      <Header />
+      <Header active="discover" />
       <main id="main" className="page-wrap">
         <section className="hero">
           <div className="hero-copy">
@@ -127,6 +133,8 @@ export default async function Home() {
         </div>
         {catalog ? (
           <CatalogBrowser
+            savedKeys={savedKeys}
+            signedIn={!!session?.user.emailVerified}
             mods={catalog.mods.map(
               ({
                 key,

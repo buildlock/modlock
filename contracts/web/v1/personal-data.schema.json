@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:modlock:web:v1:personal-data",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "version",
+    "exportedAt",
+    "account",
+    "profile",
+    "savedMods",
+    "reports",
+    "crosshairs"
+  ],
+  "properties": {
+    "format": {
+      "const": "modlock-personal-data"
+    },
+    "version": {
+      "const": 1
+    },
+    "exportedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "account": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "email",
+        "createdAt"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 254
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "handle",
+        "bio",
+        "website",
+        "public"
+      ],
+      "properties": {
+        "handle": {
+          "type": "string",
+          "maxLength": 30
+        },
+        "bio": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "website": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "public": {
+          "type": "boolean"
+        }
+      }
+    },
+    "savedMods": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mod_key",
+          "note",
+          "seen_modified_at",
+          "saved_at"
+        ],
+        "properties": {
+          "mod_key": {
+            "type": "string",
+            "pattern": "^(mod|sound)-[1-9][0-9]{0,9}$"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "seen_modified_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "saved_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "reports": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "mod_key",
+          "reason",
+          "detail",
+          "status",
+          "response",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "mod_key": {
+            "type": "string",
+            "pattern": "^(mod|sound)-[1-9][0-9]{0,9}$"
+          },
+          "reason": {
+            "enum": [
+              "broken",
+              "unsafe",
+              "rights",
+              "attribution",
+              "other"
+            ]
+          },
+          "detail": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "status": {
+            "enum": [
+              "submitted",
+              "reviewing",
+              "resolved",
+              "closed"
+            ]
+          },
+          "response": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "crosshairs": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "document",
+          "created_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 50
+          },
+          "document": {
+            "$ref": "#/$defs/crosshair"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "crosshair": {
+      "$ref": "urn:modlock:web:v1:crosshair-design"
+    }
+  }
+}

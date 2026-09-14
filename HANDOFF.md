@@ -1,8 +1,12 @@
 # Modlock handoff
 
-## Resume website work — 2026-09-13
+## Resume website work — 2026-09-14
 
-Codex owns the Modlock website and GameBanana ingestion under Ahad’s explicit assignment. Use `/Users/ahad/Dev/.worktrees/modlock-web`, branch `codex/modlock-web-modpacks`, based on origin/main `f8ce72d`. Read the [website-first delivery](docs/product/website-first-2026-09-13.md) and [web README](apps/web/README.md). The earlier dirty worktrees remain preserved. Desktop installation, CFG editing, and creator ModPacks are deferred until this catalog is delivered.
+Codex owns the Modlock website and GameBanana ingestion under Ahad’s explicit assignment. Use `/Users/ahad/Dev/.worktrees/modlock-web`, branch `codex/modlock-web-modpacks`, draft PR9. Read the [website parity record](docs/product/website-parity-2026-09-13.md) and [web README](apps/web/README.md). Preserve the earlier dirty worktrees. **Do not deploy until Ahad's product-completion condition and deployment direction are satisfied.**
+
+The local slice now includes accounts, recovery/MFA, private saved mods/notes, member and creator profiles, reporting/moderation and web tools. Secrets/outbox/catalog files remain ignored. A dedicated Compose PostgreSQL instance binds `127.0.0.1:54339`; setup, migration, staff, mail and test commands are documented in the web README. No external email or provider account was created. Account IDs are local; OQ10 shared identity remains unresolved for public activation.
+
+The web crosshair contract is preview-only and cannot activate game commands. Desktop installation, CFG application and creator ModPacks remain deferred; uploaded content/scanner/provider operations are separate unfinished work. Check the parity record for completed browser evidence, CI status, the latest metadata-import result and the exact next action.
 
 ## Historical resume action — 2026-09-10
 
