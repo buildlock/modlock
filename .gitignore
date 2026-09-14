@@ -12,3 +12,6 @@ target/
 dist/
 build/
 *.log
+.next/
+*.tsbuildinfo
+apps/web/data/

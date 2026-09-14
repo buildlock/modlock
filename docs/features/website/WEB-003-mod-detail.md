@@ -5,7 +5,7 @@
 | ID | `WEB-003` |
 | Owner | Product and web/platform |
 | Phase | Phase 1 |
-| Status | Draft |
+| Status | in_progress |
 
 ## Problem and user stories
 
@@ -52,3 +52,7 @@ Aggregate page view, version/variant selection, resolve attempts/outcomes, sourc
 
 Depends on WEB-004, WEB-007, WEB-008, WEB-012, DESK-015, and SHO-127 contracts. External file behavior depends on SHO-125/SHO-132.
 
+
+## Website-first implementation — 2026-09-13
+
+The [current delivery acceptance criteria](../../product/website-first-2026-09-13.md) define the implemented subset. Source is in `apps/web`, with provider/query tests and a local real-data preview. The broader API, authentication, scanner, and installation criteria above remain planned.

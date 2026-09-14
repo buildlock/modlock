@@ -5,7 +5,7 @@
 | ID | `WEB-002` |
 | Owner | Web/platform |
 | Phase | Phase 1 |
-| Status | Draft |
+| Status | in_progress |
 
 ## Problem and user stories
 
@@ -52,3 +52,7 @@ Aggregate query latency, no-result rate, filter combinations, and result selecti
 
 Depends on WEB-001, catalog taxonomy, and planned search/index infrastructure. Ranking and retention policy require an ADR.
 
+
+## Website-first implementation — 2026-09-13
+
+The [current delivery acceptance criteria](../../product/website-first-2026-09-13.md) define the implemented subset. Source is in `apps/web`, with provider/query tests and a local real-data preview. The broader API, authentication, scanner, and installation criteria above remain planned.

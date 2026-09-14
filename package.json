@@ -1,0 +1,4 @@
+{
+  "name": "modlock", "private": true, "packageManager": "pnpm@10.33.0",
+  "scripts": {"dev": "pnpm --filter @modlock/web dev", "build": "pnpm --filter @modlock/web build", "test:web": "pnpm --filter @modlock/web test", "ingest": "pnpm --filter @modlock/web ingest", "typecheck": "pnpm --filter @modlock/web typecheck"}
+}

@@ -5,7 +5,7 @@
 | ID | `WEB-001` |
 | Owner | Product and web/platform |
 | Phase | Phase 1 |
-| Status | Draft |
+| Status | in_progress |
 
 ## Problem and user stories
 
@@ -52,3 +52,7 @@ Aggregate catalog impressions, filter use, result opens, empty searches, source 
 
 Depends on WEB-002, WEB-003, taxonomy contracts, publication state, and source adapters. GameBanana ranking/cache terms remain open under SHO-125 and SHO-132.
 
+
+## Website-first implementation — 2026-09-13
+
+The [current delivery acceptance criteria](../../product/website-first-2026-09-13.md) define the implemented subset. Source is in `apps/web`, with provider/query tests and a local real-data preview. The broader API, authentication, scanner, and installation criteria above remain planned.

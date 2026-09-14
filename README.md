@@ -1,5 +1,9 @@
 # Modlock
 
+## Website preview
+
+The first application now lives in `apps/web`: a Deadlock catalog backed by GameBanana metadata ingestion. Follow the [web README](apps/web/README.md) to import real listings and run the local preview. The [website-first plan](docs/product/website-first-2026-09-13.md) is the current product priority; the original design baseline below remains background. This branch is source implementation, not a production deployment.
+
 Modlock is the working title for a two-part Deadlock mod platform:
 
 1. A website where creators can publish, showcase, and distribute Deadlock mods.

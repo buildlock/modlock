@@ -1,5 +1,11 @@
 # Modlock status
 
+## Website ownership and active delivery — 2026-09-13
+
+Ahad assigned Modlock to Codex and selected the website plus GameBanana ingestion as the immediate deliverable. The new web slice is in `apps/web` on `codex/modlock-web-modpacks`, based on merged PR8 (`f8ce72d`). It implements real-source browse/search/details and a local metadata importer. This is **IMPLEMENTED BUT UNMERGED**, with a local preview; no production service or scheduler is deployed. The [current delivery plan](docs/product/website-first-2026-09-13.md) and [web runbook](apps/web/README.md) supersede the older next-job instructions for this scope. Desktop install, CFG, and ModPacks remain later milestones.
+
+The source baseline below is historical as of September 10. PR8 subsequently merged the gameinfo planner; it remains a fixture-tested pure planner, not a production game-file writer.
+
 Last updated: **2026-09-10**
 
 ## Current source

@@ -1,6 +1,10 @@
 # Modlock handoff
 
-## Current resume action
+## Resume website work — 2026-09-13
+
+Codex owns the Modlock website and GameBanana ingestion under Ahad’s explicit assignment. Use `/Users/ahad/Dev/.worktrees/modlock-web`, branch `codex/modlock-web-modpacks`, based on origin/main `f8ce72d`. Read the [website-first delivery](docs/product/website-first-2026-09-13.md) and [web README](apps/web/README.md). The earlier dirty worktrees remain preserved. Desktop installation, CFG editing, and creator ModPacks are deferred until this catalog is delivered.
+
+## Historical resume action — 2026-09-10
 
 Review and verify `codex/sho-128-gameinfo-plan` against protected main
 `dc3a96b80ead8add2b857ebf4c522cdf4b91994d`. PR7's bounded discovery source passed

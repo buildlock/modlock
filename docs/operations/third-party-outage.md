@@ -3,6 +3,14 @@
 Status: operational draft  
 Last reviewed: 2026-09-01
 
+## Current website importer — 2026-09-13
+
+For the implemented local importer, follow the [web runbook](../../apps/web/README.md). A failed or capped walk preserves `catalog.json`; the website continues to display that snapshot's refresh date. Retry the bounded command after the source recovers. Normalized checkpoints resume work. After a crash, verify that no importer process remains before removing its lock file. Do not delete the published catalog to recover ingestion. The dated [delivery evidence](../product/website-first-2026-09-13.md) records a successful preservation check.
+
+No scheduler, automatic circuit breaker, or production status service is deployed. The wider operational procedure below is a target.
+
+## Planned service operation
+
 1. Adapter schema validation or health detects availability/rate/schema/redirect failure.
 2. Circuit-break the affected operation before corrupt normalized data/install plans are emitted.
 3. Continue serving dated last-known-good public metadata when policy permits; label source and freshness.
@@ -13,4 +21,3 @@ Last reviewed: 2026-09-01
 8. Re-enable gradually and reconcile removals/changes without silently overwriting immutable Modlock records.
 
 Provider failure must never cause Modlock to mirror unauthorized files, omit attribution, downgrade NSFW/license state, or install bytes without the required confirmation/inspection.
-

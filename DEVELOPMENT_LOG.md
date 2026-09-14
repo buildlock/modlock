@@ -1,5 +1,19 @@
 # Development log
 
+## 2026-09-13 — First website and GameBanana catalog
+
+Delivered a Next.js browsing preview with real Deadlock Mod/Sound metadata,
+search/filter/sort controls, pagination, source-attributed detail pages and
+responsive layouts. The paced importer walks both indexes, resumes normalized
+checkpoints and atomically publishes only after a complete error-free pass.
+The first live pass published 120 profiles from 7,714 indexed identities;
+6,977 profiles remain pending. A capped import preserved the published snapshot.
+
+Build, TypeScript, 17 web tests, documentation/contracts and desktop/mobile
+browser checks pass. The [delivery record](docs/product/website-first-2026-09-13.md)
+contains exact counts, limits and verification. This is an unmerged local
+preview. Hosted ingestion/deployment is next; desktop, CFG and ModPacks follow.
+
 ## 2026-09-10 — Plan owned gameinfo edits from current bytes
 
 After PR7 merged with independent acceptance and green PR/main Linux/Windows

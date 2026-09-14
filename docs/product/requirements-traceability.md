@@ -1,5 +1,9 @@
 # Requirements traceability
 
+## Implemented website slice — 2026-09-13
+
+WEB-001/002/003 have a source implementation in `apps/web`: local snapshot catalog, URL-backed substring search and filters, pagination, detail media/credits/permissions, and canonical source links. The GameBanana adapter is `apps/web/src/lib/gamebanana.ts`, exercised by `apps/web/tests/gamebanana.test.ts`. See the [delivery acceptance criteria](website-first-2026-09-13.md) for the exact scope. Planned auth, hosted releases, full-text ranking, scanner, and install resolution in the older matrix below remain unimplemented.
+
 This matrix connects stable feature IDs to planned implementation boundaries, machine-readable contracts, current Linear discovery work, and minimum automated test suites. The [active synthetic contract foundation](../../contracts/README.md) covers hosted releases, external references, install plans, profiles, packs, CFG settings, unverified registries and metadata-only fixtures. API, crosshair and error shapes remain deferred design, with no generated client or runtime acceptance. Contract/test names in the tables that are not present in that index remain intentionally planned extension contracts rather than broken links.
 
 ## Website
