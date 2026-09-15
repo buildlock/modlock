@@ -37,6 +37,7 @@ integration('shared public member rejects a renamed or centrally hidden account'
   let current:unknown={id,username:handle,displayName:'Current name',bio:null};
   globalThis.fetch=async()=>Response.json({issuer:process.env.PORTFOLIO_ISSUER || 'https://buildlock.net',profile:current});
   assert.equal((await publicMember(handle))?.name,'Current name');assert.equal((await publicMember(handle))?.bio,'');
+  assert.deepEqual(Object.keys((await publicMember(handle))!).sort(),['bio','handle','name','website']);
   current={id,username:handle+'_new',displayName:'Current name',bio:'public'};assert.equal(await publicMember(handle),null);
   for(const state of ['suspended','deletion requested','deleted']){current=null;assert.equal(await publicMember(handle),null,state);}
  }finally{globalThis.fetch=originalFetch;await db.query('DELETE FROM "user" WHERE id=$1',[id]);}

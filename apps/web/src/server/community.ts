@@ -263,12 +263,14 @@ export async function publicMember(handle: string) {
       )
     ).rows[0] ?? null
   );
-  if (!member || !shared) return member;
+  if (!member) return null;
+  const projection = { handle: member.handle, bio: member.bio, website: member.website, name: member.name };
+  if (!shared) return projection;
   // Product opt-in does not override central suspension, deletion or field privacy.
   const { sharedAccount } = await import("./shared-account.ts");
   const current = await sharedAccount().publicProfile(member.user_id);
   if (!current || current.username !== handle) return null;
-  return { ...member, name: current.displayName, bio: current.bio || "" };
+  return { ...projection, name: current.displayName, bio: current.bio || "" };
 }
 export async function restrictions() {
   return new Set(
