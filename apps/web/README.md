@@ -1,6 +1,6 @@
 # Modlock website
 
-A Next.js website for browsing public Deadlock Mod and Sound submissions from GameBanana. The local website also has persistent accounts, saved mods and notes, member/creator pages, reports, moderation, and browser tools. Desktop installation, game CFG application, uploads and ModPacks remain separate work. **Do not deploy: Ahad has placed deployment on hold until the product is complete.**
+A Next.js website for browsing public Deadlock Mod and Sound submissions from GameBanana. The local website also has persistent accounts, saved mods and notes, member/creator pages, reports, moderation, and browser tools. Desktop installation, game CFG application, uploads and ModPacks remain separate work. Ahad authorized shared-account deployment on September 14, 2026 (Pacific).
 
 ## Run locally
 
@@ -32,7 +32,7 @@ The importer uses only `https://gamebanana.com/apiv11/Mod/Index`, `Sound/Index`,
 - Only public, non-obsolete, unrated index entries with files can enter profile checking. Profiles must explicitly report public visibility and false private/withheld/trashed flags. Any content-rating record, malformed rating field, missing attribution, or identity mismatch blocks publication. This is source-state filtering, not a malware scan or compatibility verdict.
 - Source profiles omit the content-ratings field when unrated; acceptance requires the index's explicit `false` flag plus the independently checked public profile. The observed API also labels JSON as `text/html`; the bounded response is parsed strictly as JSON and never rendered as HTML.
 - A complete index pass and zero profile errors are required before an atomic rename replaces `apps/web/data/gamebanana/catalog.json`. Failures retain the last successful website snapshot. Restricted or absent entries are omitted from the next publication, without asserting why a source disappeared. This does not provide immediate takedown synchronization.
-- `apps/web/data/` is ignored local runtime storage. No database or scheduled worker is deployed. A hosted service will need persistent storage and an operator-selected refresh schedule. Nothing in a normal website request calls GameBanana.
+- `apps/web/data/` is ignored local runtime storage. Shared hosting stores the normalized catalogue in the product database. Refresh is operator-run; no scheduled worker is enabled. Nothing in a normal website request calls GameBanana.
 
 The importer uses an exclusive `ingest.lock` to prevent concurrent writers. A normal exit removes it. After an unclean process termination, verify the importer is no longer running before removing that specific lock file and rerunning the import. Valid checkpoints are reused; do not delete the catalog to retry.
 
@@ -40,7 +40,7 @@ The importer uses an exclusive `ingest.lock` to prevent concurrent writers. A no
 
 Home includes a community spotlight drawn from the imported skins, category and hero filters, bounded text search, update/download/like sorting, pagination, and grid/list views. Filter state is encoded in the URL. Details include a screenshot gallery, plain-text description, submitter and contributor credits, source permission statements, refresh date, and a link to the original submission.
 
-The browser receives only listing fields for catalog filtering. Detail text and credits remain server-side until that detail route is requested. Unknown IDs use the 404 page. Image failures have an explicit fallback. Anonymous browsing remains available. Account features are explicitly enabled for local development only. There is no analytics, binary upload, external mail delivery or install endpoint.
+The browser receives only listing fields for catalog filtering. Detail text and credits remain server-side until that detail route is requested. Unknown IDs use the 404 page. Image failures have an explicit fallback. Anonymous browsing remains available. Account features use the configured local or shared mode. There is no analytics, binary upload, external mail delivery or install endpoint.
 
 ## Verification scope
 
@@ -48,7 +48,7 @@ The browser receives only listing fields for catalog filtering. Detail text and 
 
 ## Local accounts
 
-The local account stack is Better Auth 1.7.4 and a dedicated PostgreSQL 18.6 container. Configuration rejects non-loopback application origins and database hosts. It uses local opaque identities while the portfolio identity decision remains open. Use test email addresses and disposable passwords here.
+The local account stack is Better Auth 1.7.4 and a dedicated PostgreSQL 18.6 container. Configuration rejects non-loopback application origins and database hosts. It uses disposable local identities; hosted accounts use the shared mode below. Use test email addresses and disposable passwords here.
 
 From the repository root:
 
@@ -117,3 +117,36 @@ pnpm test:http
 `test:http` starts the built Next.js app on a temporary loopback port with another uniquely named database/outbox. It checks actual HTTP registration/verification, protected pages, cookie attributes, versioned data export, staff isolation, sign-out and deletion. It shuts down its own server and removes its own test data. An existing preview can keep running on 4310. CI runs these checks with the pinned local PostgreSQL service; it does not deploy anything.
 
 The dated [website parity record](../../docs/product/website-parity-2026-09-13.md) distinguishes delivered local flows from remaining public identity, mail, desktop/game and hosting work.
+
+## Shared hosting
+
+Use `MODLOCK_ACCOUNT_MODE=shared`, exact `MODLOCK_ORIGIN`, `PORTFOLIO_ISSUER`,
+a distinct `PORTFOLIO_CLIENT_SECRET` and `DATABASE_URL` for the dedicated
+`modlock` product database on the private network. Do not enable local accounts
+in this mode. Node 24.19.0 / pnpm 10.33.0 build the site with a frozen lockfile.
+Run `pnpm --filter @modlock/web accounts:migrate:shared` before deployment;
+`pnpm --filter @modlock/web start` listens on the Railway PORT.
+
+Publish a complete validated normalized catalogue with
+`pnpm --filter @modlock/web catalog:publish -- /absolute/path/catalog.json`
+or pass `--stdin`. The publisher replaces one database snapshot atomically;
+normal requests never call the source provider. `/api/health` checks the product
+schema. Publishing a catalogue is a separate readiness check from schema health.
+
+BuildLock controls account names, bio, credentials, verification, Steam linking
+and security. Modlock stores saved mods, notes, crosshairs, reports and profile
+opt-in under the canonical account ID. It stores no shared password or email.
+Public profiles recheck central visibility and canonical username on every read.
+Shared moderation remains disabled until scoped staff/MFA integration exists.
+
+The account security page exports product data and offers explicit removal.
+Removal revokes the current product token, cascades personal product rows and
+removes reporter references from retained reports. If revocation or deletion
+fails, the page reports failure. This is not permanent account closure; signing
+in again can recreate the minimal projection. Remove product data before
+requesting central account deletion if you want both removed. Global deletion
+immediately denies access/public visibility but has no automatic product purge.
+
+`node scripts/check-shared-accounts.ts` from the web directory creates a fresh
+loopback database, runs migration and shared-profile/removal regressions, then
+removes that captured fixture. Do not point tests at production.

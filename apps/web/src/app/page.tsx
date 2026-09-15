@@ -16,7 +16,7 @@ export const dynamic = "force-dynamic";
 export default async function Home() {
   const catalog = await getCatalog();
   const session = await currentSession();
-  const savedKeys = session?.user.emailVerified
+  const savedKeys = session?.user.verified
     ? (await savedMods(session.user.id)).map((m) => m.mod_key)
     : [];
   const featured = catalog?.mods
@@ -134,7 +134,7 @@ export default async function Home() {
         {catalog ? (
           <CatalogBrowser
             savedKeys={savedKeys}
-            signedIn={!!session?.user.emailVerified}
+            signedIn={!!session?.user.verified}
             mods={catalog.mods.map(
               ({
                 key,

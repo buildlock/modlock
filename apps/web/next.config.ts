@@ -4,7 +4,7 @@ const config: NextConfig = {
   logging: {
     // Development access logs must not print verification/recovery URL tokens.
     incomingRequests: {
-      ignore: [/^\/api\/auth(?:\/|$)/, /^\/reset-password(?:\?|$)/],
+      ignore: [/^\/api\/auth(?:\/|$)/, /^\/api\/account(?:\/|$)/, /^\/reset-password(?:\?|$)/],
     },
   },
   images: {

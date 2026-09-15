@@ -22,7 +22,7 @@ export default async function Page({
       (m) => sourceCreatorId(m.submitter.url) === id,
     ),
     session = await currentSession(),
-    saved = session?.user.emailVerified
+    saved = session?.user.verified
       ? (await savedMods(session.user.id)).map((s) => s.mod_key)
       : [];
   return (
@@ -88,7 +88,7 @@ export default async function Page({
             }),
           )}
           savedKeys={saved}
-          signedIn={!!session?.user.emailVerified}
+          signedIn={!!session?.user.verified}
         />
       </main>
       <Footer />

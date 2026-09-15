@@ -7,9 +7,12 @@ import { MemberProfileForm } from "@/components/member-profile-form";
 import { SignOutButton } from "@/components/sign-out";
 import { requirePageSession, staffRole } from "@/server/session";
 import { getMemberProfile } from "@/server/community";
+import { readAccountConfig } from "@/server/config";
 export const metadata: Metadata = { title: "Your profile" };
 export const dynamic = "force-dynamic";
 export default async function AccountPage() {
+  const shared = readAccountConfig().mode === "shared";
+  const settingsUrl = `${process.env.PORTFOLIO_ISSUER || "https://buildlock.net"}/settings`;
   const session = await requirePageSession(),
     profile = await getMemberProfile(session.user.id),
     role = await staffRole(session.user.id);
@@ -23,13 +26,15 @@ export default async function AccountPage() {
             <h1>Make yourself known.</h1>
             <p>Your profile is yours to share.</p>
           </div>
-          <SignOutButton />
+          <SignOutButton shared={shared} />
         </div>
         <AccountNav active="profile" />
         <div className="settings-layout">
           <section className="settings-panel">
             <h2>Your public profile</h2>
             <MemberProfileForm
+              shared={shared}
+              settingsUrl={settingsUrl}
               profile={{
                 handle: profile.handle,
                 bio: profile.bio,
@@ -40,7 +45,7 @@ export default async function AccountPage() {
           </section>
           <aside className="profile-summary">
             <div className="member-avatar">
-              <UserRound size={38} />
+              {session.user.image ? <img src={session.user.image} alt="" width={76} height={76} referrerPolicy="no-referrer" /> : <UserRound size={38} />}
             </div>
             <span className="overline">MODLOCK MEMBER</span>
             <h2>{session.user.name}</h2>

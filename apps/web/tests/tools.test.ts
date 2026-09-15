@@ -191,7 +191,7 @@ test("account configuration is disabled by default and rejects public activation
   assert.throws(
     () =>
       readAccountConfig({ ...env, BETTER_AUTH_URL: "https://modlock.example" }),
-    /Deployment is on hold/,
+    /Local accounts may only run on a loopback origin/,
   );
   assert.throws(
     () =>

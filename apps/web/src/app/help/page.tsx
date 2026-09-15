@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Header, Footer } from "@/components/shell";
+import { readAccountConfig } from "@/server/config";
 export const metadata: Metadata = { title: "Help" };
+export const dynamic = "force-dynamic";
 export default function Page() {
+  const shared = readAccountConfig().mode === "shared";
   return (
     <>
       <Header />
@@ -38,8 +41,8 @@ export default function Page() {
             </p>
           </section>
           <section id="accounts">
-            <h2>Testing accounts in this local preview</h2>
-            <ol>
+            <h2>{shared ? "Your shared account" : "Testing accounts in this local preview"}</h2>
+            {shared ? <p>Choose <Link href="/sign-in">Sign in</Link> to continue through BuildLock. Your existing username, profile and Steam link come with you. If you already have a BuildLock session, you return directly to Modlock. Passwords, sign-in methods and account security are managed on BuildLock.</p> : <><ol>
               <li>
                 Create an account with a test email and a unique test password.
               </li>
@@ -62,6 +65,7 @@ export default function Page() {
               identity service.{" "}
               <Link href="/sign-up">Create a test account</Link>.
             </p>
+            </>}
           </section>
           <section>
             <h2>Your saved mods</h2>

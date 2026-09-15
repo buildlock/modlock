@@ -32,7 +32,7 @@ export default async function ModPage({
   const mod = await findMod((await params).key);
   if (!mod) notFound();
   const session = await currentSession();
-  const saved = session?.user.emailVerified
+  const saved = session?.user.verified
     ? (await savedMods(session.user.id)).some(
         (item) => item.mod_key === mod.key,
       )
@@ -106,7 +106,7 @@ export default async function ModPage({
             <SaveModButton
               modKey={mod.key}
               initialSaved={saved}
-              signedIn={!!session?.user.emailVerified}
+              signedIn={!!session?.user.verified}
             />
             <div className="source-panel">
               <span className="overline">ORIGINAL SOURCE</span>

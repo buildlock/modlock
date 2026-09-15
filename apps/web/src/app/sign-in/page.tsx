@@ -5,7 +5,8 @@ export const dynamic = "force-dynamic";
 export default async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ next?: string }>;
+  searchParams: Promise<{ next?: string; error?: string }>;
 }) {
-  return <AuthPage mode="sign-in" next={(await searchParams).next} />;
+  const params = await searchParams;
+  return <AuthPage mode="sign-in" next={params.next} error={params.error} />;
 }

@@ -3,6 +3,7 @@ import { Bookmark, ShieldCheck, UserRound } from "lucide-react";
 import { Header, Footer } from "./shell";
 import { AuthForm, type AuthMode } from "./auth-form";
 import { readAccountConfig } from "@/server/config";
+import { safeReturnPath } from "@buildlock/portfolio-auth-client";
 
 const content = {
   "sign-in": {
@@ -35,13 +36,17 @@ export function AuthPage({
   mode,
   next,
   token,
+  error,
 }: {
   mode: AuthMode;
   next?: string;
   token?: string;
+  error?: string;
 }) {
   const copy = content[mode],
-    enabled = readAccountConfig().enabled;
+    config = readAccountConfig(),
+    enabled = config.enabled,
+    shared = config.mode === "shared";
   return (
     <>
       <Header />
@@ -70,8 +75,15 @@ export function AuthPage({
         </section>
         <section className="auth-panel">
           <span className="overline">MODLOCK ACCOUNT</span>
-          <h2>{copy.form}</h2>
-          {enabled ? (
+          <h2>{shared ? "Continue with your account" : copy.form}</h2>
+          {shared ? (
+            <>
+              <p>Your BuildLock username, profile and Steam link come with you. Sign in once to keep your saved mods together.</p>
+              {error && <p className="form-message form-error" role="alert">That sign-in could not finish. Please start again. If it continues, try again shortly.</p>}
+              <a className="button primary-button" href={`/api/account/sign-in?next=${encodeURIComponent(safeReturnPath(next || "/account"))}`}>Continue with BuildLock →</a>
+              <p className="field-help">Steam and your existing sign-in methods are available on BuildLock.</p>
+            </>
+          ) : enabled ? (
             <AuthForm mode={mode} next={next} token={token} />
           ) : (
             <p className="form-message">
@@ -80,9 +92,10 @@ export function AuthPage({
             </p>
           )}
           <p className="auth-footnote">
-            Local development preview. Verification and recovery messages stay
+            {shared ? "Account security and recovery are managed through your shared BuildLock account." : <>Local development preview. Verification and recovery messages stay
             in the local outbox.{" "}
             <Link href="/help#accounts">How to test accounts</Link>
+            </>}
           </p>
         </section>
       </main>

@@ -2,6 +2,7 @@ import { createHash, randomUUID } from "node:crypto";
 import { z } from "zod";
 import type { PoolClient } from "pg";
 import { getDatabase, transaction } from "./database.ts";
+import { readAccountConfig } from "./config.ts";
 
 export const modKeySchema = z.string().regex(/^(mod|sound)-[1-9]\d{0,9}$/);
 export const reportReasons = {
@@ -85,6 +86,11 @@ export interface Report {
 }
 
 export async function getMemberProfile(userId: string): Promise<MemberProfile> {
+  if (readAccountConfig().mode === "shared") {
+    const { rows } = await getDatabase().query<MemberProfile>("SELECT * FROM member_profile WHERE user_id=$1", [userId]);
+    if (!rows[0]) throw new Error("Sign in again to restore your shared profile.");
+    return rows[0];
+  }
   const handle = `player_${createHash("sha256").update(userId).digest("hex").slice(0, 14)}`;
   await getDatabase().query(
     "INSERT INTO member_profile(user_id, handle) VALUES ($1, $2) ON CONFLICT (user_id) DO NOTHING",
@@ -117,6 +123,15 @@ export async function updateProfile(
   userId: string,
   input: z.input<typeof profileSchema>,
 ) {
+  if (readAccountConfig().mode === "shared") {
+    const website = profileSchema.shape.website.parse(input.website);
+    const isPublic = z.boolean().parse(input.isPublic);
+    await transaction(async (client) => {
+      await limitMember(client, userId, "profile", 10);
+      await client.query("UPDATE member_profile SET website=$2,is_public=$3,updated_at=now() WHERE user_id=$1", [userId, website, isPublic]);
+    });
+    return;
+  }
   const value = profileSchema.parse(input);
   await getMemberProfile(userId);
   await transaction(async (client) => {
@@ -232,20 +247,28 @@ export async function reportsForMember(userId: string, limit = 100) {
   ).rows;
 }
 export async function publicMember(handle: string) {
-  if (!/^[a-z][a-z0-9_]{2,29}$/.test(handle)) return null;
-  return (
+  const shared = readAccountConfig().mode === "shared";
+  if (!(shared ? /^[a-z0-9_.]{3,20}$/ : /^[a-z][a-z0-9_]{2,29}$/).test(handle)) return null;
+  const member = (
     (
       await getDatabase().query<{
         handle: string;
         bio: string;
         website: string;
         name: string;
+        user_id: string;
       }>(
-        'SELECT p.handle,p.bio,p.website,u.name FROM member_profile p JOIN "user" u ON p.user_id=u.id WHERE p.handle=$1 AND p.is_public=true AND u."emailVerified"=true',
-        [handle],
+        'SELECT p.handle,p.bio,p.website,u.name,p.user_id FROM member_profile p JOIN "user" u ON p.user_id=u.id WHERE p.handle=$1 AND p.is_public=true AND ($2::boolean OR u."emailVerified"=true)',
+        [handle, shared],
       )
     ).rows[0] ?? null
   );
+  if (!member || !shared) return member;
+  // Product opt-in does not override central suspension, deletion or field privacy.
+  const { sharedAccount } = await import("./shared-account.ts");
+  const current = await sharedAccount().publicProfile(member.user_id);
+  if (!current || current.username !== handle) return null;
+  return { ...member, name: current.displayName, bio: current.bio || "" };
 }
 export async function restrictions() {
   return new Set(

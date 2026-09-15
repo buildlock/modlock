@@ -1,0 +1,8 @@
+{
+  "name": "@buildlock/portfolio-auth-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": "./index.mjs",
+  "scripts": { "test": "node --test tests/*.test.mjs" }
+}

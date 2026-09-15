@@ -1,5 +1,9 @@
 # Modlock handoff
 
+## 2026-09-15: Shared-account deployment candidate
+
+Deploy the reviewed source to modlock.fps.live, publish the validated catalogue snapshot and verify sign-in plus saved-library readback. See `apps/web/README.md`.
+
 ## Resume website work — 2026-09-14
 
 Codex owns the Modlock website and GameBanana ingestion under Ahad’s explicit assignment. Use `/Users/ahad/Dev/.worktrees/modlock-web`, branch `codex/modlock-web-modpacks`, draft PR9. Read the [website parity record](docs/product/website-parity-2026-09-13.md) and [web README](apps/web/README.md). Preserve the earlier dirty worktrees. **Do not deploy until Ahad's product-completion condition and deployment direction are satisfied.**

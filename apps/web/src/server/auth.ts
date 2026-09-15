@@ -8,7 +8,7 @@ import { deliverAccountMail } from "./mail.ts";
 
 export function accountAuthOptions() {
   const config = readAccountConfig();
-  if (!config.enabled) throw new Error("Accounts have not been configured.");
+  if (config.mode !== "local") throw new Error("Local accounts have not been configured.");
   return {
     appName: "Modlock",
     baseURL: config.origin,

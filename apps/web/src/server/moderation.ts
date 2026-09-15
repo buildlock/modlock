@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { getDatabase, transaction } from "./database.ts";
 import { limitMember, type Report } from "./community.ts";
+import { readAccountConfig } from "./config.ts";
 
 export class StaffAccessError extends Error {}
 export async function requireStaff(
@@ -9,6 +10,7 @@ export async function requireStaff(
   sessionId: string,
   fresh = false,
 ) {
+  if (readAccountConfig().mode === "shared") throw new StaffAccessError("Shared-account moderation has not been configured.");
   const { rows } = await getDatabase().query<{
     role: string;
     created_at: Date;

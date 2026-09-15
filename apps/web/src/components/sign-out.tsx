@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
-export function SignOutButton() {
+export function SignOutButton({ shared = false }: { shared?: boolean }) {
   const router = useRouter(),
     [busy, setBusy] = useState(false),
     [error, setError] = useState("");
@@ -16,8 +16,13 @@ export function SignOutButton() {
           setBusy(true);
           setError("");
           try {
-            const result = await authClient.signOut();
-            if (result.error) throw new Error();
+            if (shared) {
+              const response = await fetch("/api/account/sign-out", { method: "POST" });
+              if (!response.ok) throw new Error();
+            } else {
+              const result = await authClient.signOut();
+              if (result.error) throw new Error();
+            }
             router.push("/");
             router.refresh();
           } catch {

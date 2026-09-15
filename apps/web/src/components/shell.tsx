@@ -62,7 +62,7 @@ export async function Header({
           </Link>
         </nav>
         <div className="header-account">
-          {session?.user.emailVerified && (
+          {session?.user.verified && (
             <Link
               href="/library"
               className="header-library"
@@ -73,12 +73,12 @@ export async function Header({
             </Link>
           )}
           <Link
-            href={session?.user.emailVerified ? "/account" : "/sign-in"}
+            href={session?.user.verified ? "/account" : "/sign-in"}
             className="account-link"
           >
             <UserRound size={17} />
             <span>
-              {session?.user.emailVerified ? session.user.name : "Sign in"}
+              {session?.user.verified ? session.user.name : "Sign in"}
             </span>
           </Link>
         </div>

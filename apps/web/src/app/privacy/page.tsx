@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Header, Footer } from "@/components/shell";
-export const metadata: Metadata = { title: "Privacy in this preview" };
+import { readAccountConfig } from "@/server/config";
+export const metadata: Metadata = { title: "Privacy" };
+export const dynamic = "force-dynamic";
 export default function Page() {
+  const shared = readAccountConfig().mode === "shared";
   return (
     <>
       <Header />
@@ -10,7 +13,7 @@ export default function Page() {
         <span className="overline">YOUR INFORMATION</span>
         <h1>Private by default.</h1>
         <p className="utility-lead">
-          How the current local Modlock preview handles data.
+          How Modlock handles your information.
         </p>
         <div className="help-sections">
           <section>
@@ -24,7 +27,8 @@ export default function Page() {
           </section>
           <section>
             <h2>Accounts and sessions</h2>
-            <p>
+            {shared ? <><p>Sign-in uses your existing BuildLock account. BuildLock keeps your credentials, linked sign-in methods and account security. Modlock reads your current account to recognize you and stores your account ID, name, avatar and profile alongside your Modlock data. Modlock does not store a copy of your password, second-factor secret or email address.</p>
+              <p>A secure session cookie connects this browser to your account. Signing out everywhere on BuildLock ends access from connected products. Shared account requests use server-to-server connections.</p></> : <><p>
               The dedicated local database stores your email, display name,
               password hash, session records and account settings. Passwords are
               hashed by the authentication library. Session cookies let the
@@ -39,6 +43,7 @@ export default function Page() {
               links expire. The outbox contains sensitive account links and is
               excluded from version control.
             </p>
+            </>}
           </section>
           <section>
             <h2>What stays private</h2>
@@ -54,7 +59,7 @@ export default function Page() {
             <h2>Export and deletion</h2>
             <p>
               From <Link href="/account/security">account security</Link>,
-              export your account data or delete your account. Deletion removes
+              {shared ? "export your Modlock data or open your shared account controls. You can also remove your saved Modlock data from this page. Removing product data leaves your BuildLock account available for other products. " : "export your account data or delete your account. "} Deletion removes
               your account, profile, sessions, saved mods, notes and crosshair
               designs. Submitted reports remain in the review queue with their
               account link removed, and moderation history is retained. Avoid
@@ -62,11 +67,12 @@ export default function Page() {
             </p>
           </section>
           <section>
-            <h2>Before a public release</h2>
+            <h2>{shared ? "Product data and shared accounts" : "Before a public release"}</h2>
             <p>
-              This page describes a local development build. Public hosting,
+              {shared ? "Account suspension or a deletion request on BuildLock immediately prevents new access to Modlock and hides your public member identity. Modlock data is stored separately; use the Modlock data-removal control before deleting your shared account. Reports and moderation history may remain with the account reference removed." : <>This page describes a local development build. Public hosting,
               identity, mail delivery and retention operations will need to be
               finalized before launch. The website is not deployed.
+              </>}
             </p>
           </section>
         </div>

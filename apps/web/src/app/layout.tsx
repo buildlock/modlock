@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Barlow_Condensed, Manrope } from "next/font/google";
 import "./globals.css";
 import "./accounts.css";
+// Navigation and account availability depend on the runtime deployment mode.
+export const dynamic = "force-dynamic";
 const display = Barlow_Condensed({
   subsets: ["latin"],
   weight: ["600", "700", "800"],

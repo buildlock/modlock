@@ -9,7 +9,7 @@ import { validatePersonalData } from "@/lib/personal-data";
 export const dynamic = "force-dynamic";
 export async function GET() {
   const session = await currentSession();
-  if (!session?.user.emailVerified)
+  if (!session?.user.verified)
     return Response.json(
       { error: "Sign in to export your account." },
       { status: 401, headers: { "Cache-Control": "private, no-store" } },

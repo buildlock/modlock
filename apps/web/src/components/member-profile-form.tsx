@@ -3,8 +3,12 @@ import { useActionState } from "react";
 import { updateMemberProfile } from "@/app/actions/community";
 export function MemberProfileForm({
   profile,
+  shared = false,
+  settingsUrl = "https://buildlock.net/settings",
 }: {
   profile: { handle: string; bio: string; website: string; is_public: boolean };
+  shared?: boolean;
+  settingsUrl?: string;
 }) {
   const [state, action, pending] = useActionState(updateMemberProfile, {
     ok: false,
@@ -17,20 +21,22 @@ export function MemberProfileForm({
         id="handle"
         name="handle"
         defaultValue={profile.handle}
+        readOnly={shared}
         minLength={3}
         maxLength={30}
-        pattern="[a-z][a-z0-9_]{2,29}"
+        pattern={shared ? undefined : "[a-z][a-z0-9_]{2,29}"}
         required
         autoComplete="username"
       />
       <span className="field-help">
-        3–30 lowercase letters, numbers or underscores. Start with a letter.
+        {shared ? <>Your BuildLock username is shared across products. <a href={settingsUrl}>Edit your shared profile →</a></> : "3–30 lowercase letters, numbers or underscores. Start with a letter."}
       </span>
       <label htmlFor="bio">About you</label>
       <textarea
         id="bio"
         name="bio"
         defaultValue={profile.bio}
+        readOnly={shared}
         maxLength={500}
         rows={4}
         placeholder="Your favorite heroes, the kind of mods you love…"

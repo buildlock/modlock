@@ -3,9 +3,9 @@ import { readAccountConfig } from "./config.ts";
 
 export async function accountHandler(request: Request) {
   const config = readAccountConfig();
-  if (!config.enabled)
+  if (config.mode !== "local")
     return Response.json(
-      { message: "Accounts are not configured for this preview." },
+      { message: config.mode === "shared" ? "Use shared sign-in to manage your account." : "Accounts are not configured for this preview." },
       { status: 503 },
     );
   const requestUrl = new URL(request.url),

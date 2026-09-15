@@ -12,12 +12,12 @@ export function getDatabase() {
     connectionTimeoutMillis: 3000,
     idleTimeoutMillis: 10_000,
     statement_timeout: 5000,
-    application_name: "modlock-web-local",
+    application_name: config.mode === "shared" ? "modlock-web" : "modlock-web-local",
   });
   database.on("error", () => {
     // An idle connection can disappear on local database restart. pg removes
     // it from the pool; future requests reconnect. Never log connection URLs.
-    console.error("A local account database connection was interrupted.");
+    console.error("A Modlock database connection was interrupted.");
   });
   return database;
 }

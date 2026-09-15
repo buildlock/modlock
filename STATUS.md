@@ -1,5 +1,9 @@
 # Modlock status
 
+## 2026-09-15: Shared-account deployment candidate
+
+The September 14 Pacific deployment request supersedes the local deployment hold below. The website now supports BuildLock shared accounts with canonical usernames, saved product data, central public-profile visibility and product-data removal. A separate logical product database holds the normalized catalogue. Local Better Auth stays loopback-only. Source is implemented and checked locally; hosted deployment remains pending.
+
 ## Website ownership and active delivery — 2026-09-14
 
 Ahad assigned Modlock to Codex, accepted the initial website direction, requested accounts and the remaining DMM website capabilities, and explicitly held deployment until the product is complete. Work lives in `apps/web` on `codex/modlock-web-modpacks`, draft PR9, based on merged PR8 (`f8ce72d`). **IMPLEMENTED BUT UNMERGED**; local preview only.

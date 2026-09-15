@@ -42,5 +42,7 @@ jobs:
       - run: pnpm accounts:migrate
       - run: pnpm test:web
       - run: pnpm test:accounts
+      - name: Verify shared identity projection on a fresh disposable database
+        run: pnpm --filter @modlock/web exec node scripts/check-shared-accounts.ts
       - run: pnpm build
       - run: pnpm test:http
