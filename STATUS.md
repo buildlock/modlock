@@ -1,5 +1,19 @@
 # Modlock status
 
+## 2026-09-15: Shared-account deployment candidate
+
+The September 14 Pacific deployment request supersedes the local deployment hold below. The website now supports BuildLock shared accounts with canonical usernames, saved product data, central public-profile visibility and product-data removal. A separate logical product database holds the normalized catalogue. Local Better Auth stays loopback-only. Source is implemented and checked locally; hosted deployment remains pending.
+
+## Website ownership and active delivery — 2026-09-14
+
+Ahad assigned Modlock to Codex, accepted the initial website direction, requested accounts and the remaining DMM website capabilities, and explicitly held deployment until the product is complete. Work lives in `apps/web` on `codex/modlock-web-modpacks`, draft PR9, based on merged PR8 (`f8ce72d`). **IMPLEMENTED BUT UNMERGED**; local preview only.
+
+Delivered local source now covers real-source browse/search/details; verified-email accounts and recovery; TOTP/backup codes and session controls; private saved mods/notes; source-creator and opt-in member pages; private reports and staff/MFA-gated review; crosshair preview saves/import/share; browser-local KeyValues/VPK metadata inspection; help, privacy and catalog status. The [parity record](docs/product/website-parity-2026-09-13.md) and [web runbook](apps/web/README.md) give exact bounds and repeatable tests.
+
+**Verified locally:** browser flows, responsive layouts, 25 web tests, 14 account tests, optimized build and the built-server HTTP suite. **Next:** continue bounded metadata enrichment from 1612 published listings and 5487 pending profiles; draft PR9 tracks remote checks and review. **Not deployed:** website, public accounts, external mail, provider services or a scheduled importer. **Remaining product scope:** public identity/mail operations, game-validated crosshair/CFG commands, uploads and creator ModPacks, native installation and Windows/game evidence. Desktop work remains deferred under the website-first direction. No owner decision is required to continue local website work; deployment remains the explicit hold.
+
+The source baseline below is historical as of September 10. PR8 subsequently merged the gameinfo planner; it remains a fixture-tested pure planner, not a production game-file writer.
+
 Last updated: **2026-09-10**
 
 ## Current source
@@ -42,7 +56,7 @@ The historical August 31 manifest and old candidate worktree remain preserved.
 Fresh checks capture and verify the current source inventory around each run;
 they do not require evolving main to match a historical snapshot.
 
-## What exists for users
+## Historical user-facing state — September 10
 
 Modlock remains a planned creator website and native Windows utility. There is
 no usable player application, API, installer, scanner, real mod corpus, game
@@ -56,7 +70,7 @@ The September 1 documentation baseline remains available: 29 feature designs,
 clean-room research, architecture, threat/rights models, test plans, operating
 procedures, and owner decision records. These are designs, not runtime evidence.
 
-## Current job and next action
+## Historical job queue — September 10
 
 - `MLK-P0-001`: independent candidate review complete; foundation retained.
 - `MLK-P0-003/004`: contract integration accepted and merged; post-merge CI passed.

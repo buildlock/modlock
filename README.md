@@ -1,5 +1,9 @@
 # Modlock
 
+## Website preview
+
+The first application now lives in `apps/web`: a Deadlock catalog backed by GameBanana metadata ingestion, with local accounts, saved mods, profiles, reporting/moderation and browser tools. Follow the [web README](apps/web/README.md) to import real listings and run the local preview. The [website parity record](docs/product/website-parity-2026-09-13.md) and [website-first plan](docs/product/website-first-2026-09-13.md) are the current product priority; the original design baseline below remains background. This branch is source implementation, not a production deployment. Ahad has directed that deployment wait until the product is complete.
+
 Modlock is the working title for a two-part Deadlock mod platform:
 
 1. A website where creators can publish, showcase, and distribute Deadlock mods.
@@ -56,7 +60,7 @@ defines schema/semantic conformance in a fresh hash-locked Python environment.
 The [older API and schema outline](docs/design/2026-09-01-contract-outline/README.md)
 remains deferred design. The first [Rust journal proof](docs/testing/synthetic-journal-proof.md)
 uses only fresh synthetic folders and inert text files; its example and abrupt
-process-termination tests are runnable. There is no usable player application.
+process-termination tests are runnable. There is a local website preview; no native player installer exists.
 Windows/game, provider, legal and rights proofs remain separate.
 
 Run `mise exec -- python scripts/check_fresh.py` with the pinned Python 3.13.15 toolchain. The runner creates and removes its own environment and verifies that source bytes do not change during the checks.

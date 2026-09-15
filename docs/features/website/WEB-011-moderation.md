@@ -52,3 +52,9 @@ Queue age, time to action, reversal/appeal rate, action categories, access denia
 
 Depends on WEB-005/006/007/008/012, security/legal policy, incident runbooks, and approved role matrix before beta.
 
+
+## Implemented local slice — 2026-09-14
+
+**Local report review and visibility controls.** A paginated staff-only report queue supports reviewing/resolved/closed status, a response for the reporter and hide/restore for the local catalog. Database role grants, verified email, MFA and fresh sign-in gate writes. The transaction rechecks access, rejects stale report timestamps, and appends an audit event. Reporter email is omitted. The local role CLI revokes sessions on grant changes. External audit immutability, policy-version enforcement, scan/upload cases, appeals, provider notifications and asset revocation remain design work.
+
+Evidence: [website parity record](../../product/website-parity-2026-09-13.md), [setup and test runbook](../../../apps/web/README.md), `apps/web/tests/accounts.integration.ts`, `apps/web/tests/http.integration.ts`, and `apps/web/tests/tools.test.ts`. These tests support the bounded local slice; the full feature design above is not marked complete. Deployment remains on hold.

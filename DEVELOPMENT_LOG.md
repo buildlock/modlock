@@ -1,5 +1,19 @@
 # Development log
 
+## 2026-09-13 — First website and GameBanana catalog
+
+Delivered a Next.js browsing preview with real Deadlock Mod/Sound metadata,
+search/filter/sort controls, pagination, source-attributed detail pages and
+responsive layouts. The paced importer walks both indexes, resumes normalized
+checkpoints and atomically publishes only after a complete error-free pass.
+The first live pass published 120 profiles from 7,714 indexed identities;
+6,977 profiles remain pending. A capped import preserved the published snapshot.
+
+Build, TypeScript, 17 web tests, documentation/contracts and desktop/mobile
+browser checks pass. The [delivery record](docs/product/website-first-2026-09-13.md)
+contains exact counts, limits and verification. This is an unmerged local
+preview. Hosted ingestion/deployment is next; desktop, CFG and ModPacks follow.
+
 ## 2026-09-10 — Plan owned gameinfo edits from current bytes
 
 After PR7 merged with independent acceptance and green PR/main Linux/Windows
@@ -118,3 +132,7 @@ Application code was still intentionally absent. At that checkpoint, the planned
 - Changed the next checkpoint: independent read-only SHO-275/candidate review and deliberate current-main integration now precede scaffolding.
 
 No runtime code, candidate-worktree source, Linear state, provider, credential, production system, migration, deployment, permission, GitHub setting, or merge was changed.
+
+## 2026-09-15 — Shared-account deployment candidate
+
+The September 14 Pacific deployment request supersedes the local deployment hold below. The website now supports BuildLock shared accounts with canonical usernames, saved product data, central public-profile visibility and product-data removal. A separate logical product database holds the normalized catalogue. Local Better Auth stays loopback-only. Source is implemented and checked locally; hosted deployment remains pending.

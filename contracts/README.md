@@ -48,3 +48,7 @@ This checkpoint does not implement OpenAPI routes, an API service, database mode
 ## Superseded design outlines
 
 The [September 1 API/schema/example outline](../docs/design/2026-09-01-contract-outline/README.md) is retained as historical design. Its overlapping release, plan, profile, pack and CFG formats are superseded by `v1/`; its API, crosshair and error shapes remain deferred. No generated client or runtime may treat that archive as the V1 contract authority.
+
+## Local website contracts — September 14, 2026
+
+[`web/v1`](web/README.md) defines separate, non-activating website exchange shapes: crosshair preview designs and personal-data exports. These are consumed directly by the web runtime and its tests. The crosshair preview is not the deferred game-setting/crosshair authority and cannot generate an install plan, verified preset or CFG. `v1/` remains the authority for the existing portable installer and synthetic conformance graph.

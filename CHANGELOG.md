@@ -7,6 +7,12 @@ the first executable core remains a bounded synthetic prototype.
 
 ### Added
 
+- Next.js website preview for real GameBanana Deadlock listings, with search,
+  category/hero filters, sorting, pagination, galleries and source attribution.
+- Bounded, paced Mod/Sound metadata ingestion with normalized checkpoints,
+  public-profile filtering and atomic catalog publication; local runtime
+  storage and a pinned website build/test workflow.
+
 - Pinned Rust core with a single-use synthetic journal, OS locking, staged tree
   activation, exact digest verification, immediate/restart recovery, abrupt
   process-termination harness, Linux/Windows CI and dependency auditing.

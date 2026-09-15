@@ -52,3 +52,9 @@ Report counts by category/severity, duplicate/abuse rate, response times, action
 
 Depends on WEB-003/004/005/011, approved policies, legal contact/workflows, notification provider, and abuse/rate-limit ADR.
 
+
+## Implemented local slice — 2026-09-14
+
+**Private reports and status history.** Verified members can submit a bounded report from a mod page and receive a stable private reference. Retried requests and duplicate open reason/listing reports reuse the existing reference; creation is limited to five per minute and 1000 per account. Only the reporter can see their history and staff response. Submission neither removes a listing automatically nor contacts GameBanana. Deletion removes the reporter account link while retaining report text. Appeals and external notification operations remain unfinished.
+
+Evidence: [website parity record](../../product/website-parity-2026-09-13.md), [setup and test runbook](../../../apps/web/README.md), `apps/web/tests/accounts.integration.ts`, `apps/web/tests/http.integration.ts`, and `apps/web/tests/tools.test.ts`. These tests support the bounded local slice; the full feature design above is not marked complete. Deployment remains on hold.

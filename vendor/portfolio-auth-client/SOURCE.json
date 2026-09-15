@@ -1,0 +1,8 @@
+{
+  "source": "buildlock/buildlocklol/packages/portfolio-auth-client",
+  "files": {
+    "index.mjs": "4339a09afeabb6886587083ca8b502898fa6987a3344045ad7328d1c7ed08e57",
+    "index.d.mts": "272f7a1271d337fe2e33691726e3062876377d035b90c2a137fd07b6a8ac2058",
+    "package.json": "93f301f4ca635852d63ee1dc8609686b27cd9695bd696beb45628626b4e0a260"
+  }
+}

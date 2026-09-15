@@ -1,6 +1,10 @@
 # Modlock documentation control plane
 
-Contract integration updated: **2026-09-10**
+Website delivery updated: **2026-09-14**
+
+The current local website includes the catalog, accounts, saved mods, profiles, reporting/moderation and browser tools. Start with the [website parity record](product/website-parity-2026-09-13.md) and [web runbook](../apps/web/README.md). Deployment is on hold; public identity/mail and desktop/game work remain separate. The source is on draft PR9, not merged or deployed.
+
+Contract integration baseline: **2026-09-10**
 
 The first executable core slice is the [synthetic journal proof](testing/synthetic-journal-proof.md).
 The next source slice is [read-only Steam fixture discovery](testing/steam-discovery-proof.md).

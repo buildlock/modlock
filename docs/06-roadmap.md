@@ -1,5 +1,9 @@
 # Delivery roadmap and validation plan
 
+## Current owner direction — 2026-09-13
+
+Deliver the website and GameBanana catalog ingestion first. Desktop installation, CFG editing, and creator ModPacks follow. The [website-first plan](product/website-first-2026-09-13.md) defines this slice. The phase estimates and sequencing below are historical planning inputs and do not block this authorized website work.
+
 The estimates below assume a small experienced team with product/design, web/backend, Windows/Rust, and moderation/operations coverage. They are sequencing ranges, not a fixed commitment.
 
 ## Current source gate — 2026-09-10

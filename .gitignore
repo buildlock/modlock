@@ -12,3 +12,9 @@ target/
 dist/
 build/
 *.log
+.next/
+*.tsbuildinfo
+apps/web/data/
+
+# Disposable integration fixtures and local deployment evidence.
+.local/

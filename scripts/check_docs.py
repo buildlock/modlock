@@ -100,9 +100,11 @@ REQUIRED_FILES = (
 def repository_files(suffixes: tuple[str, ...]) -> list[Path]:
     """Inspect source documentation, pruning dependency and build outputs."""
     files = []
-    excluded = {".git", ".venv", "__pycache__", "node_modules", "target"}
+    excluded = {".git", ".venv", "__pycache__", "node_modules", "target", ".next"}
     for directory, children, names in os.walk(ROOT, followlinks=False):
         children[:] = sorted(child for child in children if child not in excluded)
+        if Path(directory) == ROOT / "apps" / "web":
+            children[:] = [child for child in children if child != "data"]
         for name in names:
             path = Path(directory) / name
             if path.is_file() and path.suffix.lower() in suffixes:

@@ -1,6 +1,24 @@
 # Requirements traceability
 
-This matrix connects stable feature IDs to planned implementation boundaries, machine-readable contracts, current Linear discovery work, and minimum automated test suites. The [active synthetic contract foundation](../../contracts/README.md) covers hosted releases, external references, install plans, profiles, packs, CFG settings, unverified registries and metadata-only fixtures. API, crosshair and error shapes remain deferred design, with no generated client or runtime acceptance. Contract/test names in the tables that are not present in that index remain intentionally planned extension contracts rather than broken links.
+## Implemented website slice — 2026-09-13
+
+WEB-001/002/003 have a source implementation in `apps/web`: local snapshot catalog, URL-backed substring search and filters, pagination, detail media/credits/permissions, and canonical source links. The GameBanana adapter is `apps/web/src/lib/gamebanana.ts`, exercised by `apps/web/tests/gamebanana.test.ts`. See the [delivery acceptance criteria](website-first-2026-09-13.md) for the exact scope. The bounded local account/profile/report/moderation/tool slices are described below. Hosted releases, full-text ranking, scanner and install resolution in the older matrix remain unimplemented.
+
+This matrix connects stable feature IDs to planned implementation boundaries, machine-readable contracts, current Linear discovery work, and minimum automated test suites. The [active synthetic contract foundation](../../contracts/README.md) covers hosted releases, external references, install plans, profiles, packs, CFG settings, unverified registries and metadata-only fixtures. Production API, game-crosshair and error shapes remain deferred design, with no generated client or runtime acceptance. Separate local website exchange shapes now live in `contracts/web/v1` and cannot activate game behavior. Contract/test names in the tables that are not present in that index remain intentionally planned extension contracts rather than broken links.
+
+## Local account and tool evidence — 2026-09-14
+
+| Bounded delivered behavior | Feature mapping | Source and executable evidence |
+|---|---|---|
+| Registration, verification, recovery, MFA, session controls and deletion | WEB-005 | `src/server/auth.ts`, `auth-http.ts`; `tests/accounts.integration.ts` and `tests/http.integration.ts` |
+| Saved references and private notes with account ownership | WEB-005 / website parity | `src/server/community.ts`; isolation/idempotency tests and library browser flow |
+| Source creators and private-by-default member profiles | WEB-004 | `src/lib/creators.ts`, `/creators`, `/members`; public-field and ownership tests |
+| Private reports, deduplication, status and responses | WEB-012 | report actions, member history and integration tests |
+| Staff/MFA/fresh-session gate, hide/restore and audit events | WEB-011 | `src/server/moderation.ts`; role/MFA/freshness/concurrency/audit tests |
+| Crosshair preview, bounded private saves and JSON/share links | WEB-010 partial | `contracts/web/v1`, crosshair validator/editor; contract and ownership tests |
+| Browser-local KeyValues/VPK metadata inspection | Website parity / DESK-009 research only | `src/lib/keyvalues.ts`, `vpk.ts`; hostile synthetic parser tests; no desktop extraction or safety verdict |
+
+Paths in this table are relative to `apps/web` except `contracts/`. The [parity record](website-parity-2026-09-13.md) and [runbook](../../apps/web/README.md) define exact limits and unimplemented remainder. Full feature designs are not marked complete merely because these local flows work. Deployment remains on hold.
 
 ## Website
 

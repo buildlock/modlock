@@ -52,3 +52,9 @@ Security events for login success/failure buckets, token reuse, role/identity ch
 
 Supports WEB-004/006/007/009/010/011/012 and desktop account linking. Provider and API-language decisions remain open; Steam OAuth is not assumed.
 
+
+## Implemented local slice — 2026-09-14
+
+**Local accounts and security.** Better Auth 1.7.4 with dedicated local PostgreSQL implements email/password registration, required verification, sign-in, recovery, password/name changes, TOTP and one-use backup codes, revocation, export and deletion. HTTP-only sessions last up to 12 hours; privileged decisions require MFA and a session under five minutes old. Verification/reset use a private local outbox. Server actions derive identity from the verified session. Public identity, mail/OAuth/passkey providers, email changes, shared portfolio identity and desktop PKCE remain unactivated.
+
+Evidence: [website parity record](../../product/website-parity-2026-09-13.md), [setup and test runbook](../../../apps/web/README.md), `apps/web/tests/accounts.integration.ts`, `apps/web/tests/http.integration.ts`, and `apps/web/tests/tools.test.ts`. These tests support the bounded local slice; the full feature design above is not marked complete. Deployment remains on hold.
