@@ -150,3 +150,8 @@ immediately denies access/public visibility but has no automatic product purge.
 `node scripts/check-shared-accounts.ts` from the web directory creates a fresh
 loopback database, runs migration and shared-profile/removal regressions, then
 removes that captured fixture. Do not point tests at production.
+
+The root `railpack.json` explicitly selects the Node provider. The repository also
+contains a Rust desktop core; automatic provider selection chose Rust and omitted
+pnpm on the first hosting build. Node/pnpm versions remain pinned by deployment
+configuration and the workspace package manager.
