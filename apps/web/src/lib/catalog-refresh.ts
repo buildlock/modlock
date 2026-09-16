@@ -18,7 +18,7 @@ export interface ProfileCheckpoint {
 }
 export interface RefreshStore {
   catalog(): Promise<Catalog | null>;
-  profiles(): Promise<ProfileCheckpoint[]>;
+  profiles(activeKeys: string[]): Promise<ProfileCheckpoint[]>;
   checkpoint(profile: ProfileCheckpoint): Promise<void>;
   publish(catalog: Catalog, activeKeys: string[]): Promise<void>;
 }
@@ -37,6 +37,23 @@ const recent = (now: number, at: string | null, ttl: number) => {
   return Number.isFinite(elapsed) && elapsed >= 0 && elapsed < ttl;
 };
 const eligible = (entry: IndexEntry) => entry.visible && entry.unrated;
+
+// Apply the same age ceiling at read time: a prolonged index outage must not
+// keep a once-published profile visible indefinitely while no new run publishes.
+export function currentCatalogProfiles(
+  catalog: Catalog,
+  now = Date.now(),
+): Catalog {
+  const mods = catalog.mods.filter((mod) =>
+    recent(now, mod.checkedAt, RETENTION_TTL),
+  );
+  return {
+    ...catalog,
+    mods,
+    retained: mods.filter((mod) => !recent(now, mod.checkedAt, PROFILE_TTL))
+      .length,
+  };
+}
 
 // A bounded run is a complete index reconciliation plus part of a durable,
 // oldest-attempt-first profile queue. It never republishes an index-only record.
@@ -61,15 +78,45 @@ export async function refreshCatalog(
     request =
       options.request ?? pacedProviderRequest(AbortSignal.timeout(20 * 60_000));
   const progress = options.progress ?? (() => {});
+  const entries = new Map<string, IndexEntry>();
+  let pages = 0;
+  for (const model of ["Mod", "Sound"] as Model[]) {
+    let complete = false;
+    for (let page = 1; page <= pageLimit; page++) {
+      const url = new URL(`https://gamebanana.com/apiv11/${model}/Index`);
+      url.searchParams.set("_nPage", String(page));
+      url.searchParams.set("_nPerpage", "50");
+      url.searchParams.set("_aFilters[Generic_Game]", "20948");
+      const result = readIndex(await request(url), model);
+      pages++;
+      for (const entry of result.entries) entries.set(keyOf(entry), entry);
+      if (entries.size > MAX_ENTRIES)
+        throw new Error("Source index exceeds the catalogue entry budget.");
+      progress(`${model} page ${page}: ${result.entries.length} entries`);
+      if (result.complete) {
+        complete = true;
+        break;
+      }
+    }
+    // No partial index, timeout or invalid envelope can replace the last snapshot.
+    if (!complete)
+      throw new Error("Incomplete index; previous catalogue preserved.");
+  }
+  // Load only the current bounded index after reconciliation. A crash may
+  // leave obsolete checkpoints beside their replacements; they must not count
+  // against the next run's active profile/byte budgets or prevent cleanup.
   const previous = await store.catalog();
   if (previous) validateCatalog(previous);
   const profiles = new Map(
-    (await store.profiles()).map((profile) => [profile.key, profile]),
+    (await store.profiles([...entries.keys()])).map((profile) => [
+      profile.key,
+      profile,
+    ]),
   );
   // Bootstrap from the already-published, normalized catalogue, preserving its
   // original profile timestamps rather than making old data appear fresh.
   for (const mod of previous?.mods ?? []) {
-    if (!profiles.has(mod.key))
+    if (entries.has(mod.key) && !profiles.has(mod.key))
       profiles.set(mod.key, {
         key: mod.key,
         attemptedAt: mod.checkedAt,
@@ -100,30 +147,6 @@ export async function refreshCatalog(
     sizes.set(profile.key, size);
     profiles.set(profile.key, profile);
   };
-  const entries = new Map<string, IndexEntry>();
-  let pages = 0;
-  for (const model of ["Mod", "Sound"] as Model[]) {
-    let complete = false;
-    for (let page = 1; page <= pageLimit; page++) {
-      const url = new URL(`https://gamebanana.com/apiv11/${model}/Index`);
-      url.searchParams.set("_nPage", String(page));
-      url.searchParams.set("_nPerpage", "50");
-      url.searchParams.set("_aFilters[Generic_Game]", "20948");
-      const result = readIndex(await request(url), model);
-      pages++;
-      for (const entry of result.entries) entries.set(keyOf(entry), entry);
-      if (entries.size > MAX_ENTRIES)
-        throw new Error("Source index exceeds the catalogue entry budget.");
-      progress(`${model} page ${page}: ${result.entries.length} entries`);
-      if (result.complete) {
-        complete = true;
-        break;
-      }
-    }
-    // No partial index, timeout or invalid envelope can replace the last snapshot.
-    if (!complete)
-      throw new Error("Incomplete index; previous catalogue preserved.");
-  }
   const snapshotTime = now();
   for (const [key, entry] of entries) {
     const old = profiles.get(key);

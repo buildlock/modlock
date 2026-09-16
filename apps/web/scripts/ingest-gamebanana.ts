@@ -45,9 +45,10 @@ try {
   const catalog = await refreshCatalog(
     {
       catalog: () => read<Catalog>(resolve(directory, "catalog.json")),
-      profiles: async () => {
+      profiles: async (keys) => {
+        const active = new Set(keys.map((key) => `refresh-${key}.json`));
         const names = (await readdir(checkpoints)).filter((name) =>
-          /^refresh-(mod|sound)-[1-9]\d{0,15}\.json$/.test(name),
+          active.has(name),
         );
         if (names.length > 10000)
           throw new Error("Profile checkpoint budget exceeded.");

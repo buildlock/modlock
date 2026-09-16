@@ -20,9 +20,10 @@ export class DatabaseRefreshStore implements RefreshStore {
     );
     return result.rows[0]?.document ?? null;
   }
-  async profiles(): Promise<ProfileCheckpoint[]> {
+  async profiles(activeKeys: string[]): Promise<ProfileCheckpoint[]> {
     const result = await this.client.query<{ document: ProfileCheckpoint }>(
-      "SELECT document FROM catalog_profile_checkpoint ORDER BY key LIMIT 10001",
+      "SELECT document FROM catalog_profile_checkpoint WHERE key=ANY($1::text[]) ORDER BY key LIMIT 10001",
+      [activeKeys],
     );
     if (result.rowCount! > 10000)
       throw new Error("Profile checkpoint budget exceeded.");

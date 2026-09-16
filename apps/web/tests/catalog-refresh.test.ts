@@ -61,7 +61,8 @@ function memory(initial: Catalog | null = null) {
   const profiles = new Map<string, ProfileCheckpoint>();
   const store: RefreshStore = {
     catalog: async () => catalog,
-    profiles: async () => [...profiles.values()],
+    profiles: async (keys) =>
+      [...profiles.values()].filter((profile) => keys.includes(profile.key)),
     checkpoint: async (profile) => {
       profiles.set(profile.key, structuredClone(profile));
     },
@@ -293,4 +294,30 @@ test("catalogue publication rejects duplicate identities, wrong URLs and invalid
     }),
   );
   assert.throws(() => validateCatalog({ ...good, errors: -1 }));
+});
+
+test("read-time expiry removes old profiles even when an index outage prevents a new publication", async () => {
+  const { currentCatalogProfiles } = await import(
+    "../src/lib/catalog-refresh.ts"
+  );
+  const fixture = memory(previous([1], NOW - RETENTION_TTL + 1000));
+  assert.equal(currentCatalogProfiles(fixture.current()!, NOW).mods.length, 1);
+  await assert.rejects(
+    refreshCatalog(fixture.store, {
+      now: () => NOW + 1000,
+      request: async () => {
+        throw new Error("index unavailable");
+      },
+    }),
+  );
+  assert.equal(
+    fixture.current()!.mods.length,
+    1,
+    "raw publication remains intact",
+  );
+  assert.equal(
+    currentCatalogProfiles(fixture.current()!, NOW + 1000).mods.length,
+    0,
+    "expired data is withheld when served",
+  );
 });

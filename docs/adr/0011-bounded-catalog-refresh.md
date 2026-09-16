@@ -57,3 +57,5 @@ failure, circuits and index/profile races. Disposable PostgreSQL checks cover
 migration replay, lock recovery, durable checkpoints, atomic rollback and denied
 account-table reads. See the [web runbook](../../apps/web/README.md) and
 [current status](../../STATUS.md) for checks and activation.
+
+The complete current index is reconciled before loading active checkpoints, so obsolete rows left by an interrupted replacement do not block recovery at entry or byte limits. The seven-day profile ceiling is also applied when serving pages, including during a prolonged index outage. The raw last publication remains intact for recovery.

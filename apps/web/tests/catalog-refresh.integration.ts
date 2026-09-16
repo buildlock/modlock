@@ -6,6 +6,7 @@ import {
   CATALOG_REFRESH_LOCK,
   DatabaseRefreshStore,
 } from "../src/server/catalog-refresh-store.ts";
+import { refreshCatalog } from "../src/lib/catalog-refresh.ts";
 import type { Catalog } from "../src/lib/gamebanana.ts";
 
 const enabled = process.env.MODLOCK_TEST_SHARED === "1";
@@ -93,9 +94,10 @@ integration(
     }
     const second = await pool.connect();
     try {
-      assert.deepEqual(await new DatabaseRefreshStore(second).profiles(), [
-        checkpoint,
-      ]);
+      assert.deepEqual(
+        await new DatabaseRefreshStore(second).profiles(["mod-123"]),
+        [checkpoint],
+      );
     } finally {
       second.release(true);
     }
@@ -121,13 +123,13 @@ integration(
         /fixture rejection/,
       );
       assert.deepEqual(await store.catalog(), before);
-      assert.equal((await store.profiles()).length, 1);
+      assert.equal((await store.profiles(["mod-123"])).length, 1);
       await client.query(
         "DROP TRIGGER reject_checkpoint_delete ON catalog_profile_checkpoint",
       );
       await client.query("DROP FUNCTION reject_checkpoint_delete()");
       await store.publish(catalog("2026-09-16T00:00:00.000Z"), []);
-      assert.equal((await store.profiles()).length, 0);
+      assert.equal((await store.profiles(["mod-123"])).length, 0);
     } finally {
       client.release(true);
     }
@@ -176,6 +178,79 @@ integration(
       await client.query("RESET ROLE");
       await client.query(`DROP OWNED BY "${role}"`);
       await client.query(`DROP ROLE "${role}"`);
+      client.release(true);
+    }
+  },
+);
+
+integration(
+  "restart reconciles 10001 stored checkpoints against a current 10000-entry index and prunes the obsolete row",
+  async () => {
+    const client = await pool.connect();
+    try {
+      // A complete prior run had keys 1..10000. It then checkpointed the new
+      // replacement 10001 and died before publishing/pruning old key 1.
+      await client.query(`INSERT INTO catalog_profile_checkpoint(key,document)
+      SELECT 'mod-' || n, jsonb_build_object('key','mod-' || n,
+        'attemptedAt','2026-09-15T00:00:00.000Z','checkedAt',NULL,'revision',NULL,'mod',NULL)
+      FROM generate_series(1,10001) n`);
+      const item = (id: number) => ({
+        _idRow: id,
+        _sModelName: "Mod",
+        _sName: `Fixture ${id}`,
+        _aGame: { _idRow: 20948 },
+        _sInitialVisibility: "show",
+        _bIsObsolete: false,
+        _bHasFiles: true,
+        _bHasContentRatings: false,
+        _bIsPrivate: false,
+        _bIsWithheld: false,
+        _bIsTrashed: false,
+        _tsDateModified: 1700000000,
+        _aFiles: [{ _idRow: 1 }],
+        _aSubmitter: { _idRow: 1, _sName: "Fixture author" },
+      });
+      const result = await refreshCatalog(new DatabaseRefreshStore(client), {
+        pages: 200,
+        details: 1,
+        now: () => Date.parse("2026-09-16T12:00:00.000Z"),
+        request: async (url) => {
+          if (url.pathname === "/apiv11/Sound/Index")
+            return {
+              _aRecords: [],
+              _aMetadata: { _nRecordCount: 0, _bIsComplete: true },
+            };
+          if (url.pathname === "/apiv11/Mod/Index") {
+            const page = Number(url.searchParams.get("_nPage"));
+            return {
+              _aRecords: Array.from({ length: 50 }, (_, i) =>
+                item((page - 1) * 50 + i + 2),
+              ),
+              _aMetadata: { _nRecordCount: 10000, _bIsComplete: page === 200 },
+            };
+          }
+          return item(Number(url.pathname.split("/")[3]));
+        },
+      });
+      assert.equal(result.discovered, 10000);
+      assert.equal(result.mods.length, 1);
+      assert.equal(
+        (
+          await client.query(
+            "SELECT count(*)::int AS count FROM catalog_profile_checkpoint",
+          )
+        ).rows[0].count,
+        10000,
+      );
+      assert.equal(
+        (
+          await client.query(
+            "SELECT * FROM catalog_profile_checkpoint WHERE key='mod-1'",
+          )
+        ).rowCount,
+        0,
+      );
+    } finally {
       client.release(true);
     }
   },

@@ -59,7 +59,7 @@ if (process.env.MODLOCK_CATALOG_REFRESH_ENABLED !== "1") {
         const catalog = await refreshCatalog(
           {
             catalog: () => store.catalog(),
-            profiles: () => store.profiles(),
+            profiles: (keys) => store.profiles(keys),
             checkpoint: async (profile) => {
               abort.signal.throwIfAborted();
               await store.checkpoint(profile);

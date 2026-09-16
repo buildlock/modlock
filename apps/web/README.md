@@ -186,3 +186,5 @@ The root `railpack.json` explicitly selects the Node provider. The repository al
 contains a Rust desktop core; automatic provider selection chose Rust and omitted
 pnpm on the first hosting build. Node/pnpm versions remain pinned by deployment
 configuration and the workspace package manager.
+
+The complete current index is reconciled before loading active checkpoints, so obsolete rows left by an interrupted replacement do not block recovery at entry or byte limits. The seven-day profile ceiling is also applied when serving pages, including during a prolonged index outage. The raw last publication remains intact for recovery.
