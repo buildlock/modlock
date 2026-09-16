@@ -1,8 +1,10 @@
 # Modlock status
 
-## 2026-09-15: Shared-account deployment candidate
+## 2026-09-16: catalogue refresh implementation
 
-The September 14 Pacific deployment request supersedes the local deployment hold below. The website now supports BuildLock shared accounts with canonical usernames, saved product data, central public-profile visibility and product-data removal. A separate logical product database holds the normalized catalogue. Local Better Auth stays loopback-only. Source is implemented and checked locally; hosted deployment remains pending.
+The website is live at [modlock.net](https://modlock.net) on merged PR10/11 with BuildLock accounts and a separate product database. Canonical sign-in, catalogue/detail pages, saved-library persistence and product logout isolation passed; the mistaken `fps.live` hostname is removed. Deadlock-Infra ADR-0018 records the completed delivery. Older deployment holds and draft PR9 references below are historical.
+
+The owner approved the next bounded catalogue-refresh increment. This branch implements a durable oldest-attempt-first queue, failure/circuit/deadline bounds, seven-day retention of unchanged eligible profiles with honest dates, immediate withdrawal of source restrictions, and a separate database-locked worker. Local regressions, disposable PostgreSQL checks and the build pass. **IMPLEMENTED BUT UNMERGED:** review, remote CI and worker deployment remain. Automatic refresh is not active yet. See [ADR-0011](docs/adr/0011-bounded-catalog-refresh.md) and the [web runbook](apps/web/README.md).
 
 ## Website ownership and active delivery — 2026-09-14
 

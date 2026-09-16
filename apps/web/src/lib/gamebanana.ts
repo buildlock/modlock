@@ -46,6 +46,7 @@ export interface Catalog {
   excluded: number;
   errors: number;
   pages: number;
+  retained?: number;
   mods: Mod[];
 }
 type Raw = Record<string, any>;
@@ -310,6 +311,7 @@ export function normalizeProfile(
 export async function fetchJson(
   url: URL,
   fetcher: typeof fetch = fetch,
+  signal?: AbortSignal,
 ): Promise<unknown> {
   if (
     url.origin !== "https://gamebanana.com" ||
@@ -320,7 +322,10 @@ export async function fetchJson(
     throw new Error("Unapproved provider endpoint");
   const response = await fetcher(url, {
     redirect: "error",
-    signal: AbortSignal.timeout(15_000),
+    signal: AbortSignal.any([
+      AbortSignal.timeout(15_000),
+      ...(signal ? [signal] : []),
+    ]),
     headers: {
       Accept: "application/json",
       "User-Agent": "Modlock/0.1 (+https://github.com/buildlock/modlock)",
