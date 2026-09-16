@@ -1,8 +1,8 @@
 # Modlock documentation control plane
 
-Website delivery updated: **2026-09-14**
+Website delivery updated: **2026-09-16**
 
-The current local website includes the catalog, accounts, saved mods, profiles, reporting/moderation and browser tools. Start with the [website parity record](product/website-parity-2026-09-13.md) and [web runbook](../apps/web/README.md). Deployment is on hold; public identity/mail and desktop/game work remain separate. The source is on draft PR9, not merged or deployed.
+The website is live at `modlock.net` with BuildLock shared accounts and durable catalogue/product storage. Earlier local-only and deployment-hold records are historical. The current increment is [bounded catalogue refresh](adr/0011-bounded-catalog-refresh.md), with its implementation, checks and remaining activation in [STATUS](../STATUS.md). Start with the [web runbook](../apps/web/README.md); desktop/game work remains separate.
 
 Contract integration baseline: **2026-09-10**
 

@@ -17,7 +17,8 @@
     "test:accounts": "node --test tests/accounts.integration.ts",
     "test:http": "node --test tests/http.integration.ts",
     "accounts:migrate:shared": "node scripts/migrate-shared-accounts.ts",
-    "catalog:publish": "node scripts/publish-catalog.ts"
+    "catalog:publish": "node scripts/publish-catalog.ts",
+    "catalog:refresh": "node scripts/refresh-catalog.ts"
   },
   "dependencies": {
     "better-auth": "1.7.4",

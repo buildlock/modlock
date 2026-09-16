@@ -56,3 +56,14 @@ Depends on WEB-002, WEB-003, taxonomy contracts, publication state, and source a
 ## Website-first implementation — 2026-09-13
 
 The [current delivery acceptance criteria](../../product/website-first-2026-09-13.md) define the implemented subset. Source is in `apps/web`, with provider/query tests and a local real-data preview. The broader API, authentication, scanner, and installation criteria above remain planned.
+
+## Bounded refresh acceptance — 2026-09-16
+
+The deployed website uses normalized GameBanana metadata and shared accounts.
+The current refresh increment must preserve unchanged public listings across
+bounded batches, keep their actual check dates, advance past failed profiles,
+withdraw source restrictions, and retain the previous snapshot on an incomplete
+index or storage failure. A dead or overlapping worker must not create concurrent
+writers. The dedicated worker login must not read account data. Source coverage
+is `catalog-refresh.test.ts` and `catalog-refresh.integration.ts`; activation is
+tracked in [current status](../../../STATUS.md) and [ADR-0011](../../adr/0011-bounded-catalog-refresh.md).

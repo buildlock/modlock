@@ -3,11 +3,22 @@
 Status: operational draft  
 Last reviewed: 2026-09-01
 
-## Current website importer — 2026-09-13
+## Current catalogue refresher — 2026-09-16
 
-For the implemented local importer, follow the [web runbook](../../apps/web/README.md). A failed or capped walk preserves `catalog.json`; the website continues to display that snapshot's refresh date. Retry the bounded command after the source recovers. Normalized checkpoints resume work. After a crash, verify that no importer process remains before removing its lock file. Do not delete the published catalog to recover ingestion. The dated [delivery evidence](../product/website-first-2026-09-13.md) records a successful preservation check.
+Follow the [web runbook](../../apps/web/README.md). An incomplete index or storage
+failure preserves the published snapshot. A complete index can withdraw restricted
+or absent entries even if another profile fails. Unchanged public profiles retain
+their original check date for at most seven days; failed and unchecked profiles
+remain queued. Five consecutive profile failures end that run's enrichment.
 
-No scheduler, automatic circuit breaker, or production status service is deployed. The wider operational procedure below is a target.
+The worker is disabled unless `MODLOCK_CATALOG_REFRESH_ENABLED=1`. Stop an active
+run and disable that flag to pause it; keep publication and checkpoints. Confirm
+current activation in [STATUS](../../STATUS.md). A broken database session
+releases the worker lock automatically. The local file importer retains an
+exclusive lockfile: verify the process is gone before removing its specific
+stale lock. Do not delete the catalogue, weaken filtering, or increase request
+rates to clear a backlog. A source-index timestamp older than two hours during
+scheduled operation calls for log/provider inspection.
 
 ## Planned service operation
 

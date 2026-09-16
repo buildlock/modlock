@@ -11,7 +11,7 @@ try {
   await pool.query(`CREATE DATABASE "${name}"`); created = true;
   url.pathname = '/'+name;
   const env: NodeJS.ProcessEnv = { ...process.env, NODE_ENV:'development', DATABASE_URL:url.href, MODLOCK_TEST_SHARED:'1', MODLOCK_ACCOUNT_MODE:'shared', MODLOCK_LOCAL_ACCOUNTS:'0', MODLOCK_ORIGIN:'http://127.0.0.1:4312', PORTFOLIO_CLIENT_SECRET:randomBytes(32).toString('base64url') };
-  for (const args of [['scripts/migrate-shared-accounts.ts'],['--test','tests/shared-accounts.integration.ts']]) {
+  for (const args of [['scripts/migrate-shared-accounts.ts'],['scripts/migrate-shared-accounts.ts'],['--test','tests/shared-accounts.integration.ts'],['--test','tests/catalog-refresh.integration.ts']]) {
     const result = spawnSync(process.execPath, args, {env, stdio:'inherit'});
     if (result.status !== 0) throw new Error('Shared account verification failed.');
   }

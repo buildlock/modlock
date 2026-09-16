@@ -1,5 +1,16 @@
 # Requirements traceability
 
+## Current catalogue refresh — 2026-09-16
+
+WEB-001/002/003 now have a live shared-account website. The refresh increment
+maps `src/lib/catalog-refresh.ts`, `src/server/catalog-refresh-store.ts` and
+`scripts/refresh-catalog.ts` to unit and disposable PostgreSQL regressions in
+`tests/catalog-refresh.test.ts` and `tests/catalog-refresh.integration.ts`.
+These paths are under `apps/web`. [ADR-0011](../adr/0011-bounded-catalog-refresh.md)
+defines retention, queue fairness and worker bounds; [STATUS](../../STATUS.md)
+separates the source candidate from schedule activation. Older local-only
+state and deployment holds below are historical.
+
 ## Implemented website slice — 2026-09-13
 
 WEB-001/002/003 have a source implementation in `apps/web`: local snapshot catalog, URL-backed substring search and filters, pagination, detail media/credits/permissions, and canonical source links. The GameBanana adapter is `apps/web/src/lib/gamebanana.ts`, exercised by `apps/web/tests/gamebanana.test.ts`. See the [delivery acceptance criteria](website-first-2026-09-13.md) for the exact scope. The bounded local account/profile/report/moderation/tool slices are described below. Hosted releases, full-text ranking, scanner and install resolution in the older matrix remain unimplemented.

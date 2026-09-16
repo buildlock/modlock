@@ -1,8 +1,10 @@
 # Modlock handoff
 
-## 2026-09-15: Shared-account deployment candidate
+## 2026-09-16: finish bounded catalogue refresh
 
-Deploy the reviewed source to modlock.fps.live, publish the validated catalogue snapshot and verify sign-in plus saved-library readback. See `apps/web/README.md`.
+Canonical deployment is complete at `https://modlock.net`, with BuildLock sign-in and durable product data. Earlier unmerged/hold/domain instructions below are historical. Current source work is `/Users/ahad/Dev/.worktrees/modlock-catalog-refresh`, branch `codex/modlock-catalog-refresh`, based on merged main `0f61645`. Preserve the older dirty checkouts.
+
+Implemented: resumable oldest-attempt-first enrichment, retained unchanged profiles with original check dates, source restriction withdrawal, bounded retry/circuit/deadline handling, atomic publication and a separate PostgreSQL-locked cron entrypoint. Source/DB regression checks and build pass. Exact next action: independent review and required CI, then deploy the reviewed worker with a catalogue-only database login and verify one real bounded run. The schedule is not active yet; retain the current published snapshot throughout. Desktop, CFG application and ModPacks remain deferred.
 
 ## Resume website work — 2026-09-14
 

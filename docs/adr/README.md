@@ -16,3 +16,4 @@ Audit note (`2026-09-01`): the individual statuses below remain authoritative. T
 | [0008](0008-updates-signing-telemetry.md) | Updates, signing, and telemetry | Proposed |
 | [0009](0009-gamebanana-adapter.md) | GameBanana adapter boundary | Proposed pending confirmation |
 | [0010](0010-clean-room-gpl.md) | GPL clean-room research boundary | Accepted |
+| [0011](0011-bounded-catalog-refresh.md) | Bounded durable catalogue refresh | Accepted design; deployment pending |

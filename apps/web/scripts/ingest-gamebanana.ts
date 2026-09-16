@@ -1,211 +1,95 @@
 import {
   mkdir,
   readFile,
+  readdir,
   rename,
   writeFile,
   open,
   unlink,
 } from "node:fs/promises";
 import { resolve } from "node:path";
-import { setTimeout as delay } from "node:timers/promises";
-import {
-  fetchJson,
-  readIndex,
-  normalizeProfile,
-} from "../src/lib/gamebanana.ts";
-import type { Catalog, IndexEntry, Model, Mod } from "../src/lib/gamebanana.ts";
+import { refreshCatalog } from "../src/lib/catalog-refresh.ts";
+import type { ProfileCheckpoint } from "../src/lib/catalog-refresh.ts";
+import type { Catalog } from "../src/lib/gamebanana.ts";
+import { pacedProviderRequest } from "../src/lib/gamebanana-request.ts";
 
 const args = new Map(
   process.argv.slice(2).map((arg) => {
-    const [key, value] = arg.split("=");
-    return [key, value];
+    const [key, value, extra] = arg.split("=");
+    if (extra !== undefined || value === undefined)
+      throw new Error("Use --details=N or --pages=N.");
+    return [key, value] as const;
   }),
 );
-for (const arg of args.keys())
-  if (!["--details", "--pages"].includes(arg))
-    throw new Error(`Unknown option ${arg}`);
-function limit(key: string, fallback: number, max: number) {
-  const value = Number(args.get(key) ?? fallback);
-  if (!Number.isInteger(value) || value < 1 || value > max)
-    throw new Error(`${key} must be 1–${max}`);
-  return value;
-}
-const detailLimit = limit("--details", 100, 10_000),
-  pageLimit = limit("--pages", 120, 2000);
-const directory = resolve("data/gamebanana");
-await mkdir(directory, { recursive: true });
+for (const key of args.keys())
+  if (!["--details", "--pages"].includes(key))
+    throw new Error(`Unknown option ${key}`);
+const directory = resolve("data/gamebanana"),
+  checkpoints = resolve(directory, "checkpoints");
+await mkdir(checkpoints, { recursive: true });
 const lock = await open(resolve(directory, "ingest.lock"), "wx");
-try {
-  let previous: Catalog | null = null;
+const signal = AbortSignal.timeout(20 * 60_000);
+async function read<T>(path: string): Promise<T | null> {
   try {
-    previous = JSON.parse(
-      await readFile(resolve(directory, "catalog.json"), "utf8"),
-    );
+    return JSON.parse(await readFile(path, "utf8"));
   } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return null;
+    throw error;
   }
-  const cached = new Map((previous?.mods ?? []).map((mod) => [mod.key, mod]));
-  const entries = new Map<string, IndexEntry>();
-  let pages = 0,
-    complete = true;
-  const request = async (url: URL) => {
-    for (let attempt = 0; ; attempt++) {
-      await delay(attempt ? 3000 * attempt : 1050);
-      try {
-        return await fetchJson(url);
-      } catch (error) {
-        const failure = error as Error;
-        if (
-          attempt >= 2 ||
-          (!/TimeoutError|AbortError|TypeError/.test(failure.name) &&
-            !(
-              failure instanceof SyntaxError &&
-              /Unexpected end/.test(failure.message)
-            ) &&
-            !/HTTP (429|5\d\d)/.test(failure.message))
-        )
-          throw error;
-        console.log(`Retrying ${url.pathname} after ${failure.name}`);
-      }
-    }
-  };
-  const cacheDirectory = resolve(directory, "checkpoints");
-  await mkdir(cacheDirectory, { recursive: true });
-  async function checkpoint<T>(
-    name: string,
-    ttl: number,
-    compute: () => Promise<T>,
-  ): Promise<T> {
-    const path = resolve(cacheDirectory, name + ".json");
-    try {
-      const saved = JSON.parse(await readFile(path, "utf8")) as {
-        at: number;
-        value: T;
-      };
-      if (Date.now() - saved.at < ttl) return saved.value;
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
-    }
-    const value = await compute();
-    await writeFile(path + ".tmp", JSON.stringify({ at: Date.now(), value }), {
-      mode: 0o600,
-    });
-    await rename(path + ".tmp", path);
-    return value;
-  }
-  for (const model of ["Mod", "Sound"] as Model[]) {
-    let finished = false;
-    for (let page = 1; page <= pageLimit; page++) {
-      const url = new URL(`https://gamebanana.com/apiv11/${model}/Index`);
-      url.searchParams.set("_nPage", String(page));
-      url.searchParams.set("_nPerpage", "50");
-      url.searchParams.set("_aFilters[Generic_Game]", "20948");
-      const result = await checkpoint(
-        `index-${model}-${page}`,
-        600_000,
-        async () => readIndex(await request(url), model),
-      );
-      pages++;
-      for (const item of result.entries)
-        entries.set(`${model.toLowerCase()}-${item.id}`, item);
-      console.log(
-        `${model} page ${page}: ${result.entries.length} records / ${result.total} reported`,
-      );
-      if (result.complete) {
-        finished = true;
-        break;
-      }
-    }
-    complete &&= finished;
-  }
-  const mods: Mod[] = [];
-  let excluded = 0,
-    fetched = 0,
-    pending = 0,
-    errors = 0;
-  // Interleave categories so the first bounded enrichment produces a useful catalog.
-  const groups = new Map<string, [string, IndexEntry][]>();
-  for (const pair of entries) {
-    const key = pair[1].category;
-    groups.set(key, [...(groups.get(key) ?? []), pair]);
-  }
-  const ordered: [string, IndexEntry][] = [];
-  while ([...groups.values()].some((group) => group.length))
-    for (const group of groups.values()) {
-      const next = group.shift();
-      if (next) ordered.push(next);
-    }
-  for (const [key, entry] of ordered) {
-    if (!entry.visible || !entry.unrated) {
-      excluded++;
-      continue;
-    }
-    const old = cached.get(key);
-    if (
-      old &&
-      old.modifiedAt === entry.modifiedAt &&
-      Date.now() - Date.parse(old.checkedAt) < 86400_000
-    ) {
-      mods.push(old);
-      continue;
-    }
-    if (fetched >= detailLimit) {
-      pending++;
-      continue;
-    }
-    fetched++;
-    try {
-      const result = await checkpoint(
-        `profile-${key}-${Date.parse(entry.modifiedAt ?? "") || 0}`,
-        86400_000,
-        async () =>
-          normalizeProfile(
-            await request(
-              new URL(
-                `https://gamebanana.com/apiv11/${entry.model}/${entry.id}/ProfilePage`,
-              ),
-            ),
-            entry,
-            new Date().toISOString(),
-          ),
-      );
-      if (result) mods.push(result);
-      else excluded++;
-    } catch (error) {
-      errors++;
-      console.error(`${key}: ${(error as Error).message}`);
-    }
-    if (fetched % 10 === 0)
-      console.log(
-        `Profile checks ${fetched}/${detailLimit}; ${mods.length} public listings`,
-      );
-  }
-  // No partial catalog replacement after network/parser failures or a capped walk.
-  if (!complete || errors)
-    throw new Error(
-      `Catalog not replaced: complete=${complete}, profile errors=${errors}. Previous snapshot preserved.`,
-    );
-  const catalog: Catalog = {
-    version: 1,
-    syncedAt: new Date().toISOString(),
-    complete,
-    discovered: entries.size,
-    pending,
-    excluded,
-    errors,
-    pages,
-    mods,
-  };
-  if (!mods.length)
-    throw new Error("No public listings; previous snapshot preserved");
-  const temporary = resolve(directory, "catalog.json.tmp");
-  await writeFile(temporary, JSON.stringify(catalog, null, 2) + "\n", {
-    mode: 0o600,
-  });
-  await rename(temporary, resolve(directory, "catalog.json"));
+}
+async function atomic(path: string, value: unknown) {
+  await writeFile(path + ".tmp", JSON.stringify(value) + "\n", { mode: 0o600 });
+  await rename(path + ".tmp", path);
+}
+try {
+  const catalog = await refreshCatalog(
+    {
+      catalog: () => read<Catalog>(resolve(directory, "catalog.json")),
+      profiles: async (keys) => {
+        const active = new Set(keys.map((key) => `refresh-${key}.json`));
+        const names = (await readdir(checkpoints)).filter((name) =>
+          active.has(name),
+        );
+        if (names.length > 10000)
+          throw new Error("Profile checkpoint budget exceeded.");
+        const profiles: ProfileCheckpoint[] = [];
+        for (const name of names) {
+          const profile = await read<ProfileCheckpoint>(
+            resolve(checkpoints, name),
+          );
+          if (profile) profiles.push(profile);
+        }
+        return profiles;
+      },
+      checkpoint: async (profile) => {
+        signal.throwIfAborted();
+        await atomic(
+          resolve(checkpoints, `refresh-${profile.key}.json`),
+          profile,
+        );
+      },
+      publish: async (value, keys) => {
+        signal.throwIfAborted();
+        const active = new Set(keys.map((key) => `refresh-${key}.json`));
+        for (const name of await readdir(checkpoints))
+          if (
+            /^refresh-(mod|sound)-[1-9]\d{0,15}\.json$/.test(name) &&
+            !active.has(name)
+          )
+            await unlink(resolve(checkpoints, name));
+        await atomic(resolve(directory, "catalog.json"), value);
+      },
+    },
+    {
+      details: Number(args.get("--details") ?? 100),
+      pages: Number(args.get("--pages") ?? 120),
+      request: pacedProviderRequest(signal),
+      progress: (message) => console.log(message),
+    },
+  );
   console.log(
     JSON.stringify(
-      { ...catalog, mods: `${mods.length} published listings` },
+      { ...catalog, mods: `${catalog.mods.length} published listings` },
       null,
       2,
     ),

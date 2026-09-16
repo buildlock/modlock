@@ -27,14 +27,45 @@ The importer uses only `https://gamebanana.com/apiv11/Mod/Index`, `Sound/Index`,
 
 - Requests start at least 1.05 seconds apart, one at a time. A request has a 15-second timeout and an 8 MiB expanded body limit. Temporary network, 429, and 5xx failures receive at most two retries. No credentials or cookies are sent; redirects are rejected.
 - Pages have at most 50 entries. The default cap is 120 pages per model. `--pages=200` raises that bounded cap; an incomplete walk cannot replace a catalog. GameBanana has no snapshot token, so a walk is not an immutable source snapshot.
-- `--details=120` bounds per-run profile enrichment. Repeating the command retains fresh, unchanged public profiles and advances through remaining entries. Larger bounded values are supported up to 10,000. `pending` is explicit; an index count never means all profiles have been imported.
-- Index checkpoints expire after 10 minutes. Profile checkpoints expire after 24 hours and are keyed by source identity and modification timestamp. Only normalized metadata is retained; raw profiles, contact details, donation data, binaries, and download URLs are not stored.
+- `--details=120` bounds per-run profile enrichment. Repeating the command retains fresh, unchanged public profiles and advances through remaining entries. Larger bounded values are supported up to 1,000. `pending` is explicit; an index count never means all profiles have been imported.
+- Each run traverses both indexes completely. Durable normalized profile checkpoints record successful checks and failed attempts. The oldest attempted due profile is checked first; a failing entry cannot hold the queue at its head. Successful public and excluded profiles are rechecked after 24 hours or when their source modification timestamp changes.
 - Only public, non-obsolete, unrated index entries with files can enter profile checking. Profiles must explicitly report public visibility and false private/withheld/trashed flags. Any content-rating record, malformed rating field, missing attribution, or identity mismatch blocks publication. This is source-state filtering, not a malware scan or compatibility verdict.
 - Source profiles omit the content-ratings field when unrated; acceptance requires the index's explicit `false` flag plus the independently checked public profile. The observed API also labels JSON as `text/html`; the bounded response is parsed strictly as JSON and never rendered as HTML.
-- A complete index pass and zero profile errors are required before an atomic rename replaces `apps/web/data/gamebanana/catalog.json`. Failures retain the last successful website snapshot. Restricted or absent entries are omitted from the next publication, without asserting why a source disappeared. This does not provide immediate takedown synchronization.
-- `apps/web/data/` is ignored local runtime storage. Shared hosting stores the normalized catalogue in the product database. Refresh is operator-run; no scheduled worker is enabled. Nothing in a normal website request calls GameBanana.
+- An incomplete or invalid index preserves the previous publication. After a complete index, individual profile failures remain pending and are counted. Unchanged, currently eligible listings may retain a previously validated profile for at most seven days, with its original check date. Changed, restricted or absent entries are withheld. Explicit index restrictions invalidate earlier profile checkpoints so a later visible index cannot resurrect old metadata. This does not assert why an entry disappeared or provide immediate takedown synchronization.
+- `apps/web/data/` is ignored local runtime storage. Shared hosting stores the normalized catalogue and refresh checkpoints in the product database. Nothing in a normal website request calls GameBanana. A separate bounded worker is implemented below; deployment state is recorded in `STATUS.md`.
+- Each run has a 20-minute deadline and at most 1,000 provider attempts including retries; five consecutive failed profile checks open the circuit for that run. Limits are 10,000 indexed entries, 128 KiB per normalized profile checkpoint, 96 MiB of loaded checkpoints and a 64 MiB publication. No raw provider HTML, binary or download URL is retained.
 
 The importer uses an exclusive `ingest.lock` to prevent concurrent writers. A normal exit removes it. After an unclean process termination, verify the importer is no longer running before removing that specific lock file and rerunning the import. Valid checkpoints are reused; do not delete the catalog to retry.
+
+## Scheduled refresh worker
+
+`pnpm --filter @modlock/web catalog:refresh` exits immediately unless
+`MODLOCK_CATALOG_REFRESH_ENABLED=1`. Its default batch is 300 profiles after a
+complete index walk, intended for one hourly Railway cron invocation. It has
+no HTTP ingress, account client secret, volume or central database access.
+Use a dedicated login with schema USAGE, SELECT/INSERT/UPDATE on
+`catalog_snapshot`, and SELECT/INSERT/UPDATE/DELETE on
+`catalog_profile_checkpoint` only. The web service applies numbered migration
+`0003-catalog-refresh.sql`; the worker cannot migrate schema.
+
+The worker holds a dedicated PostgreSQL session advisory lock for the entire
+run. An overlapping invocation exits, and a dead session releases its lock.
+Every normalized attempt is checkpointed; publication and obsolete-checkpoint
+pruning commit together. The manual publisher takes the same lock and rejects
+an older snapshot. Only sanitized progress and aggregate counters enter logs.
+
+Stop future refreshes by setting `MODLOCK_CATALOG_REFRESH_ENABLED=0` and
+stopping an active run. Keep the last published snapshot and checkpoints.
+After a provider outage, the next scheduled invocation resumes automatically;
+do not increase request rates to clear a backlog. Investigate repeated worker
+failures or a source-index timestamp more than two hours old. A source outage
+cannot be repaired by dropping content filters or replaying raw HTML.
+
+Local regression commands: `pnpm test:web`, `pnpm typecheck`, `pnpm build`,
+and `node scripts/check-shared-accounts.ts` from `apps/web` against a disposable
+loopback PostgreSQL server. The latter verifies migration replay, database lock
+recovery, checkpoint persistence, atomic rollback and the worker's inability to
+read account tables. All databases and roles created by these tests are removed.
 
 ## Website behavior
 
@@ -155,3 +186,5 @@ The root `railpack.json` explicitly selects the Node provider. The repository al
 contains a Rust desktop core; automatic provider selection chose Rust and omitted
 pnpm on the first hosting build. Node/pnpm versions remain pinned by deployment
 configuration and the workspace package manager.
+
+The complete current index is reconciled before loading active checkpoints, so obsolete rows left by an interrupted replacement do not block recovery at entry or byte limits. The seven-day profile ceiling is also applied when serving pages, including during a prolonged index outage. The raw last publication remains intact for recovery.

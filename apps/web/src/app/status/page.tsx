@@ -12,7 +12,7 @@ export default async function Page() {
         <span className="overline">WHAT’S IN THE CATALOG</span>
         <h1>A clear view of the source.</h1>
         <p className="utility-lead">
-          The current local import of public Deadlock Mod and Sound submissions
+          The current catalogue of public Deadlock Mod and Sound submissions
           from GameBanana.
         </p>
         {catalog ? (
@@ -21,8 +21,9 @@ export default async function Page() {
               {[
                 ["Published listings", catalog.mods.length],
                 ["Source entries indexed", catalog.discovered],
-                ["Awaiting profile checks", catalog.pending],
+                ["Profiles due for a check", catalog.pending],
                 ["Excluded at import", catalog.excluded],
+                ["Older profiles retained", catalog.retained ?? 0],
               ].map(([label, value]) => (
                 <div key={label}>
                   <dt>{label}</dt>
@@ -31,14 +32,14 @@ export default async function Page() {
               ))}
             </dl>
             <p className="status-detail">
-              Last successful import:{" "}
+              Last complete source-index refresh:{" "}
               {new Date(catalog.syncedAt).toLocaleString("en-US", {
                 timeZone: "UTC",
               })}{" "}
               UTC.
               <br />
-              {catalog.pages} index pages traversed. Profile errors at
-              publication: {catalog.errors}.
+              {catalog.pages} index pages traversed. Profile checks unavailable
+              in this run: {catalog.errors}.
             </p>
           </>
         ) : (
@@ -64,10 +65,12 @@ export default async function Page() {
           <section>
             <h2>When the source is unavailable</h2>
             <p>
-              The importer preserves the last successful catalog if a request or
-              profile check fails, or if an index walk is incomplete. The
-              website shows that catalog’s refresh time. New imports currently
-              run manually; there is no deployed scheduler.
+              An incomplete source index leaves the last catalogue in place.
+              Profile checks run in bounded batches. A listing with an
+              unchanged, still-public source entry may retain its last checked
+              profile for up to seven days; its detail page keeps the original
+              check date. Changed, restricted or omitted entries are withheld
+              until eligible. Failed checks stay queued for a later run.
             </p>
           </section>
         </div>
