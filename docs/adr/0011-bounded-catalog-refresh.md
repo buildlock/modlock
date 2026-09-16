@@ -3,7 +3,10 @@
 - Status: accepted
 - Date: 2026-09-16
 
-Source review and deployment remain pending.
+Source review and required PR/main checks passed for PR12. The hourly worker is
+active; its first real run and clean termination were verified on September 16.
+The [Infra activation record](https://github.com/buildlock/deadlock-infra/pull/116)
+owns exact provider IDs, permissions, resource/cost evidence and rollback.
 
 ## Context
 
@@ -42,13 +45,13 @@ limits, two retries, five consecutive profile failures opening the circuit,
 entries, 128 KiB per normalized profile checkpoint, 96 MiB of loaded checkpoints
 and a 64 MiB publication. These are Modlock's limits, not provider guarantees.
 Provider rate/cache permission questions from ADR-0009 remain unresolved;
-this change neither contacts the provider nor claims an approved partnership.
+this integration does not claim provider approval or a partnership.
 
 The worker has no ingress or persistent volume and receives no sign-in secret.
 `MODLOCK_CATALOG_REFRESH_ENABLED=0` is the kill switch. Migrations run through
 the web release under the existing product owner; the worker cannot migrate.
-Before activation, record the exact Railway target, resource and cost ceilings,
-source, dedicated grants, rollback and a real bounded-run result in Infra.
+The exact Railway target, resource and cost ceilings, source, dedicated grants,
+rollback and first bounded-run result are recorded in Infra ADR-0019.
 Normal page loads remain independent of the provider.
 
 Regression evidence covers repeat-batch retention/fairness, negative results,

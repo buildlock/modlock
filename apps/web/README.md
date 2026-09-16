@@ -39,6 +39,12 @@ The importer uses an exclusive `ingest.lock` to prevent concurrent writers. A no
 
 ## Scheduled refresh worker
 
+Active in production since September 16: one run at minute 17 each hour. The
+first run published 1,881 listings after 300 profile checks, with no recorded
+source errors and a clean exit. [Infra PR116](https://github.com/buildlock/deadlock-infra/pull/116)
+records the reviewed configuration, dedicated login, resource/cost observations
+and rollback. Do not bootstrap a second worker for this schedule.
+
 `pnpm --filter @modlock/web catalog:refresh` exits immediately unless
 `MODLOCK_CATALOG_REFRESH_ENABLED=1`. Its default batch is 300 profiles after a
 complete index walk, intended for one hourly Railway cron invocation. It has
