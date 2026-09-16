@@ -1,10 +1,10 @@
 # Modlock status
 
-## 2026-09-16: catalogue refresh implementation
+## 2026-09-16: hourly catalogue refresh active
 
-The website is live at [modlock.net](https://modlock.net) on merged PR10/11 with BuildLock accounts and a separate product database. Canonical sign-in, catalogue/detail pages, saved-library persistence and product logout isolation passed; the mistaken `fps.live` hostname is removed. Deadlock-Infra ADR-0018 records the completed delivery. Older deployment holds and draft PR9 references below are historical.
+The website is live at [modlock.net](https://modlock.net) on merged PR12 with BuildLock accounts and a separate product database. Canonical sign-in, catalogue/detail pages, saved-library persistence and product logout isolation passed; the mistaken `fps.live` hostname is removed. Deadlock-Infra ADR-0018 records the completed domain delivery. Older deployment holds and draft PR9 references below are historical.
 
-The owner approved the next bounded catalogue-refresh increment. This branch implements a durable oldest-attempt-first queue, failure/circuit/deadline bounds, seven-day retention of unchanged eligible profiles with honest dates, immediate withdrawal of source restrictions, and a separate database-locked worker. Local regressions, disposable PostgreSQL checks and the build pass. **IMPLEMENTED BUT UNMERGED:** review, remote CI and worker deployment remain. Automatic refresh is not active yet. See [ADR-0011](docs/adr/0011-bounded-catalog-refresh.md) and the [web runbook](apps/web/README.md).
+**Verified live:** the separate hourly worker now refreshes public metadata in bounded batches. Its first run indexed 7,780 entries, checked 300 profiles and published 1,881 listings with zero source errors; 1,582 listings retained eligible earlier checks, and 6,854 entries still await fresh profile checks. The website shows the same counts, and the worker exited cleanly after about eleven minutes. It runs at minute 17 each hour with a catalogue-only login, one CPU / one GiB ceiling and no public ingress. Source review, PR/main CI, migration/grant readback and a disabled-run check passed before activation. [Infra PR116](https://github.com/buildlock/deadlock-infra/pull/116) and its ADR-0019 hold exact deployment, cost, readback and rollback evidence. See [ADR-0011](docs/adr/0011-bounded-catalog-refresh.md) and the [web runbook](apps/web/README.md) for the queue and stopping behavior. Desktop installation, CFG application and ModPacks remain deferred.
 
 ## Website ownership and active delivery — 2026-09-14
 

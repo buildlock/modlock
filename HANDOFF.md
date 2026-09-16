@@ -1,10 +1,10 @@
 # Modlock handoff
 
-## 2026-09-16: finish bounded catalogue refresh
+## 2026-09-16: automatic catalogue refresh is running
 
-Canonical deployment is complete at `https://modlock.net`, with BuildLock sign-in and durable product data. Earlier unmerged/hold/domain instructions below are historical. Current source work is `/Users/ahad/Dev/.worktrees/modlock-catalog-refresh`, branch `codex/modlock-catalog-refresh`, based on merged main `0f61645`. Preserve the older dirty checkouts.
+Canonical deployment is complete at `https://modlock.net`, with BuildLock sign-in and durable product data. Earlier unmerged/hold/domain instructions below are historical. Catalogue source PR12 is merged as `4e29c2b`, reviewed, CI-verified and deployed. Preserve the older dirty checkouts.
 
-Implemented: resumable oldest-attempt-first enrichment, retained unchanged profiles with original check dates, source restriction withdrawal, bounded retry/circuit/deadline handling, atomic publication and a separate PostgreSQL-locked cron entrypoint. Source/DB regression checks and build pass. Exact next action: independent review and required CI, then deploy the reviewed worker with a catalogue-only database login and verify one real bounded run. The schedule is not active yet; retain the current published snapshot throughout. Desktop, CFG application and ModPacks remain deferred.
+The hourly worker's first bounded run published 1,881 listings with zero source errors and stopped cleanly. Its 300 checkpoints are durable; future runs continue the oldest-attempt-first queue. Exact operational next action when inspecting refresh health: compare the next scheduled run's publication time, profile progress and error count with this first-run record; do not rerun the bootstrap or recreate credentials. [Infra PR116](https://github.com/buildlock/deadlock-infra/pull/116) contains the captured service/deployments, resource and cost bounds, final IaC check and rollback. Set `MODLOCK_CATALOG_REFRESH_ENABLED=0` and stop the current run when immediate cessation is needed. Preserve publication/checkpoints. Desktop, CFG application and ModPacks remain deferred.
 
 ## Resume website work — 2026-09-14
 
